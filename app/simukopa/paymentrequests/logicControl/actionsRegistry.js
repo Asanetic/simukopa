@@ -16,8 +16,7 @@
  */
 
 import { openEntityCreateModal } from "../../moduleControl/UiControl/EntityCreateModal";
-import ActivitiesProfile from "../../activities/uiControl/ActivitiesProfile";
-import { ActivitiesSchema } from "../../activities/ActivitiesSchema";
+
 
 const PaymentrequestsActions = {
   // Bound by gridOptions.checkFunction in schema.js. Fires with every row
@@ -31,21 +30,6 @@ const PaymentrequestsActions = {
   // Pops a preset Activity create form (Meet / Call / Task / Follow Up /
   // Message). Payment requests carry payer_name/phone/email but no real FK
   // back to a contact record, so only subject/description are prefilled —
-  // contact_id is left for the user to pick.
-  add_activity: ({ rows, refresh }) => {
-    const row = rows?.[0];
-    if (!row) return;
-    openEntityCreateModal({
-      ProfileComponent: ActivitiesProfile,
-      schema: ActivitiesSchema,
-      title: `New Activity — ${row.payer_name || row.request_title || ''}`,
-      presetValues: {
-        subject: row.request_title || row.request_reference || '',
-        description: `Regarding payment request ${row.request_reference || ''} for ${row.payer_name || ''}`.trim(),
-      },
-      onSaved: refresh,
-    });
-  },
 
   // Add more as needed — see actionRegistryDocs.md for patterns to copy.
   // Every one of them gets whatever's on ctx: { rows, schema, router,
