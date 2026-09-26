@@ -63,7 +63,7 @@ export const sidebarConfig = [
       },
       {
         label: "Devices at Risk",
-        href: (routes) => `${routes.simukopa}loanapplications/list?nextBillingDate_below=${btoa(mosyToday(true))}`,
+        href: (routes) => `${routes.simukopa}/loanapplications/list?nextBillingDate_below=${btoa(mosyToday(true))}`,
         roles: []
       },
       {
