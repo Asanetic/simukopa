@@ -22,7 +22,7 @@ export default function LoanSuccess({ customer, device, plan, result, onDone }) 
       </div>
 
       <div className="d-flex flex-wrap justify-content-center mt-4" style={{ gap: 10 }}>
-        <Link href={`${base}/clients/list`} className="btn btn-outline-secondary btn-sm">View Customer</Link>
+        <Link href={`/${base}/clients/list`} className="btn btn-outline-secondary btn-sm">View Customer</Link>
         <button className="btn btn-outline-secondary btn-sm" onClick={() => window.print()}>Print / Receipt</button>
         <button className="btn btn-primary btn-sm" onClick={onDone}>Done</button>
       </div>

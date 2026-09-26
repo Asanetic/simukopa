@@ -54,7 +54,7 @@ export const PaymentsSchema = {
     // FK (loans.record_id), aliased to loan_ref to keep the two distinct.
     loanJoin: {
       type: 'join', table: 'loans', link: 'loan_id:record_id',
-      select: { loan_ref: 'loan_id' },
+      select: { loan_ref: 'record_id' },
     },
     installmentJoin: {
       type: 'join', table: 'loan_installments', link: 'installment_id:record_id',

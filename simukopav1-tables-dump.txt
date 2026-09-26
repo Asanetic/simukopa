@@ -48,7 +48,7 @@
 
 //Table name : loan_applications
 
-// columns : "primkey" , "record_id" , "application_id" , "client_id" , "phone_id" , "model_id" , "product_id" , "requested_amount" , "deposit_amount" , "application_date" , "approval_date" , "approved_amount" , "rejection_reason" , "status" , "reviewed_by" , "notes" , "reg_date" , "hive_site_id" , "hive_site_name" , 
+// columns : "primkey" , "record_id" , "application_id" , "client_id" , "phone_id" , "model_id" , "product_id" , "requested_amount" , "deposit_amount" , "application_date" , "approval_date" , "approved_amount" , "rejection_reason" , "status" , "reviewed_by" , "notes" , "reg_date" , "hive_site_id" , "hive_site_name" , "next_billing_date" , 
 
 //Table name : loan_installments
 
@@ -60,7 +60,7 @@
 
 //Table name : loans
 
-// columns : "primkey" , "record_id" , "loan_id" , "application_id" , "client_id" , "phone_id" , "model_id" , "product_id" , "contract_number" , "principal_amount" , "interest_amount" , "processing_fee" , "penalty_amount" , "total_amount" , "deposit_amount" , "balance_amount" , "start_date" , "end_date" , "payment_frequency" , "installment_amount" , "status" , "default_status" , "notes" , "approved_by" , "reg_date" , "hive_site_id" , "hive_site_name" , 
+// columns : "primkey" , "record_id" , "client_id" , "phone_id" , "model_id" , "product_id" , "contract_number" , "principal_amount" , "interest_amount" , "processing_fee" , "penalty_amount" , "total_amount" , "deposit_amount" , "balance_amount" , "start_date" , "end_date" , "payment_frequency" , "installment_amount" , "status" , "default_status" , "notes" , "approved_by" , "reg_date" , "hive_site_id" , "hive_site_name" , 
 
 //Table name : mosy_metrics
 

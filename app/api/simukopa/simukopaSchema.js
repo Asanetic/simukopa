@@ -72,8 +72,8 @@ export const globalRelations = {
   assigned_loan_id: {
     table: "loans",
     valueField: "record_id",
-    displayField: "loan_id",
-    cacheField: "loan_id",
+    displayField: "record_id",
+    cacheField: "record_id",
     label: "Loan",
     // used by: phones
   },
@@ -135,8 +135,8 @@ export const globalRelations = {
   loan_id: {
     table: "loans",
     valueField: "record_id",
-    displayField: "loan_id",
-    cacheField: "loan_id",
+    displayField: "record_id",
+    cacheField: "record_id",
     label: "Loan",
     // used by: collection_actions, commissions, device_allocations, device_events, loan_installments, notifications, payment_allocations, payments
   },

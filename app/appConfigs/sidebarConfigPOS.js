@@ -40,6 +40,13 @@ export const sidebarConfig = [
     roles: []
   },
 
+  {
+    type: "link",
+    label: "Issue device",
+    icon: "fa fa-mobile",
+    href: (routes) => `${routes.simukopa}/loanallocation`,
+    roles: []
+  },
 
   // =========================================================
   // TODAY / ACTION CENTER
@@ -413,73 +420,73 @@ export const sidebarConfig = [
   // SALES / AGENTS
   // =========================================================
 
-  {
-    type: "submenu",
-    label: "Sales",
-    icon: "fa fa-line-chart",
-    roles: [],
-    items: [
-      {
-        label: "Agents",
-        href: (routes) => `${routes.simukopa}/agents/list`,
-        roles: []
-      },
-      {
-        label: "Agent Performance",
-        href: (routes) => `${routes.simukopa}/agents/performance`,
-        roles: []
-      },
-      {
-        label: "Commissions",
-        href: (routes) => `${routes.simukopa}/commissions/list`,
-        roles: []
-      },
-    ],
-  },
+  // {
+  //   type: "submenu",
+  //   label: "Sales",
+  //   icon: "fa fa-line-chart",
+  //   roles: [],
+  //   items: [
+  //     {
+  //       label: "Agents",
+  //       href: (routes) => `${routes.simukopa}/agents/list`,
+  //       roles: []
+  //     },
+  //     {
+  //       label: "Agent Performance",
+  //       href: (routes) => `${routes.simukopa}/agents/performance`,
+  //       roles: []
+  //     },
+  //     {
+  //       label: "Commissions",
+  //       href: (routes) => `${routes.simukopa}/commissions/list`,
+  //       roles: []
+  //     },
+  //   ],
+  // },
 
 
   // =========================================================
   // REPORTS
   // =========================================================
 
-  {
-    type: "submenu",
-    label: "Reports",
-    icon: "fa fa-bar-chart",
-    roles: [],
-    items: [
-      {
-        label: "Collection Report",
-        href: (routes) => `${routes.simukopa}/reports/collections`,
-        roles: []
-      },
-      {
-        label: "Arrears Report",
-        href: (routes) => `${routes.simukopa}/reports/arrears`,
-        roles: []
-      },
-      {
-        label: "Device Report",
-        href: (routes) => `${routes.simukopa}/reports/devices`,
-        roles: []
-      },
-      {
-        label: "Sales Report",
-        href: (routes) => `${routes.simukopa}/reports/sales`,
-        roles: []
-      },
-      {
-        label: "Payment Report",
-        href: (routes) => `${routes.simukopa}/reports/payments`,
-        roles: []
-      },
-      {
-        label: "Inventory Report",
-        href: (routes) => `${routes.simukopa}/reports/inventory`,
-        roles: []
-      },
-    ],
-  },
+  // {
+  //   type: "submenu",
+  //   label: "Reports",
+  //   icon: "fa fa-bar-chart",
+  //   roles: [],
+  //   items: [
+  //     {
+  //       label: "Collection Report",
+  //       href: (routes) => `${routes.simukopa}/reports/collections`,
+  //       roles: []
+  //     },
+  //     {
+  //       label: "Arrears Report",
+  //       href: (routes) => `${routes.simukopa}/reports/arrears`,
+  //       roles: []
+  //     },
+  //     {
+  //       label: "Device Report",
+  //       href: (routes) => `${routes.simukopa}/reports/devices`,
+  //       roles: []
+  //     },
+  //     {
+  //       label: "Sales Report",
+  //       href: (routes) => `${routes.simukopa}/reports/sales`,
+  //       roles: []
+  //     },
+  //     {
+  //       label: "Payment Report",
+  //       href: (routes) => `${routes.simukopa}/reports/payments`,
+  //       roles: []
+  //     },
+  //     {
+  //       label: "Inventory Report",
+  //       href: (routes) => `${routes.simukopa}/reports/inventory`,
+  //       roles: []
+  //     },
+  //   ],
+  // },
 
 
   // =========================================================
@@ -507,16 +514,16 @@ export const sidebarConfig = [
         href: (routes) => `${routes.simukopa}/smartpaymentsettings/list`,
         roles: []
       },
-      {
-        label: "Device Lock Settings",
-        href: (routes) => `${routes.simukopa}/devicesettings/list`,
-        roles: []
-      },
-      {
-        label: "Notification Settings",
-        href: (routes) => `${routes.simukopa}/notifications/settings`,
-        roles: []
-      },
+      // {
+      //   label: "Device Lock Settings",
+      //   href: (routes) => `${routes.simukopa}/devicesettings/list`,
+      //   roles: []
+      // },
+      // {
+      //   label: "Notification Settings",
+      //   href: (routes) => `${routes.simukopa}/notifications/settings`,
+      //   roles: []
+      // },
     ],
   },
 
@@ -525,28 +532,28 @@ export const sidebarConfig = [
   // AUDIT
   // =========================================================
 
-  {
-    type: "submenu",
-    label: "Administration",
-    icon: "fa fa-shield",
-    roles: [],
-    items: [
-      {
-        label: "Users",
-        href: (routes) => `${routes.simukopa}/systemusers/list`,
-        roles: []
-      },
-      {
-        label: "Access Matrix",
-        href: (routes) => `${routes.simukopa}/accessmatrix/list`,
-        roles: []
-      },
-      {
-        label: "Audit Logs",
-        href: (routes) => `${routes.simukopa}/auditlogs/list`,
-        roles: []
-      },
-    ],
-  },
+  // {
+  //   type: "submenu",
+  //   label: "Administration",
+  //   icon: "fa fa-shield",
+  //   roles: [],
+  //   items: [
+  //     {
+  //       label: "Users",
+  //       href: (routes) => `${routes.simukopa}/systemusers/list`,
+  //       roles: []
+  //     },
+  //     {
+  //       label: "Access Matrix",
+  //       href: (routes) => `${routes.simukopa}/accessmatrix/list`,
+  //       roles: []
+  //     },
+  //     {
+  //       label: "Audit Logs",
+  //       href: (routes) => `${routes.simukopa}/auditlogs/list`,
+  //       roles: []
+  //     },
+  //   ],
+  // },
 
 ];

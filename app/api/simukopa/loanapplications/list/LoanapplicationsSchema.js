@@ -78,7 +78,7 @@ export const LoanapplicationsSchema = {
     // each later mutation with everything enriched so far, so this join
     // has to be declared before amountPaid).
     loanJoin: {
-      type: 'join', table: 'loans', link: 'record_id:application_id',
+      type: 'join', table: 'loans', link: 'record_id:record_id',
       select: { loan_record_id: 'record_id' },
     },
     // Sum of payments.amount against the loan this application produced

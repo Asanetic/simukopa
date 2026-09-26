@@ -71,7 +71,7 @@ export const DeviceallocationsSchema = {
     // deposit too: the loan-allocation wizard records it as an ordinary
     // payments row against the same loan_id.
     amount_paid: {
-      type: 'sum', table: 'payments', column: 'amount', link: 'loan_id:loan_id',
+      type: 'sum', table: 'payments', column: 'amount', link: 'loan_id:record_id',
     },
     balance: {
       type: 'compute', expr: 'loan_total_amount - amount_paid',

@@ -103,43 +103,46 @@ export async function POST(request) {
     const schedule = buildInstallmentSchedule({ startDate, frequency, durationMonths, installmentAmount });
     if (!schedule.length) throw new UserError('This loan plan has no repayment schedule configured.');
 
+    // total_amount is purely installment x number of periods produced by
+    // the schedule (which already accounts for frequency/duration) — the
+    // deposit is a separate upfront payment, not part of the financed total.
     const totalRepayment = schedule.length * installmentAmount;
     const principalAmount = Number(plan.device_cost_price) || Number(phone.selling_price) || 0;
-    const totalAmount = depositAmount + totalRepayment;
+    const totalAmount = totalRepayment;
     const endDateStr = schedule[schedule.length - 1].due_date;
 
     const actorId = authData?.record_id || authData?.username || 'system';
     const siteId = authData?.hive_site_id || client.hive_site_id;
     const siteName = authData?.hive_site_name || client.hive_site_name;
 
+    // Single record id generated once and cascaded as the FK/record_id
+    // across every table this transaction touches — it also doubles as
+    // the application_id and contract_number, so a customer can pay
+    // quoting their loan id, contract number, or application id and it's
+    // always the exact same number.
     const loanRecordId = magicRandomStr(9);
-    const loanBusinessId = `LN${magicRandomStr(7)}`;
+    const nextBillingDateStr = nairobiDateStr(addInterval(startDate, frequency));
 
-    // No separate application/approval stage in this flow (spec), but the
-    // application still gets recorded — already-approved — so it shows up
-    // wherever loan_applications is reported on, and other tables that
-    // carry an application_id have a real one to point at.
-    const applicationRecordId = magicRandomStr(9);
     await conn.execute(`
       INSERT INTO loan_applications (record_id, application_id, client_id, phone_id, model_id, product_id,
         requested_amount, deposit_amount, application_date, approval_date, approved_amount, rejection_reason,
-        status, reviewed_by, notes, reg_date, hive_site_id, hive_site_name)
-      VALUES (?,?,?,?,?,?,?,?,NOW(),NOW(),?,?,?,?,?,NOW(),?,?)
+        status, reviewed_by, notes, reg_date, hive_site_id, hive_site_name, next_billing_date)
+      VALUES (?,?,?,?,?,?,?,?,NOW(),NOW(),?,?,?,?,?,NOW(),?,?,?)
     `, [
-      applicationRecordId, `APP${magicRandomStr(7)}`, client.record_id, phone.record_id, null, plan.record_id,
+      loanRecordId, loanRecordId, client.record_id, phone.record_id, null, plan.record_id,
       totalAmount, depositAmount, totalAmount, null,
       'approved', actorId, 'Approved automatically at device financing (loan allocation).',
-      siteId, siteName,
+      siteId, siteName, nextBillingDateStr,
     ]);
 
     await conn.execute(`
-      INSERT INTO loans (record_id, loan_id, application_id, client_id, phone_id, model_id, product_id, contract_number,
+      INSERT INTO loans (record_id, client_id, phone_id, model_id, product_id, contract_number,
         principal_amount, interest_amount, processing_fee, penalty_amount, total_amount, deposit_amount, balance_amount,
         start_date, end_date, payment_frequency, installment_amount, status, default_status, notes, approved_by,
         reg_date, hive_site_id, hive_site_name)
-      VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,NOW(),?,?)
+      VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,NOW(),?,?)
     `, [
-      loanRecordId, loanBusinessId, applicationRecordId, client.record_id, phone.record_id, null, plan.record_id, null,
+      loanRecordId, client.record_id, phone.record_id, null, plan.record_id, loanRecordId,
       principalAmount, Math.max(totalRepayment - principalAmount, 0), 0, 0, totalAmount, depositAmount, totalRepayment,
       nowStr, endDateStr, frequency, installmentAmount, 'active', 'current', null, actorId,
       siteId, siteName,
@@ -147,7 +150,7 @@ export async function POST(request) {
 
     // Bulk insert every installment in one round trip.
     const installmentRows = schedule.map((inst) => [
-      magicRandomStr(9), `${loanBusinessId}-${inst.installment_number}`, loanRecordId, client.record_id,
+      magicRandomStr(9), `${loanRecordId}-${inst.installment_number}`, loanRecordId, client.record_id,
       inst.installment_number, inst.due_date, 0, 0, 0, 0, inst.amount, 0, inst.amount, 'pending', nowStr, siteId, siteName,
     ]);
     await conn.query(`
@@ -201,9 +204,9 @@ export async function POST(request) {
       VALUES (?,?,?,?,?,?,?,?,?,?,NOW(),?,?)
     `, [
       magicRandomStr(9), `AUD${magicRandomStr(7)}`, actorId, 'CREATE_LOAN', 'LOAN_ALLOCATION', loanRecordId, null,
-      JSON.stringify({ loan_id: loanBusinessId, client_id: client.record_id, phone_id: phone.record_id, plan_id: plan.record_id, deposit: depositAmount }),
+      JSON.stringify({ loan_id: loanRecordId, client_id: client.record_id, phone_id: phone.record_id, plan_id: plan.record_id, deposit: depositAmount }),
       request.headers.get('x-forwarded-for') || '',
-      `Created loan ${loanBusinessId} for ${[client.first_name, client.last_name].filter(Boolean).join(' ')}`,
+      `Created loan ${loanRecordId} for ${[client.first_name, client.last_name].filter(Boolean).join(' ')}`,
       siteId, siteName,
     ]);
 
@@ -223,9 +226,9 @@ export async function POST(request) {
           recipient_name: [client.first_name, client.last_name].filter(Boolean).join(' '),
           recipient_phone: client.phone_number,
           message_content:
-            `Hi ${client.first_name || ''}, your financing for ${plan.plan_name} is now ACTIVE. ` +
+            `Hi ${client.first_name || ''}, your financing for ${plan.plan_name} is now ACTIVE. \n` +
             `Deposit paid: ${kes(depositAmount)}. ${frequency.toLowerCase()} payment: ${kes(installmentAmount)}. ` +
-            `Loan ref: ${loanBusinessId}. Thank you for choosing SimuKopa.`,
+            `\nLoan ref: ${loanRecordId}. Thank you for choosing us.`,
           request_source: 'loan_allocation',
         },
       }).catch((err) => {
@@ -239,13 +242,13 @@ export async function POST(request) {
       success: true,
       message: 'Loan created successfully',
       loan: {
-        id: loanRecordId, loan_id: loanBusinessId, status: 'active',
+        id: loanRecordId, loan_id: loanRecordId, status: 'active',
         customer_id: client.record_id, device_id: phone.record_id, loan_plan_id: plan.record_id,
-        application_id: applicationRecordId,
+        application_id: loanRecordId,
         deposit_amount: depositAmount, installment_amount: installmentAmount,
         repayment_frequency: frequency, duration_count: durationMonths, total_amount: totalAmount,
       },
-      application: { id: applicationRecordId, status: 'approved' },
+      application: { id: loanRecordId, status: 'approved' },
       allocation: { id: allocationRecordId, status: 'allocated' },
       payment: { id: paymentRecordId, amount: depositAmount },
       installments_created: schedule.length,

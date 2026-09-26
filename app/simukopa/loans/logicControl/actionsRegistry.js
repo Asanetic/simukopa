@@ -68,15 +68,17 @@ const LoansActions = {
     />, true, "modal3", "mosycard_wide");
   },
 
-  // application_id -> loan_applications.record_id (the application this
+  // record_id -> loan_applications.record_id (the application this
   // loan was created from).
   view_application: ({ rows }) => {
     const row = rows?.[0];
-    if (!row?.application_id) return;
+    console.log(`view_application`, row)
+
+    if (!row?.record_id) return;
     MosyCard("", <LoanapplicationsList
       customProfilePath="../loanapplications/profile"
       title={`Application — ${row.application_ref || ''}`}
-      fixedQuery={{ recordId: btoa(row.application_id) }}
+      fixedQuery={{ recordId: btoa(row.record_id) }}
       hiddenActions={['new']}
     />, true, "modal3", "mosycard_wide");
   },

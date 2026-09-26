@@ -130,7 +130,6 @@ export const LoanapplicationsSchema = {
     // key: DB column name | label: shown on screen | type: drives input + SQL type
     { key: 'primkey', label: 'Primkey', type: 'number', system: true, editable: false },
     { key: 'record_id', label: 'Record Id', type: 'text', system: true, editable: false },
-    { key: 'application_id', label: 'Application Number', type: 'text',  editable: false },
     // liveSearch pickers (basic_information section) + their cached
     // display names (client_name/phone_name/model_name, used in
     // showInList) — resolved from globalRelations via resolveField, same

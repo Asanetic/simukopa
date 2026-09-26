@@ -12,8 +12,6 @@ export const LoansSchema = {
   fields: [
     { key: 'primkey', type: 'number', system: true, editable: false },
     { key: 'record_id', type: 'text', system: true, editable: false },
-    { key: 'loan_id', type: 'text', searchable: true },
-    { key: 'application_id', type: 'text', searchable: true },
     { key: 'client_id', type: 'text', searchable: true },
     { key: 'phone_id', type: 'text', searchable: true },
     { key: 'model_id', type: 'text', searchable: true },

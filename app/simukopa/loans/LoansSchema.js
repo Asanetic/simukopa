@@ -54,9 +54,9 @@ export const LoansSchema = {
   customBlocks: [],
 
   fieldGroups: [],
-  showInList: ['row_count', 'loan_id', 'client_name', 'phone_name', 'product_name', 'total_amount', 'deposit_amount', 'balance_amount', 'status', 'start_date'],
+  showInList: ['row_count', 'record_id', 'client_name', 'phone_name', 'product_name', 'total_amount', 'deposit_amount', 'balance_amount', 'status', 'start_date'],
 
-  exportColumns: ['loan_id', 'application_id', 'client_id', 'phone_id', 'model_id', 'product_id', 'contract_number', 'principal_amount', 'interest_amount', 'processing_fee', 'penalty_amount', 'total_amount', 'deposit_amount', 'balance_amount', 'start_date', 'end_date', 'payment_frequency', 'installment_amount'],
+  exportColumns: ['record_id', 'application_id', 'client_id', 'phone_id', 'model_id', 'product_id', 'contract_number', 'principal_amount', 'interest_amount', 'processing_fee', 'penalty_amount', 'total_amount', 'deposit_amount', 'balance_amount', 'start_date', 'end_date', 'payment_frequency', 'installment_amount'],
 
   sections: [
     { key: 'basic_information', label: 'Basic Information', columns: 3, fields: ['loan_id', 'client_id', 'phone_id', 'model_id', 'product_name', 'contract_number'] },
@@ -66,8 +66,7 @@ export const LoansSchema = {
 
   fields: [
     { key: 'primkey', label: 'Primkey', type: 'number', system: true, editable: false },
-    { key: 'record_id', label: 'Record Id', type: 'text', system: true, editable: false },
-    { key: 'loan_id', label: 'Loan Number', type: 'text', editable: false },
+    { key: 'record_id', label: 'Loan Number Id', type: 'text', system: true, editable: false },
     // liveSearch pickers (basic_information section) + their cached
     // display names (client_name/phone_name/model_name, used in
     // showInList) — resolved from globalRelations via resolveField, same

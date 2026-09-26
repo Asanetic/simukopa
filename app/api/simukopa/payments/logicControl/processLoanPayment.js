@@ -12,7 +12,7 @@
 // Deliberately separate from smart_payments/smart_payment_requests: an
 // M-Pesa paybill can receive payments for things OTHER than a loan
 // repayment (any smart_payment_request), so this matches BillRefNumber
-// against loans.loan_id independently and no-ops (never throws) when
+// against loans.record_id independently and no-ops (never throws) when
 // nothing matches, so it's always safe to call unconditionally after
 // every IPN.
 
@@ -57,7 +57,7 @@ function advanceByFrequency(fromDate, frequency) {
 /**
  * @param {object} opts
  * @param {string} opts.billRefNumber - M-Pesa "Account Number" — matched
- *   against loans.loan_id (the human-readable LNxxxxxxx code), NOT
+ *   against loans.record_id (the human-readable LNxxxxxxx code), NOT
  *   loans.record_id.
  * @param {number|string} opts.amount - amount paid this transaction.
  * @param {string} [opts.transactionCode] - M-Pesa TransID, stored as
@@ -79,7 +79,7 @@ export async function processLoanPayment({
   const loan = await mosyFlexQuickSel(
     'loans',
     '*',
-    `WHERE loan_id='${esc(billRefNumber)}' ORDER BY primkey DESC LIMIT 1`,
+    `WHERE record_id='${esc(billRefNumber)}' ORDER BY primkey DESC LIMIT 1`,
     'r'
   );
   if (!loan) return { ok: false, reason: 'no_matching_loan' };
@@ -94,7 +94,7 @@ export async function processLoanPayment({
   const amountPaid = Number(amount) || 0;
   const nowStr = formatDateTime(new Date());
 
-  // 1) Insert the payments row — client_id/loan_id are the REAL FK values
+  // 1) Insert the payments row — client_id/record_id are the REAL FK values
   // (loans.record_id, clients.record_id), same convention every other
   // module in this app uses.
   const paymentRecordId = magicRandomStr(9);
@@ -134,11 +134,11 @@ export async function processLoanPayment({
   // 3) Advance the linked application's next_billing_date, one cycle from
   // whatever it currently is (falls back to today if it was never set).
   let nextBillingDate = null;
-  if (loan.application_id) {
+  if (loan.record_id) {
     const application = await mosyFlexQuickSel(
       'loan_applications',
       '*',
-      `WHERE record_id='${esc(loan.application_id)}' LIMIT 1`,
+      `WHERE record_id='${esc(loan.record_id)}' LIMIT 1`,
       'r'
     );
     if (application?.primkey) {
@@ -155,15 +155,27 @@ export async function processLoanPayment({
     }
   }
 
-  // 4) Notify the client — best-effort, never fails the caller's flow.
+  // 4) How many billing periods this loan has now been extended by —
+  // simply the count of payments recorded against it so far (this one
+  // included), used to tell the client which extension this payment covers.
+  const extensionCountRow = await mosyFlexQuickSel(
+    'payments',
+    'COUNT(*) AS extension_count',
+    `WHERE loan_id='${esc(loan.record_id)}'`,
+    'r'
+  );
+  const extensionCount = Number(extensionCountRow?.extension_count) || 0;
+
+  // 5) Notify the client — best-effort, never fails the caller's flow.
   const clientPhone = String(client?.phone_number || '').trim();
   let smsResult = null;
   if (clientPhone) {
     const message =
-      `Payment received for account ${loan.loan_id}. ` +
+      `Payment received for account ${loan.record_id}. ` +
       `Amount: KES ${amountPaid.toLocaleString()}. Ref: ${transactionCode || 'N/A'}. ` +
       `Balance: KES ${newBalance.toLocaleString()}.` +
       (nextBillingDate ? ` Next billing date: ${nextBillingDate}.` : '') +
+      ` Extension: ${extensionCount}.` +
       ` Thank you for choosing us.`;
     try {
       smsResult = await mosySendSMS(clientPhone, message);
@@ -176,10 +188,11 @@ export async function processLoanPayment({
     ok: true,
     paymentRecordId,
     loanRecordId: loan.record_id,
-    loanId: loan.loan_id,
+    loanId: loan.record_id,
     clientId: loan.client_id,
     balance: newBalance,
     nextBillingDate,
+    extensionCount,
     smsResult,
   };
 }
