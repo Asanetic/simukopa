@@ -1,0 +1,176 @@
+//Table name : agents
+
+// columns : "primkey" , "record_id" , "agent_id" , "agent_number" , "full_name" , "phone_number" , "email" , "id_number" , "commission_rate" , "status" , "notes" , "reg_date" , "hive_site_id" , "hive_site_name" , 
+
+//Table name : audit_logs
+
+// columns : "primkey" , "record_id" , "audit_id" , "user_id" , "action" , "module" , "record_reference" , "old_data" , "new_data" , "ip_address" , "description" , "reg_date" , "hive_site_id" , "hive_site_name" , 
+
+//Table name : branches
+
+// columns : "primkey" , "record_id" , "branch_id" , "branch_name" , "branch_code" , "phone_number" , "email" , "address" , "county" , "town" , "status" , "reg_date" , "hive_site_id" , "hive_site_name" , 
+
+//Table name : client_documents
+
+// columns : "primkey" , "record_id" , "document_id" , "client_id" , "document_type" , "document_number" , "file_name" , "file_path" , "expiry_date" , "status" , "notes" , "created_by" , "reg_date" , "hive_site_id" , "hive_site_name" , 
+
+//Table name : clients
+
+// columns : "primkey" , "record_id" , "client_number" , "first_name" , "middle_name" , "last_name" , "id_number" , "id_type" , "phone_number" , "alternative_phone" , "email" , "date_of_birth" , "gender" , "county" , "town" , "address" , "occupation" , "employer" , "monthly_income" , "status" , "kyc_status" , "notes" , "created_by" , "reg_date" , "hive_site_id" , "hive_site_name" , "photo" , 
+
+//Table name : collection_actions
+
+// columns : "primkey" , "record_id" , "collection_id" , "client_id" , "loan_id" , "installment_id" , "action_type" , "action_date" , "contact_method" , "description" , "promise_amount" , "promise_date" , "outcome" , "next_action" , "next_action_date" , "status" , "created_by" , "reg_date" , "hive_site_id" , "hive_site_name" , 
+
+//Table name : commissions
+
+// columns : "primkey" , "record_id" , "commission_id" , "agent_id" , "client_id" , "loan_id" , "payment_id" , "commission_type" , "rate" , "amount" , "status" , "payment_date" , "notes" , "reg_date" , "hive_site_id" , "hive_site_name" , 
+
+//Table name : device_allocations
+
+// columns : "primkey" , "record_id" , "phone_id" , "client_id" , "loan_id" , "allocation_date" , "handover_date" , "return_date" , "condition_at_handover" , "condition_at_return" , "status" , "notes" , "allocated_by" , "reg_date" , "hive_site_id" , "hive_site_name" , "plan" , "deposited_amount" , "last_payment" , "device_status" , "buying_price" , "selling_price" , 
+
+//Table name : device_events
+
+// columns : "primkey" , "record_id" , "event_id" , "phone_id" , "client_id" , "loan_id" , "event_type" , "event_reason" , "command_reference" , "requested_by" , "event_date" , "status" , "response" , "reg_date" , "hive_site_id" , "hive_site_name" , 
+
+//Table name : financing_products
+
+// columns : "primkey" , "record_id" , "product_id" , "product_name" , "description" , "duration" , "duration_unit" , "deposit_type" , "deposit_amount" , "deposit_percentage" , "interest_type" , "interest_rate" , "processing_fee" , "late_fee" , "late_fee_type" , "payment_frequency" , "status" , "reg_date" , "hive_site_id" , "hive_site_name" , 
+
+//Table name : guarantors
+
+// columns : "primkey" , "record_id" , "guarantor_id" , "client_id" , "full_name" , "id_number" , "phone_number" , "email" , "relationship" , "address" , "status" , "notes" , "reg_date" , "hive_site_id" , "hive_site_name" , 
+
+//Table name : inventory_transactions
+
+// columns : "primkey" , "record_id" , "inventory_transaction_id" , "phone_id" , "model_id" , "type" , "quantity" , "from_location" , "to_location" , "reference" , "description" , "transaction_date" , "created_by" , "reg_date" , "hive_site_id" , "hive_site_name" , 
+
+//Table name : loan_applications
+
+// columns : "primkey" , "record_id" , "application_id" , "client_id" , "phone_id" , "model_id" , "product_id" , "requested_amount" , "deposit_amount" , "application_date" , "approval_date" , "approved_amount" , "rejection_reason" , "status" , "reviewed_by" , "notes" , "reg_date" , "hive_site_id" , "hive_site_name" , 
+
+//Table name : loan_installments
+
+// columns : "primkey" , "record_id" , "installment_id" , "loan_id" , "client_id" , "installment_number" , "due_date" , "principal_amount" , "interest_amount" , "fee_amount" , "penalty_amount" , "total_amount" , "paid_amount" , "balance_amount" , "status" , "paid_date" , "reg_date" , "hive_site_id" , "hive_site_name" , 
+
+//Table name : loan_plans
+
+// columns : "primkey" , "record_id" , "plan_name" , "device_model_group" , "device_cost_price" , "deposit_amount" , "repayment_frequency" , "installment_amount" , "duration_count" , "total_loan_cost" , "is_active" , "reg_date" , "hive_site_id" , "hive_site_name" , 
+
+//Table name : loans
+
+// columns : "primkey" , "record_id" , "loan_id" , "application_id" , "client_id" , "phone_id" , "model_id" , "product_id" , "contract_number" , "principal_amount" , "interest_amount" , "processing_fee" , "penalty_amount" , "total_amount" , "deposit_amount" , "balance_amount" , "start_date" , "end_date" , "payment_frequency" , "installment_amount" , "status" , "default_status" , "notes" , "approved_by" , "reg_date" , "hive_site_id" , "hive_site_name" , 
+
+//Table name : mosy_metrics
+
+// columns : "primkey" , "metric_id" , "app_name" , "metric_key" , "label" , "sql_query" , "db_connection_key" , "status" , "reg_date" , "hive_site_id" , "hive_site_name" , 
+
+//Table name : mosy_reminder_log
+
+// columns : "primkey" , "log_id" , "reminder_id" , "tenant_id" , "channel" , "recipient" , "rendered_message" , "status" , "error_message" , "reg_date" , "hive_site_id" , "hive_site_name" , 
+
+//Table name : mosy_reminders
+
+// columns : "primkey" , "reminder_id" , "tenant_id" , "app_name" , "time_of_day" , "days_of_week" , "recipients_phone" , "recipients_email" , "subject" , "message" , "variable_source" , "last_sent_date" , "status" , "reg_date" , "hive_site_id" , "hive_site_name" , "related_record_id" , "repeat_type" , 
+
+//Table name : mosy_sql_roll_back
+
+// columns : "primkey" , "roll_bk_key" , "table_name" , "roll_type" , "where_str" , "roll_timestamp" , "value_entries" , "hive_site_id" , "hive_site_name" , 
+
+//Table name : notification_templates
+
+// columns : "primkey" , "record_id" , "template_id" , "template_name" , "notification_type" , "channel" , "subject" , "message" , "status" , "reg_date" , "hive_site_id" , "hive_site_name" , 
+
+//Table name : notifications
+
+// columns : "primkey" , "record_id" , "notification_id" , "client_id" , "loan_id" , "installment_id" , "type" , "channel" , "recipient" , "subject" , "message" , "scheduled_date" , "sent_date" , "delivery_status" , "external_reference" , "failure_reason" , "reg_date" , "hive_site_id" , "hive_site_name" , 
+
+//Table name : page_manifest_
+
+// columns : "primkey" , "manikey" , "page_group" , "site_id" , "page_url" , "hive_site_id" , "hive_site_name" , "project_id" , "project_name" , 
+
+//Table name : payment_allocations
+
+// columns : "primkey" , "record_id" , "allocation_id" , "payment_id" , "loan_id" , "installment_id" , "allocation_type" , "amount" , "principal_amount" , "interest_amount" , "fee_amount" , "penalty_amount" , "allocation_date" , "created_by" , "reg_date" , "hive_site_id" , "hive_site_name" , 
+
+//Table name : payments
+
+// columns : "primkey" , "record_id" , "payment_id" , "client_id" , "loan_id" , "installment_id" , "payment_method" , "amount" , "currency" , "transaction_reference" , "external_reference" , "payment_date" , "allocated_amount" , "unallocated_amount" , "status" , "reversal_reason" , "notes" , "created_by" , "reg_date" , "hive_site_id" , "hive_site_name" , 
+
+//Table name : phone_models
+
+// columns : "primkey" , "record_id" , "model_id" , "brand" , "model_name" , "model_number" , "storage" , "ram" , "color" , "purchase_price" , "cash_price" , "description" , "status" , "reg_date" , "hive_site_id" , "hive_site_name" , 
+
+//Table name : phones
+
+// columns : "primkey" , "record_id" , "photo" , "brand_name" , "model_name" , "imei_1" , "imei_2" , "serial_number" , "phone_number" , "purchase_price" , "status" , "lock_status" , "condition_status" , "location" , "assigned_client_id" , "assigned_loan_id" , "received_date" , "allocated_date" , "notes" , "reg_date" , "hive_site_id" , "hive_site_name" , "selling_price" , "installment_price" , 
+
+//Table name : roles
+
+// columns : "primkey" , "record_id" , "role_id" , "role_name" , "description" , "permissions" , "status" , "reg_date" , "hive_site_id" , "hive_site_name" , 
+
+//Table name : settings
+
+// columns : "primkey" , "record_id" , "setting_id" , "setting_name" , "setting_key" , "setting_value" , "setting_type" , "description" , "status" , "reg_date" , "hive_site_id" , "hive_site_name" , 
+
+//Table name : smart_calls
+
+// columns : "primkey" , "record_id" , "call_number" , "related_record_id" , "recipient_name" , "recipient_phone" , "call_channel" , "call_status" , "call_outcome" , "call_notes" , "duration_seconds" , "request_source" , "initiated_by" , "initiated_on" , "completed_on" , "created_on" , "created_at" , "updated_at" , "hive_site_id" , "hive_site_name" , 
+
+//Table name : smart_message_templates
+
+// columns : "primkey" , "record_id" , "template_name" , "template_code" , "template_category" , "message_channel" , "subject" , "message_content" , "template_status" , "created_by" , "last_updated_by" , "created_on" , "updated_on" , "created_at" , "updated_at" , "hive_site_id" , "hive_site_name" , 
+
+//Table name : smart_messages
+
+// columns : "primkey" , "record_id" , "message_number" , "related_record_id" , "recipient_name" , "recipient_phone" , "recipient_email" , "message_channel" , "message_subject" , "message_content" , "message_status" , "delivery_status" , "request_source" , "request_id" , "sent_by" , "scheduled_for" , "sent_on" , "delivered_on" , "read_on" , "failed_on" , "failure_reason" , "created_on" , "created_at" , "updated_at" , "hive_site_id" , "hive_site_name" , 
+
+//Table name : smart_payment_requests
+
+// columns : "primkey" , "record_id" , "request_reference" , "request_title" , "related_module" , "related_record_id" , "payer_name" , "payer_phone" , "payer_email" , "amount_requested" , "amount_paid" , "balance_amount" , "payment_shortcode" , "payment_link" , "request_notes" , "expiry_date" , "request_status" , "created_by" , "created_on" , "updated_on" , "created_at" , "updated_at" , "hive_site_id" , "hive_site_name" , 
+
+//Table name : smart_payment_settings
+
+// columns : "primkey" , "record_id" , "setting_name" , "setting_code" , "setting_value" , "setting_category" , "setting_status" , "created_by" , "last_updated_by" , "created_on" , "updated_on" , "created_at" , "updated_at" , "hive_site_id" , "hive_site_name" , 
+
+//Table name : smart_payments
+
+// columns : "primkey" , "record_id" , "payment_reference" , "request_reference" , "related_module" , "related_record_id" , "amount_paid" , "receipt_number" , "payer_name" , "payer_phone" , "payer_email" , "payment_method" , "payment_channel" , "transaction_code" , "currency" , "payment_description" , "payment_notes" , "payment_date" , "payment_status" , "processed_by" , "created_on" , "updated_on" , "created_at" , "updated_at" , "hive_site_id" , "hive_site_name" , 
+
+//Table name : system_module_manifest_
+
+// columns : "primkey" , "record_id" , "component_name" , "module_key" , "module_name" , "permission_type" , "capability_key" , "access_name" , "relative_path" , "hive_site_id" , "hive_site_name" , 
+
+//Table name : system_modules
+
+// columns : "primkey" , "record_id" , "module_name" , "module_key" , "module_group" , "module_type" , "module_status" , "date_created" , "hive_site_id" , "hive_site_name" , 
+
+//Table name : system_role_bundles
+
+// columns : "primkey" , "record_id" , "bundle_id" , "bundle_name" , "remark" , "hive_site_id" , "hive_site_name" , 
+
+//Table name : system_role_permissions
+
+// columns : "primkey" , "record_id" , "role_id" , "module_id" , "can_view" , "can_add" , "can_edit" , "can_delete" , "can_approve" , "can_export" , "can_reports" , "can_dashboard" , "hive_site_id" , "hive_site_name" , "date_created" , "date_updated" , 
+
+//Table name : system_roles
+
+// columns : "primkey" , "record_id" , "role_name" , "role_description" , "date_created" , "hive_site_id" , "hive_site_name" , "permissions" , 
+
+//Table name : system_users
+
+// columns : "primkey" , "record_id" , "name" , "email" , "tel" , "login_password" , "ref_id" , "regdate" , "user_no" , "user_pic" , "user_gender" , "last_seen" , "about" , "hive_site_id" , "hive_site_name" , "auth_token" , "token_status" , "token_expiring_in" , "project_id" , "project_name" , "user_role" , "account_status" , "company_id" , "company_name" , "clusters" , "regions" , 
+
+//Table name : user_bundle_role_functions
+
+// columns : "primkey" , "record_id" , "bundle_id" , "bundle_name" , "role_id" , "role_name" , "remark" , "hive_site_id" , "hive_site_name" , 
+
+//Table name : user_manifest_
+
+// columns : "primkey" , "admin_mkey" , "user_id" , "user_name" , "role_id" , "site_id" , "role_name" , "hive_site_id" , "hive_site_name" , "project_id" , "project_name" , 
+
+//Table name : users
+
+// columns : "primkey" , "record_id" , "user_id" , "username" , "full_name" , "email" , "phone_number" , "password" , "role_id" , "status" , "last_login" , "reg_date" , "hive_site_id" , "hive_site_name" , 
+

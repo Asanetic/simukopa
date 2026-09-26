@@ -1,0 +1,756 @@
+/* EntityTableCard.css
+   Premium styling layer for TestGrid (and any grid built on the same
+   markup shape). Bootstrap still supplies layout resets — this file
+   owns color, type, spacing, and the small interaction details that
+   make the grid feel considered rather than default.
+
+   Brand color: --etc-primary is set inline by TestGrid.jsx straight
+   from mosyThemeConfigs.btnBg — same pattern mosyUi.js uses (embed the
+   theme value directly, no derived shades to maintain). Hover/active
+   states use CSS filter()/outline instead of pre-computed dark/soft
+   color variants, so there's only ONE color to keep in sync with your
+   theme, not four.
+*/
+  
+  /* ---------------------------------------------------------------- */
+  /* Header                                                            */
+  /* ---------------------------------------------------------------- */
+  
+  .etc-header {
+    /* Layout (stacking heading vs. toolbar) now comes from the
+       row/col-12 col-lg-4 / col-lg-8 markup in SmartGrid.jsx — this
+       rule only owns padding + the hairline underneath. */
+    padding: 1.4rem 1.6rem 1.15rem;
+    border-bottom: 1px solid var(--etc-line);
+  }
+  
+  .etc-heading {
+    min-width: 0;
+  }
+  
+  .etc-title {
+    margin: 0 0 0.25rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--etc-ink);
+  }
+  
+  .etc-description {
+    margin: 0;
+    font-size: 0.88rem;
+    color: var(--etc-muted);
+  }
+  
+  /* .etc-toolbar {
+    /* No layout rules here anymore — col-12 col-lg-8 on the wrapping
+       div in SmartGrid.jsx handles width/stacking. 
+  }
+   */
+  /* ---------------------------------------------------------------- */
+  /* Search                                                             */
+  /* ---------------------------------------------------------------- */
+  
+  .etc-search-wrap {
+    /* No longer a Bootstrap column — sized directly here so it stops
+       eating half the toolbar's width on desktop, freeing room for the
+       Refresh/filter buttons to sit on the same line. Full width on
+       phones/tablets (stacked above the buttons), fixed compact width
+       from the lg breakpoint up (matches SmartGrid.jsx's col-lg switch
+       on .etc-toolbar). */
+    position: relative;
+    width: 100%;
+  }
+  
+  @media (min-width: 992px) {
+    .etc-search-wrap {
+      width: 260px;
+      flex: 0 0 auto;
+    }
+  }
+  
+  .etc-search-icon-btn {
+    position: absolute;
+    left: 0.15rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 2.25rem;
+    height: 2.25rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    border-radius: 999px;
+    color: var(--etc-muted);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: color 0.15s ease;
+  }
+  
+  .etc-search-icon-btn:hover {
+    color: var(--etc-primary);
+  }
+  
+  .etc-search-icon-btn:focus-visible {
+    outline: 2px solid var(--etc-primary);
+    outline-offset: 2px;
+  }
+  
+  .etc-search-input {
+    width: 100%;
+    padding: 0.62rem 4.6rem 0.62rem 2.35rem;
+    font-size: 0.9rem;
+    color: var(--etc-ink);
+    background: #ffffff;
+    border: 1px solid var(--etc-line);
+    border-radius: 8px;
+    transition: border-color 0.15s ease;
+  }
+  
+  .etc-search-input::placeholder {
+    color: var(--etc-muted);
+  }
+  
+  .etc-search-input:focus {
+    outline: none;
+    border-color: var(--etc-primary);
+  }
+  
+  /* ---- Go button, docked inside the right edge of the input ---- */
+  
+  .etc-search-go-btn {
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    bottom: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 0.9rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--etc-primary-contrast);
+    background: var(--etc-primary-gradient, linear-gradient(135deg, var(--etc-primary), color-mix(in srgb, var(--etc-primary) 75%, #14043a)));
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: filter 0.15s ease, transform 0.05s ease;
+  }
+  
+  .etc-search-go-btn:hover {
+    filter: brightness(0.9);
+  }
+  
+  .etc-search-go-btn:active {
+    transform: translateY(1px);
+  }
+  
+  .etc-search-go-btn:focus-visible {
+    outline: 2px solid var(--etc-primary);
+    outline-offset: 2px;
+  }
+  
+  /* ---------------------------------------------------------------- */
+  /* Buttons                                                            */
+  /* ---------------------------------------------------------------- */
+  
+  .etc-btn-group {
+    /* display/wrap now come from the `d-flex flex-wrap` utility classes
+       on the div in SmartGrid.jsx — this just keeps the gap between
+       buttons. */
+    gap: 0.4rem;
+  }
+  
+  .etc-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 0.58rem 0.95rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--etc-body);
+    background: #ffffff;
+    border: 1px solid var(--etc-line);
+    border-radius: 8px;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color 0.15s ease, border-color 0.15s ease,
+      color 0.15s ease, transform 0.05s ease, filter 0.15s ease;
+  }
+  
+  .etc-btn:hover {
+    background: var(--etc-surface);
+    border-color: #ccd2dc;
+    color: var(--etc-ink);
+  }
+  
+  .etc-btn:active {
+    transform: translateY(1px);
+  }
+  
+  .etc-btn:focus-visible {
+    outline: 2px solid var(--etc-primary);
+    outline-offset: 2px;
+  }
+  
+  .etc-btn-icon {
+    width: 2.25rem;
+    height: 2.25rem;
+    padding: 0;
+    border-radius: 8px;
+  }
+  
+  .etc-btn-icon i {
+    transition: transform 0.35s ease;
+  }
+  
+  .etc-btn-icon:active i {
+    transform: rotate(180deg);
+  }
+  
+  /* Variant modifiers — same vocabulary as schema.js profileActions
+     (outline-success, outline-warning, outline-danger, dark/primary) so
+     a button looks the same whether it's built-in or schema-driven. */
+  
+  .etc-btn-primary {
+    background: var(--etc-primary);
+    border-color: var(--etc-primary);
+    color: var(--etc-primary-contrast);
+  }
+  
+  /* .etc-btn-primary:hover {
+    filter: brightness(0.9);
+    color: var(--etc-primary-contrast);
+  } */
+  
+  .etc-btn-success {
+    background: #ecfdf5;
+    border-color: var(--etc-success);
+    color: var(--etc-success);
+  }
+  
+  .etc-btn-success:hover {
+    background: var(--etc-success);
+    color: #ffffff;
+  }
+  
+  .etc-btn-warning {
+    background: #fffbeb;
+    border-color: var(--etc-warning);
+    color: var(--etc-warning);
+  }
+  
+  .etc-btn-warning:hover {
+    background: var(--etc-warning);
+    color: #ffffff;
+  }
+  
+  .etc-btn-danger {
+    background: #fef2f2;
+    border-color: var(--etc-danger);
+    color: var(--etc-danger);
+  }
+  
+  .etc-btn-danger:hover {
+    background: var(--etc-danger);
+    color: #ffffff;
+  }
+  
+  .etc-btn-sm {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.8rem;
+    border-radius: 7px;
+  }
+  
+  /* ---------------------------------------------------------------- */
+  /* Table                                                              */
+  /* ---------------------------------------------------------------- */
+  
+  .etc-body {
+    padding: 1.2rem 1.6rem 1.5rem;
+  }
+  
+  .etc-table-wrap {
+    border: 1px solid var(--etc-line);
+    border-radius: var(--etc-radius);
+    overflow: hidden;
+  }
+  
+  .etc-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 0.9rem;
+    font-variant-numeric: tabular-nums;
+  }
+  
+  .etc-table thead th {
+    background-color: var(--etc-surface);
+    border-bottom: 1px solid var(--etc-line);
+    padding: 0.75rem 1.15rem;
+    text-align: left;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--etc-body);
+    white-space: nowrap;
+  }
+  
+  .etc-th-right {
+    text-align: right !important;
+  }
+  
+  .etc-table tbody td {
+    padding: 0.85rem 1.15rem;
+    color: var(--etc-body);
+    vertical-align: middle;
+    box-shadow: inset 3px 0 0 transparent;
+    transition: box-shadow 0.15s ease, background-color 0.12s ease;
+  }
+  
+  .etc-table tbody td:first-child {
+    color: var(--etc-ink);
+    font-weight: 600;
+  }
+  
+  .etc-table .etc-row {
+    border-top: 1px solid var(--etc-line);
+    transition: background-color 0.12s ease;
+  }
+  
+  .etc-table .etc-row:first-child {
+    border-top: none;
+  }
+  
+  .etc-table .etc-row:hover td {
+    background-color: var(--etc-surface);
+  }
+  
+  .etc-table .etc-row:hover td:first-child {
+    box-shadow: inset 3px 0 0 var(--etc-primary);
+  }
+  
+  .etc-table .etc-tfoot-row td {
+    padding: 0.8rem 1.15rem;
+    background-color: var(--etc-surface);
+    border-top: 2px solid var(--etc-line);
+    font-weight: 700;
+    color: var(--etc-ink);
+  }
+  
+  /* ---- States: loading / error / empty ---- */
+  
+  .etc-state {
+    padding: 3rem 1rem;
+    text-align: center;
+    font-size: 0.9rem;
+  }
+  
+  .etc-state-loading {
+    color: var(--etc-body);
+  }
+  
+  .etc-state-error {
+    color: var(--etc-danger);
+  }
+  
+  .etc-state-empty {
+    color: var(--etc-muted);
+  }
+  
+  .etc-spinner {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-right: 0.4rem;
+    vertical-align: -2px;
+    border: 2px solid var(--etc-line);
+    border-top-color: var(--etc-primary);
+    border-radius: 50%;
+    animation: etc-spin 0.7s linear infinite;
+  }
+  
+  @keyframes etc-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  /* ---------------------------------------------------------------- */
+  /* Pagination                                                         */
+  /* ---------------------------------------------------------------- */
+  
+  .etc-pagination-wrap {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+  }
+  
+  /* Disabled pager buttons — reuses your existing .medium_btn/.border_set look */
+  .disabled {
+    opacity: 0.4;
+    pointer-events: none;
+  }
+  
+  /* ---------------------------------------------------------------- */
+  /* Badges (kept for EntityRowOptions / status columns)                */
+  /* ---------------------------------------------------------------- */
+  
+  .etc-subtitle {
+    font-size: 0.8rem;
+    color: var(--etc-muted);
+  }
+  
+  .etc-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.32rem 0.75rem;
+    font-weight: 600;
+    font-size: 0.78rem;
+    border-radius: 999px;
+  }
+  
+  .etc-badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  
+  .etc-badge-green {
+    background-color: #ecfdf5;
+    color: #047857;
+  }
+  .etc-badge-red {
+    background-color: #fef2f2;
+    color: #b91c1c;
+  }
+  .etc-badge-amber {
+    background-color: #fffbeb;
+    color: #b45309;
+  }
+  .etc-badge-slate {
+    background-color: #f1f5f9;
+    color: #475569;
+  }
+  
+  .etc-badge-dot-green {
+    background-color: #10b981;
+  }
+  .etc-badge-dot-red {
+    background-color: #ef4444;
+  }
+  .etc-badge-dot-amber {
+    background-color: #f59e0b;
+  }
+  .etc-badge-dot-slate {
+    background-color: #94a3b8;
+  }
+  
+  /* ---------------------------------------------------------------- */
+  /* Responsive                                                         */
+  /* ---------------------------------------------------------------- */
+  
+  @media (max-width: 640px) {
+    .etc-header {
+      padding: 1.1rem 1.1rem 0.9rem;
+    }
+  
+    .etc-body {
+      padding: 1rem 1.1rem 1.25rem;
+    }
+  
+    /* .etc-btn-group .etc-btn:not(.etc-btn-icon) {
+      flex: 1 1 auto;
+    }
+   */
+    /* ---- Stacked "card" table for phones ---- */
+    .etc-table-wrap {
+      border: none;
+      overflow: visible;
+    }
+  
+    .etc-table,
+    .etc-table tbody,
+    .etc-table tr,
+    .etc-table td {
+      display: block;
+      width: 100%;
+    }
+  
+    .etc-table thead {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+    }
+  
+    /* .etc-row / .etc-tfoot-row are also used, unscoped, by the LIVE
+       .etc-table-data structure in datamanager.css — without the
+       .etc-table-wrap ancestor prefix here, these rules leak onto that
+       live table too (that's what was cramming the footer cells into
+       little stacked boxes while the data rows above stayed in normal
+       horizontal-scroll layout). Every selector below is deliberately
+       scoped to .etc-table-wrap so this file's card-stacking behavior
+       stays contained to ITS OWN table markup only. */
+    .etc-table-wrap .etc-row {
+      border: 1px solid var(--etc-line);
+      border-radius: 10px;
+      margin-bottom: 0.75rem;
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+    }
+  
+    .etc-table-wrap .etc-row:hover td:first-child {
+      box-shadow: none;
+    }
+  
+    .etc-table tbody td {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      text-align: right;
+      padding: 0.65rem 0.9rem;
+      border-top: 1px solid var(--etc-line);
+    }
+  
+    .etc-table tbody td:first-child {
+      border-top: none;
+    }
+  
+    .etc-table tbody td::before {
+      content: attr(data-label);
+      flex: 0 0 auto;
+      margin-right: auto;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--etc-muted);
+      text-align: left;
+    }
+  
+    .etc-th-right {
+      text-align: right !important;
+    }
+  
+    .etc-table tfoot {
+      display: block;
+    }
+  
+    .etc-table-wrap .etc-tfoot-row {
+      display: block;
+      border: 1px solid var(--etc-line);
+      border-radius: 10px;
+      margin-top: 0.25rem;
+    }
+  
+    .etc-table-wrap .etc-tfoot-row td {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      min-height: 2.2rem;
+      padding: 0.65rem 0.9rem;
+      border-top: 1px solid var(--etc-line);
+    }
+  
+    .etc-table-wrap .etc-tfoot-row td:first-child {
+      border-top: none;
+    }
+  
+    .etc-pagination-wrap {
+      justify-content: center;
+    }
+  
+    .etc-search-go-btn {
+      font-size: 0.72rem;
+      padding: 0 0.7rem;
+    }
+  }
+/* ---------------------------------------------------------------- */
+/* Reference-match refinements — rounded pill toolbar on mobile      */
+/* (search bar, Refresh / primary CTA row, Print List / Export pair) */
+/* ---------------------------------------------------------------- */
+
+.etc-btn-row {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.etc-quick-actions {
+  display: flex;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.etc-btn-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform 0.05s ease, filter 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.etc-btn-pill:active {
+  transform: translateY(1px);
+}
+
+.etc-btn-pill:focus-visible {
+  outline: 2px solid var(--etc-primary);
+  outline-offset: 2px;
+}
+
+/* "Print List" — purple outline pill, purple icon + text */
+.etc-btn-pill-primary {
+  background: #ffffff;
+  border-color: var(--etc-primary);
+  color: var(--etc-primary);
+}
+
+.etc-btn-pill-primary:hover {
+  background: color-mix(in srgb, var(--etc-primary) 8%, #ffffff);
+}
+
+/* "Export to Excel" — neutral outline pill, green excel icon, dark text */
+.etc-btn-pill-success {
+  background: #ffffff;
+  border-color: var(--etc-line);
+  color: var(--etc-ink);
+}
+
+.etc-btn-pill-success i {
+  color: #1d8a3e;
+}
+
+.etc-btn-pill-success:hover {
+  border-color: #1d8a3e;
+}
+
+@media (max-width: 640px) {
+  /* Rounded, shadowed search bar with pill "Go" button — matches the
+     reference's floating search field instead of the flatter desktop one. */
+  .etc-search-input {
+    border-radius: 14px;
+    padding: 0.85rem 4.8rem 0.85rem 3rem;
+    font-size: 0.95rem;
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.05);
+  }
+
+  .etc-search-icon-btn {
+    left: 0.5rem;
+    width: 2rem;
+    height: 2rem;
+    font-size: 0.95rem;
+  }
+
+  .etc-search-go-btn {
+    right: 0.35rem;
+    top: 0.35rem;
+    bottom: 0.35rem;
+    padding: 0 1.1rem;
+    border-radius: 10px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    background: var(--etc-primary-gradient, linear-gradient(135deg, var(--etc-primary), color-mix(in srgb, var(--etc-primary) 75%, #14043a)));
+  }
+
+  /* Refresh + primary CTA (e.g. "Upload new build") sit side by side,
+     each a rounded, shadowed pill-ish button — not stacked. */
+  /* .etc-btn-group {
+    flex-wrap: nowrap;
+    gap: 0.7rem;
+  }
+
+  .etc-btn-group .etc-btn {
+    flex: 1 1 0;
+    padding: 0.85rem 0.8rem;
+    border-radius: 14px;
+    font-size: 0.85rem;
+    box-shadow: 0 6px 16px rgba(15, 23, 42, 0.05);
+  } */
+
+  .etc-btn-group {
+    display: flex;
+    gap: 0.7rem;
+  }
+  
+  .etc-btn-group .etc-btn {
+    flex: 1 1 0;
+    min-width: 0; /* lets the button shrink below its text's natural width instead of forcing the row wider than the card */
+    border-radius: 8px;
+    font-size: 0.85rem;
+    box-shadow: 0 6px 16px rgba(15, 23, 42, 0.05);
+  }
+
+
+  .etc-btn-group .etc-btn-primary {
+    background: var(--etc-primary-gradient, linear-gradient(135deg, var(--etc-primary), color-mix(in srgb, var(--etc-primary) 70%, #14043a)));
+    border-color: transparent;
+    color: var(--etc-primary-contrast);
+    /* box-shadow: 0 10px 22px color-mix(in srgb, var(--etc-primary) 35%, transparent); */
+  }
+
+  /* Print List / Export to Excel become full-width-split pills instead
+     of left-aligned auto-width badges. */
+  /* .etc-btn-pill {
+    /* flex: 1 1 0; 
+  } */
+
+  /* Refresh now lives inside .etc-btn-group as its first cell, so this
+   is a single 3-up grid covering Refresh + every profileAction —
+   col-4 equivalent. Row 1 fills left-to-right (Refresh, New, first
+   filter), remaining actions wrap to row 2, etc. A partial last row
+   just leaves its unused cell(s) blank — matches how Bootstrap's
+   col-4 grid behaves, no stretching logic needed. */
+.etc-btn-group.etc-btn-group--grid,
+.etc-btn-row.etc-btn-row--grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+
+.etc-btn-group.etc-btn-group--grid .etc-btn,
+.etc-btn-row.etc-btn-row--grid .etc-btn {
+  flex: none;       /* grid owns sizing, not flex-grow */
+  min-width: 0;       /* long labels ("Filter by status") shrink/wrap instead of forcing the column wider */
+  margin: 0;       /* Refresh's old mr-2 no longer applies once it's a grid cell */
+  justify-content: center;
+}
+
+  /* Schema.actions row — sits below Refresh/primary, buttons wrap
+     side by side at their own content width instead of stretching. */
+  .etc-btn-row {
+    flex: 1 1 100%;
+    order: 3;
+    margin-top: 0.6rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .etc-btn-row .etc-btn {
+    flex: 0 1 auto;
+    width: auto;
+    padding: 0.55rem 0.85rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    box-shadow: none;
+  }
+}
+

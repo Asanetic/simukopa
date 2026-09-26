@@ -1,0 +1,11 @@
+plan_name,device_model_group,deposit_amount,repayment_frequency,installment_amount,duration_count
+Daily 50 Basic,Android - Entry Level,3000,DAILY,50,6
+Daily 70 Standard,Android - Standard,5000,DAILY,70,8
+Daily 100 Plus,Android - Mid Range,6000,DAILY,100,8
+Daily 120 Pro,Android - Upper Mid Range,8000,DAILY,120,9
+Weekly 700 Basic,Android - Entry Level,4000,WEEKLY,700,6
+Weekly 1000 Standard,Android - Standard,6000,WEEKLY,1000,8
+Weekly 1500 Plus,Android - Mid Range,8000,WEEKLY,1500,8
+Monthly 2500 Standard,Android - Standard,7000,MONTHLY,2500,6
+Monthly 3500 Pro,Android - Upper Mid Range,10000,MONTHLY,3500,8
+Monthly 5000 Premium,Android - Premium,15000,MONTHLY,5000,10
