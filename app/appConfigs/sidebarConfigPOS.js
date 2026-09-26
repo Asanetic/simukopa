@@ -53,22 +53,22 @@ export const sidebarConfig = [
     items: [
       {
         label: "Today's Collections",
-        href: (routes) => `${routes.simukopa}/payments/due`,
+        href: (routes) => `${routes.simukopa}/payments/list`,
         roles: []
       },
       {
         label: "Overdue Customers",
-        href: (routes) => `${routes.simukopa}/payments/overdue`,
+        href: (routes) => `${routes.simukopa}/loanapplications/list?nextBillingDate_below=${btoa(mosyToday(true))}`,
         roles: []
       },
       {
         label: "Devices at Risk",
-        href: (routes) => `${routes.simukopa}/devices/atrisk`,
+        href: (routes) => `${routes.simukopa}loanapplications/list?nextBillingDate_below=${btoa(mosyToday(true))}`,
         roles: []
       },
       {
         label: "Locked Devices",
-        href: (routes) => `${routes.simukopa}/devices/locked`,
+        href: (routes) => `${routes.simukopa}/phones/list?status=${btoa('LOCKED')}`,
         roles: []
       }
     ],

@@ -137,7 +137,7 @@ export const PaymentsSchema = {
     { key: 'loan_id', label: 'Loan Id', type: 'text' },
     { key: 'installment_id', label: 'Installment Id', type: 'text' },
     { key: 'payment_method', label: 'Payment Method', type: 'text' },
-    { key: 'amount', label: 'Amount', type: 'money' },
+    { key: 'amount', label: 'Amount', type: 'money' , sum:true },
     { key: 'currency', label: 'Currency', type: 'groupedSelect',endpoint: moduleApi, groupByField: 'currency' },
     { key: 'transaction_reference', label: 'Ref No.', type: 'text' },
     { key: 'external_reference', label: 'External Reference', type: 'text' },

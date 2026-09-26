@@ -100,7 +100,7 @@ export const SmartpaymentsSchema = {
 
   fieldGroups: [],
   // Field keys shown as columns in list view, in display order.
-  showInList: ['row_count', 'payment_reference', 'request_reference', 'related_module', 'related_record_id', 'receipt_number', 'payer_name', 'payer_phone'],
+  showInList: ['row_count', 'payment_date','payment_reference', 'payer_name', 'amount_paid', 'related_record_id', 'receipt_number', 'payer_name'],
 
   //export columns these columns are used to generate upload csv template file
   exportColumns: ['payment_reference', 'request_reference', 'related_module', 'related_record_id', 'receipt_number', 'payer_name', 'payer_phone'],
