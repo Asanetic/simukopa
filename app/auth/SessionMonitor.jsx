@@ -4,7 +4,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { mosyGetLSData } from '../MosyUtils/hiveUtils';
-import { loadBillingAccountDetails } from '../mosybilling/BillingMonitor';
+import { startBillingMonitor } from '../novabilling/client';
 
 import { hiveRoutes } from '../appConfigs/hiveRoutes';
 
@@ -26,9 +26,10 @@ export default function SessionMonitor({ sessionPrefix = 'sauth'}) {
       window.location.href=redirectURL
     }
 
-
-    //monitor billing
-   // loadBillingAccountDetails()    
+    // Keeps this tenant's NovaBloom subscription status fresh in the
+    // background for the life of the session (see MosyAccessControl.jsx /
+    // MosyUiGuard.jsx for where that status actually gates the UI).
+    return startBillingMonitor();
   }, []);
 
   return null; // This component just checks, doesn't render anything

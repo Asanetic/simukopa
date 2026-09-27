@@ -17,7 +17,7 @@ const saAuthConfigs = {
   emailCol: "email",
   phoneCol: "tel",
   passwordCol: "login_password",
-  sessionColumns : "record_id,tel,name,email,user_role,hive_site_id,hive_site_name",
+  sessionColumns : "record_id,tel,name,email,user_role,hive_site_id,hive_site_name,payment_account",
 
   // Post-login redirect
   afterSplashPage:`${hiveRoutes.simukopa}/devicemap`,

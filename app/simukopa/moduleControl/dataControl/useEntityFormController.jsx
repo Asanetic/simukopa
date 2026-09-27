@@ -6,6 +6,8 @@ import { useFormEngine } from '../UiControl/FormEngine';
 import { MosyAlertCard, MosyNotify, MosySnackWidget, closeMosyModal } from '../../../MosyUtils/ActionModals';
 // UI-only role gate — same convention as CompaniesGrid.jsx/EntityRowActionsMenu.jsx
 import { mosyACTRLHasRole } from '../../../auth/authAccesControl';
+// Same standalone-modal concern as useEntityGridController.jsx — see there.
+import { useBillingGuard } from '../../../novabilling/client';
 import { runRegisteredAction, normalizeActionResult } from '../logicControl/actionsRegistry'; // export normalizeActionResult from EntityDataEngine.js, re-export or import directly — your call
 import { mosySnackWidgetManager } from '../../../MosyUtils/MosySnackWidget';
 import { closeMosyCard } from '../../../components/MosyCard';
@@ -129,6 +131,7 @@ export function useEntityFormController(
   // Page-level gate — DynamicForm.jsx checks this before rendering
   // anything else, same idea as useEntityGridController's accessDenied.
   const accessDenied = schema.moduleRole ? !mosyACTRLHasRole(schema.moduleRole) : false;
+  const billing = useBillingGuard();
 
   // ---- Core create/update, unchanged from before ----
   const handleSubmit = async (values) => {
@@ -403,6 +406,10 @@ export function useEntityFormController(
     fetching,
     fetchError,
     accessDenied,
+    billingBlocked: billing.isBlocked,
+    billingStatus: billing.status,
+    billingPayUrl: billing.payUrl,
+    billingRecheck: billing.recheck,
     submitLabel: isEditing ? 'Save Changes' : 'Proceed',
     schema,
     record,

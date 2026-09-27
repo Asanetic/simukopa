@@ -11,6 +11,8 @@ import mosyThemeConfigs from '../../../appConfigs/mosyTheme';
 // somewhere else relative to this module.
 import { MosyImageViewer } from '../../UiControl/componentControl';
 import { MosyUIGuard } from '../../UiControl/MosyUiGuard';
+import BillingUpgradeBar from '../../../MosyUtils/BillingUpgradeBar';
+import { BillingInlineNotice } from '../../../novabilling/BillingNotice';
 import { magicTrimText } from '../../../MosyUtils/hiveUtils';
 import defaultLogoAsset from '../../../img/logo/logo.png'; // same fallback the legacy ClientsList used — adjust path/asset if this module wants a different one
 import { ActiveFiltersBar } from './Activefiltersbar';
@@ -317,6 +319,17 @@ export default function SmartGrid({
 
   if (g.accessDenied) {
     return <MosyUIGuard moduleName={schema?.label || schema?.entity} reason={`You don't have the "${schema.moduleRole}" role required to view this.`} />;
+  }
+
+  // A grid rendered standalone (e.g. inside a MosyCard modal) never passes
+  // through the page-level MosyUiGuard, so it needs its own billing check.
+  if (g.billingBlocked) {
+    return (
+      <div className="etc-card col-md-12 p-0 m-0">
+        <BillingUpgradeBar isBlocked={g.billingBlocked} payUrl={g.billingPayUrl} onRecheck={g.billingRecheck} />
+        <BillingInlineNotice status={g.billingStatus} onRefresh={g.billingRecheck} />
+      </div>
+    );
   }
 
   return (

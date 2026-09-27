@@ -4,6 +4,8 @@ import { FIELD_COMPONENTS, TextInput } from './FormFields';
 import { FormSection, FieldGroup, formLayoutStyles } from './FormLayout';
 import mosyThemeConfigs from '../../../appConfigs/mosyTheme'; // adjust the relative path to match where DynamicForm sits
 import { MosyUIGuard } from '../../UiControl/MosyUiGuard';
+import BillingUpgradeBar from '../../../MosyUtils/BillingUpgradeBar';
+import { BillingInlineNotice } from '../../../novabilling/BillingNotice';
 
 // Past this many action buttons, the rest collapse into a "More" popover
 // instead of the row growing indefinitely.
@@ -77,6 +79,17 @@ export default function DynamicForm({ controller, title, eyebrow, hiddenActions 
         moduleName={controller.schema?.label || controller.schema?.entity}
         reason={`You don't have the "${controller.schema?.moduleRole}" role required to view this.`}
       />
+    );
+  }
+
+  // Same standalone-modal concern as SmartGrid/SmartGridPro — a form
+  // rendered inside a MosyCard never passes through the page-level guard.
+  if (controller.billingBlocked) {
+    return (
+      <div className="p-0 m-0">
+        <BillingUpgradeBar isBlocked={controller.billingBlocked} payUrl={controller.billingPayUrl} onRecheck={controller.billingRecheck} />
+        <BillingInlineNotice status={controller.billingStatus} onRefresh={controller.billingRecheck} />
+      </div>
     );
   }
 

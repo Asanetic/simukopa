@@ -1,4 +1,4 @@
-import { mosyFlexSelect , mmres , base64Encode, mosySecureSelect } from '../../apiUtils/dataControl/dataUtils';
+import { mosyFlexSelect , mmres , base64Encode, mosySecureSelect, mosySqlUpdate, magicRandomStr } from '../../apiUtils/dataControl/dataUtils';
 import saAuthConfigs from '../../../auth/featureConfig/saAuthConfigs';
 import { generateAuthToken } from '../authManager';
 
@@ -55,6 +55,26 @@ export async function POST(loginAuth) {
       }
 
       console.log(`loginresult`, result)
+      // First login for a site with no payment_account: generate one and share it
+      // with every user of that site, then use it for the billing account.
+      const siteId = result.data[0].hive_site_id;
+      if (siteId && !result.data[0].payment_account) {
+        const safeSiteId = mmres(String(siteId));
+        // only fills rows still empty, so a concurrent login can't overwrite it
+        await mosySqlUpdate(
+          oauthTable,
+          { payment_account: magicRandomStr(12) },
+          {},
+          `hive_site_id='${safeSiteId}' AND (payment_account IS NULL OR payment_account='')`
+        );
+        const refreshed = await mosyFlexSelect({
+          tbl: oauthTable,
+          colstr: base64Encode('payment_account'),
+          q: base64Encode(`WHERE hive_site_id='${safeSiteId}' AND payment_account<>'' LIMIT 1`),
+        });
+        result.data[0].payment_account = refreshed?.data?.[0]?.payment_account ?? null;
+      }
+
       const userRolesQuery = await mosySecureSelect({batchMutations:{},dictionary:{roleId:`role_id`,bundleId:`bundle_id`},table:'user_bundle_role_functions',searchParams:{bundleId: btoa(result.data[0].user_role)}}) 
       
       const userData = { ...result.data[0], userRoles: userRolesQuery.data };

@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react';
 
 import { mosyGetData, mosyGetLSData, mosyPostData, mosySetLSData } from "../MosyUtils/hiveUtils";
 
-import saAuthConfigs from '../auth/featureConfig/saAuthConfigs'; 
+import saAuthConfigs from '../auth/featureConfig/saAuthConfigs';
+import { useBillingGuard } from '../novabilling/client';
 
 export async function loadBillingAccountDetails(trxData={})
 {
@@ -75,15 +76,10 @@ export function PollUserTransactions({
     poll();
   }
   
-// ✅ Rename and treat like a hook
+// Compatibility shim: callers still expect "Active" vs anything else, but
+// the answer now comes from NovaBloom (novabilling/) instead of EmberBill.
+// Delete this file once those call sites use useBillingGuard directly.
 export function useBillingAccountStatus() {
-  const [activeStatus, setActiveStatus] = useState(null);
-
-  useEffect(() => {
-    const status = mosyGetLSData("emberBillStatus");
-    setActiveStatus(status);
-  }, []);
-
-  return "Active";//activeStatus;
-  //return activeStatus;
+  const { isBlocked } = useBillingGuard();
+  return isBlocked ? "Blocked" : "Active";
 }

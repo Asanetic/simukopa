@@ -2,21 +2,19 @@
 
 import AccessDenied from "./MosyAccessDenied";
 import { mosyACTRLHasRole } from "../../auth/authAccesControl";
-
+import { novaBillingGate } from "../../novabilling/client";
 
 export function MosyAccessControl(role) {
     if (typeof window === "undefined") {
         return null;
     }
 
-    const allowed = mosyACTRLHasRole(role, false);
+    const roleAllowed = mosyACTRLHasRole(role, false);
 
-    console.info("Access request for:", role , allowed);
+    console.info("Access request for:", role , roleAllowed);
 
-    if (!allowed) {
-        console.warn("Access denied for:", role);
-        return false;//<AccessDenied />;
-    }
-
-    return true;
-} 
+    // Role first, then billing; true = let in, false = deny (and records why
+    // so MosyUiGuard's NovaBillingGuard can show "Access Denied" or the
+    // payment notice accordingly).
+    return novaBillingGate(roleAllowed);
+}

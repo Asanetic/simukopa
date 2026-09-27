@@ -8,6 +8,10 @@ import { MosyNotify } from '../../../MosyUtils/ActionModals';
 // UI-only page-level gate — same convention as the per-action role checks
 // in CompaniesGrid.jsx/useEntityFormController.jsx/EntityRowActionsMenu.jsx
 import { mosyACTRLHasRole } from '../../../auth/authAccesControl';
+// Platform subscription gate — a grid rendered standalone (e.g. inside a
+// MosyCard modal) never passes through the page-level MosyUiGuard, so it
+// needs its own billing check, same insertion point as accessDenied below.
+import { useBillingGuard } from '../../../novabilling/client';
 // Same URL-driven filter engine the legacy lists used — lives in this
 // same folder (DataControl/dataControl — same folder, inconsistent
 // casing across the codebase, harmless on Windows/XAMPP).
@@ -106,6 +110,7 @@ export function useEntityGridController(
   // Page-level gate — no moduleRole on the schema means open to anyone,
   // same additive convention as every other role/flag.
   const accessDenied = schema.moduleRole ? !mosyACTRLHasRole(schema.moduleRole) : false;
+  const billing = useBillingGuard();
 
   const visibleFields = useMemo(() => {
     const fieldsByKey = Object.fromEntries(schema.fields.map((f) => [f.key, f]));
@@ -410,6 +415,10 @@ export function useEntityGridController(
           // everything useEntityController gives.
 
     accessDenied,
+    billingBlocked: billing.isBlocked,
+    billingStatus: billing.status,
+    billingPayUrl: billing.payUrl,
+    billingRecheck: billing.recheck,
 
     // Resolved display values
     title: resolvedTitle,

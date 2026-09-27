@@ -146,9 +146,10 @@ export async function POST(MyaccountRequest) {
     "user_gender" : "?", 
     "last_seen" : "?", 
     "about" : "?", 
-    "hive_site_id" : "?", 
-    "hive_site_name" : "?", 
-    "auth_token" : "?", 
+    "hive_site_id" : "?",
+    "hive_site_name" : "?",
+    "payment_account" : "?",
+    "auth_token" : "?",
     "token_status" : "?", 
     "token_expiring_in" : "?", 
 
@@ -163,7 +164,11 @@ export async function POST(MyaccountRequest) {
     {
       
       mutatedDataArray.record_id = newId;
-      
+      // NovaBloom billing account id for this tenant — separate from
+      // record_id/hive_site_id so one business could later hold more than
+      // one site under a single billed account (see api/novabilling/config.js).
+      mutatedDataArray.payment_account = magicRandomStr(9);
+
       // Insert into table Myaccount
       const result = await AddMyaccount(newId, mutatedDataArray, body, authData);     
 

@@ -5,6 +5,8 @@ import EntityRowOptions from './Entityrowoptions';
 import mosyThemeConfigs from '../../../appConfigs/mosyTheme';
 import { MosyImageViewer } from '../../UiControl/componentControl';
 import { MosyUIGuard } from '../../UiControl/MosyUiGuard';
+import BillingUpgradeBar from '../../../MosyUtils/BillingUpgradeBar';
+import { BillingInlineNotice } from '../../../novabilling/BillingNotice';
 import { magicTrimText } from '../../../MosyUtils/hiveUtils';
 import defaultLogoAsset from '../../../img/logo/logo.png';
 import { ActiveFiltersBar } from './Activefiltersbar';
@@ -309,6 +311,17 @@ export default function SmartGridPro({
 
   if (g.accessDenied) {
     return <MosyUIGuard moduleName={schema?.label || schema?.entity} reason={`You don't have the "${schema.moduleRole}" role required to view this.`} />;
+  }
+
+  // A grid rendered standalone (e.g. inside a MosyCard modal) never passes
+  // through the page-level MosyUiGuard, so it needs its own billing check.
+  if (g.billingBlocked) {
+    return (
+      <div className="sgp-card col-md-12 p-0 m-0">
+        <BillingUpgradeBar isBlocked={g.billingBlocked} payUrl={g.billingPayUrl} onRecheck={g.billingRecheck} />
+        <BillingInlineNotice status={g.billingStatus} onRefresh={g.billingRecheck} />
+      </div>
+    );
   }
 
   // "Showing 1 to 10 of 1,271 entries" — uses a total if the hook exposes one.
