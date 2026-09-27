@@ -20,6 +20,7 @@ import { openSmartMapFilter, openSmartTagFilter } from "../../moduleControl/UiCo
 import { ClientsSchema } from "../../clients/ClientsSchema";
 import { MosyCard } from "../../../components/MosyCard";
 import { openUpdateLocationModal } from "../uiControl/UpdateLocationModal";
+import { parseDeviceLocation } from "./locationUtils";
 
 const PhonesActions = {
   // Bound by gridOptions.checkFunction in schema.js. Fires with every row
@@ -101,11 +102,16 @@ const PhonesActions = {
   // here.
   trace: ({ rows }) => {
     const row = rows?.[0];
-    const location = row?.location;
-    if (!location) {
+    const rawLocation = row?.location;
+    if (!rawLocation) {
       alert('No location has been recorded for this device yet.');
       return;
     }
+    // parseDeviceLocation handles the "lng,lat" canonical order vs a
+    // free-text address — see locationUtils.js for why magnitude-only
+    // ordering is unsafe (Nairobi's ~36.8 longitude looks like a valid lat).
+    const coords = parseDeviceLocation(rawLocation);
+    const location = coords ? `${coords.lat},${coords.lng}` : rawLocation;
     const src = `https://maps.google.com/maps?q=${encodeURIComponent(location)}&z=15&output=embed`;
     MosyCard(
       `Device Location — ${row.brand_name || ''} ${row.model_name || ''}`,

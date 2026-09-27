@@ -63,7 +63,7 @@ export default function DeviceSelector({ selected, onSelect, onBack }) {
         <div style={{ fontWeight: 700 }}>Step 2 — Select Device</div>
         <div className="d-flex" style={{ gap: 8 }}>
           {onBack ? <button className="btn btn-outline-secondary btn-sm" onClick={onBack}>Back</button> : null}
-          <button className="btn btn-outline-primary btn-sm" onClick={handleNewDevice}>+ New Device</button>
+          <button className="d-none btn btn-outline-primary btn-sm" onClick={handleNewDevice}>+ New Device</button>
         </div>
       </div>
       <input

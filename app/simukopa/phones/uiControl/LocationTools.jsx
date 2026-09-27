@@ -16,10 +16,12 @@ import { useEffect, useRef, useState } from 'react';
 //     always overwrites whatever is currently in the field and shows
 //     success/error feedback.
 //
-// Stores "lat,lng" (no reverse-geocoding/API key needed) — Phones'
-// `trace` profileAction action (logicControl/actionsRegistry.js) feeds
-// that straight into Google Maps' no-key embed URL as the `q` param,
-// which accepts either an address string or raw coordinates.
+// Stores "lng,lat" (no reverse-geocoding/API key needed) — same order as
+// the `location` field's label and as device trackers write it. Phones'
+// `trace` profileAction action (logicControl/actionsRegistry.js) reorders
+// whichever pair it's handed (lng,lat here, or lat,lng/lat|lng from other
+// sources) into "lat,lng" before feeding Google Maps' no-key embed URL's
+// `q` param, which accepts either an address string or raw coordinates.
 export default function LocationTools({ values, setValue }) {
   const [status, setStatus] = useState('');
   const [busy, setBusy] = useState(false);
@@ -35,7 +37,7 @@ export default function LocationTools({ values, setValue }) {
     navigator.geolocation.getCurrentPosition(
       (pos) => {
         const { latitude, longitude } = pos.coords;
-        setValue('location', `${latitude.toFixed(6)},${longitude.toFixed(6)}`);
+        setValue('location', `${longitude.toFixed(6)},${latitude.toFixed(6)}`);
         setBusy(false);
         setStatus(auto ? '' : 'Location detected.');
       },

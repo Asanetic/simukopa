@@ -82,9 +82,10 @@ export const PhonesSchema = {
     { key: 'save', label: 'Save', icon: 'save', variant: 'primary', grid: false, form: true, rowAction: false },
     { key: 'delete', label: 'Delete', icon: 'trash', variant: 'outline-danger', confirm: 'Are you sure you want to delete this phone?', editOnly: true, grid: false, form: true, rowAction: true, role: 'manage_phones' },
     { key: 'view', label: 'View more', icon: 'edit', rowAction: true },
-    { key: 'update_status', label: 'Update Status', icon: 'refresh', rowAction: true, role: 'manage_phones' },
-    { key: 'update_location', label: 'Update Location', icon: 'map-pin', rowAction: true, form: true, role: 'manage_phones' },
-    { key: 'control_device', label: 'Control Device', icon: 'lock', rowAction: true, form: true, role: 'manage_phones' },
+
+    { key: 'update_status', label: 'Update Status', icon: 'refresh', rowAction: true, role: 'manage_phones', editOnly: true },
+    { key: 'update_location', label: 'Update Location', icon: 'map-pin', rowAction: true, form: true, role: 'manage_phones', editOnly: true },
+    { key: 'control_device', label: 'Control Device', icon: 'lock', rowAction: true, form: true, role: 'manage_phones', editOnly: true },
     { key: 'new', label: 'New Phone', icon: 'plus', variant: 'outline-primary', navigateTo: '/simukopa/phones/profile', grid: true, form: false, rowAction: false },
     { key: 'clone', label: 'Clone Record', icon: 'copy', variant: 'outline-secondary', editOnly: true, grid: false, form: true, rowAction: false, role: 'manage_phones' },
     //{ key: 'filterByDate', label: 'Filter by date', icon: 'calendar', variant: 'outline-primary', type: 'action', grid: true, form: false, rowAction: false },
@@ -122,7 +123,7 @@ export const PhonesSchema = {
   showInList: ['row_count', 'brand_name', 'model_name', 'imei_1', 'imei_2', 'serial_number', 'purchase_price', 'installment_price', 'status', 'lock_status', 'selling_price','client_name', 'loan_ref' ],
 
   //export columns these columns are used to generate upload csv template file
-  exportColumns: ['photo', 'brand_name', 'model_name', 'imei_1', 'imei_2', 'serial_number', 'phone_number', 'purchase_price'],
+  exportColumns: ['brand_name', 'model_name', 'imei_1', 'imei_2', 'serial_number', 'phone_number','purchase_price', 'installment_price', 'status', 'lock_status', 'selling_price','location'],
 
   sections: [
     { key: 'basic_information', label: 'Basic Information', columns: 3, fields: ['photo', 'model_name', 'brand_name','imei_1', 'imei_2', 'serial_number','purchase_price', 'installment_price', 'selling_price' ] },
@@ -143,19 +144,19 @@ export const PhonesSchema = {
     { key: 'serial_number', label: 'Serial Number', type: 'text' },
     { key: 'phone_number', label: 'Phone Number', type: 'text' },
     { key: 'purchase_price', label: 'Purchase Price', type: 'money' , sum: true},
-    { key: 'status', label: 'Status', type: 'groupedSelect', endpoint: moduleApi, groupByField: 'status' },
+    { key: 'status', label: 'Status', type: 'select', options: ['active', 'inactive','allocated','available'] },
     // Set only via the "Control Device" action (logicControl/actionsRegistry.js) — never hand-typed.
     { key: 'lock_status', label: 'Lock Status', type: 'select', options: ['unlocked', 'locked'], editable: false },
     { key: 'condition_status', label: 'Condition Status', type: 'text' },
-    { key: 'location', label: 'Location', type: 'text' },
+    { key: 'location', label: 'Location (lng, lat)', type: 'text' },
     // liveSearch picker (basic_information section) + its cached display
     // name (client_name/loan_ref, used in showInList) — both come from
     // globalRelations via resolveField, same convention imsv2 uses.
     // Usually set programmatically by the loan-allocation wizard, but
     // resolveField's liveSearch input has no readOnly/lock option, so this
     // now doubles as a manual reassignment picker if ever needed.
-    ...resolveField('assigned_client_id', { as: 'client_name' }),
-    ...resolveField('assigned_loan_id', { as: 'loan_ref' }, { label: 'Loan Ref' }),
+    ...resolveField('assigned_client_id', { as: 'client_name', editOnly:true }),
+    ...resolveField('assigned_loan_id', { as: 'loan_ref' ,  label: 'Loan Ref', editOnly:true }),
     { key: 'received_date', label: 'Received Date', type: 'datetime' },
     { key: 'allocated_date', label: 'Allocated Date', type: 'datetime', editable: false },
     { key: 'notes', label: 'Notes', type: 'textarea', colSpan: 12 },

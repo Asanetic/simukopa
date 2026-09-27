@@ -13,11 +13,12 @@ export default function CustomerSelector({ selected, onSelect }) {
 
   async function search(q) {
     setQuery(q);
-    if (!q.trim()) { setResults([]); return; }
     setLoading(true);
+    const params = { pageSize: 8 };
+    if (q.trim()) params.searchAny = btoa(q);
     const res = await mosyGetData({
       endpoint: apiRoutes.clients.base,
-      params: { searchAny: btoa(q), pageSize: 8 },
+      params,
     });
     setResults(res?.status === 'success' ? res.data || [] : []);
     setLoading(false);
@@ -43,6 +44,7 @@ export default function CustomerSelector({ selected, onSelect }) {
         placeholder="Search by name, phone number or ID number"
         value={query}
         onChange={(e) => search(e.target.value)}
+        onFocus={() => { if (!results.length) search(''); }}
       />
       {loading ? <div className="text-muted small">Searching...</div> : null}
       <div className="d-flex flex-column" style={{ gap: 8 }}>
@@ -52,7 +54,7 @@ export default function CustomerSelector({ selected, onSelect }) {
             <div className="text-muted small">{c.phone_number}{c.id_number ? ` · ID: ${c.id_number}` : ''}</div>
           </button>
         ))}
-        {!loading && query && results.length === 0 ? <div className="text-muted small">No customers found.</div> : null}
+        {!loading && results.length === 0 ? <div className="text-muted small">No customers found.</div> : null}
       </div>
     </div>
   );

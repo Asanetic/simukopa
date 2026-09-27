@@ -47,6 +47,13 @@ export const sidebarConfig = [
     href: (routes) => `${routes.simukopa}/loanallocation`,
     roles: []
   },
+  {
+    type: "link",
+    label: "Device map",
+    icon: "fa fa-map-marker",
+    href: (routes) => `${routes.simukopa}/devicemap`,
+    roles: []
+  },
 
   // =========================================================
   // TODAY / ACTION CENTER
@@ -157,6 +164,11 @@ export const sidebarConfig = [
         roles: []
       },
       {
+        label: "Device Map",
+        href: (routes) => `${routes.simukopa}/devicemap`,
+        roles: []
+      },
+      {
         label: "Locked Devices",
         href: (routes) => `${routes.simukopa}/phones/list?status=${btoa('LOCKED')}`,
         roles: []
@@ -213,24 +225,24 @@ export const sidebarConfig = [
   // PAYMENT PLANS
   // =========================================================
 
-  {
-    type: "submenu",
-    label: "Payment Plans",
-    icon: "fa fa-calendar",
-    roles: [],
-    items: [
-      {
-        label: "Plans",
-        href: (routes) => `${routes.simukopa}/loanplans/list`,
-        roles: []
-      },
-      {
-        label: "Create Plan",
-        href: (routes) => `${routes.simukopa}/loanplans/profile`,
-        roles: []
-      }
-    ],
-  },
+  // {
+  //   type: "submenu",
+  //   label: "Payment Plans",
+  //   icon: "fa fa-calendar",
+  //   roles: [],
+  //   items: [
+  //     {
+  //       label: "Plans",
+  //       href: (routes) => `${routes.simukopa}/loanplans/list`,
+  //       roles: []
+  //     },
+  //     {
+  //       label: "Create Plan",
+  //       href: (routes) => `${routes.simukopa}/loanplans/profile`,
+  //       roles: []
+  //     }
+  //   ],
+  // },
 
 
   // // =========================================================

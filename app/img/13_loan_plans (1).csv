@@ -1,0 +1,14 @@
+plan_name,device_model_group,deposit_amount,repayment_frequency,installment_amount,duration_count
+Basic 7 Day,budget phones,2000,7,500,7
+Basic 14 Day,budget phones,3000,7,400,14
+Basic 30 Day,budget phones,5000,7,1500,30
+Starter 30 Day,entry phones,5000,7,1750,30
+Starter 60 Day,entry phones,7000,7,1250,60
+Standard 60 Day,midrange phones,10000,7,1800,60
+Standard 90 Day,midrange phones,12000,7,1700,90
+Flex 90 Day,midrange phones,10000,30,5000,90
+Premium 90 Day,premium phones,15000,7,2500,90
+Premium 120 Day,premium phones,18000,7,2250,120
+Premium 180 Day,premium phones,20000,30,7000,180
+Business 180 Day,smartphones,25000,30,8500,180
+Business 365 Day,smartphones,30000,30,6000,365

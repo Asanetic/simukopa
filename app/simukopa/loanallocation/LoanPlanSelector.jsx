@@ -29,7 +29,7 @@ export default function LoanPlanSelector({ device, selected, onSelect, onBack })
   // one — used below to auto-select a plan right after it's created.
   const loadPlans = useCallback(async () => {
     setLoading(true);
-    const res = await mosyGetData({ endpoint: apiRoutes.loanplans.base, params: { isActive: 1, pageSize: 50 } });
+    const res = await mosyGetData({ endpoint: apiRoutes.loanplans.base, params: { pageSize: 50 } });
     const rows = res?.status === 'success' ? res.data || [] : [];
     setPlans(rows);
     setLoading(false);
@@ -78,7 +78,7 @@ export default function LoanPlanSelector({ device, selected, onSelect, onBack })
         <div style={{ fontWeight: 700 }}>Step 3 — Select Loan Plan</div>
         <div className="d-flex" style={{ gap: 8 }}>
           {onBack ? <button className="btn btn-outline-secondary btn-sm" onClick={onBack}>Back</button> : null}
-          <button className="btn btn-outline-primary btn-sm" onClick={handleNewPlan}>+ New Loan Plan</button>
+          <button className="d-none btn btn-outline-primary btn-sm" onClick={handleNewPlan}>+ New Loan Plan</button>
         </div>
       </div>
       {loading ? <div className="text-muted small">Loading plans...</div> : null}
