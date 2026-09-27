@@ -34,18 +34,48 @@ function addInterval(date, frequency) {
   return d;
 }
 
+// loan_plans.repayment_frequency holds two different conventions in this
+// data set — legacy rows use the DAILY/WEEKLY/MONTHLY enum (duration_count
+// in MONTHS, stepped by real calendar weeks/months via addInterval), newer
+// rows store a raw day count instead, e.g. "7" meaning "every 7 days"
+// (duration_count in DAYS — the loan's whole term, not a period count).
+// Returns the numeric day interval, or null for an enum/unparseable value.
+function parseFrequencyDays(freq) {
+  const n = Number(freq);
+  return Number.isFinite(n) && n > 0 ? n : null;
+}
+
+// Steps a date forward by one repayment period, however this plan
+// expresses its frequency — the one place that decision is made, used by
+// both the schedule builder and the next_billing_date calc below.
+function stepByFrequency(date, plan) {
+  const frequencyDays = parseFrequencyDays(plan.repayment_frequency);
+  if (frequencyDays) {
+    const d = new Date(date);
+    d.setDate(d.getDate() + frequencyDays);
+    return d;
+  }
+  return addInterval(date, normalizeFrequency(plan.repayment_frequency));
+}
+
 // One centralized schedule builder — every installment date on this
 // system comes from here, never computed ad hoc per page (spec section 11).
-function buildInstallmentSchedule({ startDate, frequency, durationMonths, installmentAmount }) {
+function buildInstallmentSchedule({ startDate, plan, installmentAmount }) {
+  const frequencyDays = parseFrequencyDays(plan.repayment_frequency);
+
   const endDate = new Date(startDate);
-  endDate.setMonth(endDate.getMonth() + Number(durationMonths || 0));
+  if (frequencyDays) {
+    endDate.setDate(endDate.getDate() + (Number(plan.duration_count) || 0));
+  } else {
+    endDate.setMonth(endDate.getMonth() + (Number(plan.duration_count) || 0));
+  }
 
   const schedule = [];
-  let cursor = addInterval(startDate, frequency);
+  let cursor = stepByFrequency(startDate, plan);
   let n = 1;
   while (cursor <= endDate) {
     schedule.push({ installment_number: n, due_date: nairobiDateStr(cursor), amount: installmentAmount });
-    cursor = addInterval(cursor, frequency);
+    cursor = stepByFrequency(cursor, plan);
     n += 1;
   }
   return schedule;
@@ -93,14 +123,19 @@ export async function POST(request) {
     //if (!plan.is_active) throw new UserError('This loan plan is no longer active.');
 
     // ---- the loan plan is the source of truth for every financial value ----
-    const frequency = normalizeFrequency(plan.repayment_frequency);
+    // repayment_frequency is either a DAILY/WEEKLY/MONTHLY enum (legacy,
+    // duration_count in months) or a raw day count (duration_count in
+    // days) — see parseFrequencyDays/stepByFrequency above.
+    const frequencyDays = parseFrequencyDays(plan.repayment_frequency);
+    const frequencyLabel = frequencyDays
+      ? `Every ${frequencyDays} day${frequencyDays === 1 ? '' : 's'}`
+      : normalizeFrequency(plan.repayment_frequency);
     const depositAmount = Number(plan.deposit_amount) || 0;
     const installmentAmount = Number(plan.installment_amount) || 0;
-    const durationMonths = Number(plan.duration_count) || 0;
     const startDate = new Date();
     const nowStr = nairobiDateStr(startDate);
 
-    const schedule = buildInstallmentSchedule({ startDate, frequency, durationMonths, installmentAmount });
+    const schedule = buildInstallmentSchedule({ startDate, plan, installmentAmount });
     if (!schedule.length) throw new UserError('This loan plan has no repayment schedule configured.');
 
     // total_amount is purely installment x number of periods produced by
@@ -121,7 +156,7 @@ export async function POST(request) {
     // quoting their loan id, contract number, or application id and it's
     // always the exact same number.
     const loanRecordId = magicRandomStr(9);
-    const nextBillingDateStr = nairobiDateStr(addInterval(startDate, frequency));
+    const nextBillingDateStr = nairobiDateStr(stepByFrequency(startDate, plan));
 
     await conn.execute(`
       INSERT INTO loan_applications (record_id, application_id, client_id, phone_id, model_id, product_id,
@@ -144,7 +179,7 @@ export async function POST(request) {
     `, [
       loanRecordId, client.record_id, phone.record_id, null, plan.record_id, loanRecordId,
       principalAmount, Math.max(totalRepayment - principalAmount, 0), 0, 0, totalAmount, depositAmount, totalRepayment,
-      nowStr, endDateStr, frequency, installmentAmount, 'active', 'current', null, actorId,
+      nowStr, endDateStr, frequencyLabel, installmentAmount, 'active', 'current', null, actorId,
       siteId, siteName,
     ]);
 
@@ -227,7 +262,7 @@ export async function POST(request) {
           recipient_phone: client.phone_number,
           message_content:
             `Hi ${client.first_name || ''}, your financing for ${plan.plan_name} is now ACTIVE. \n` +
-            `Deposit paid: ${kes(depositAmount)}. ${frequency.toLowerCase()} payment: ${kes(installmentAmount)}. ` +
+            `Deposit paid: ${kes(depositAmount)}. ${frequencyLabel.toLowerCase()} payment: ${kes(installmentAmount)}. ` +
             `\nLoan ref: ${loanRecordId}. Thank you for choosing us.`,
           request_source: 'loan_allocation',
         },
@@ -246,7 +281,7 @@ export async function POST(request) {
         customer_id: client.record_id, device_id: phone.record_id, loan_plan_id: plan.record_id,
         application_id: loanRecordId,
         deposit_amount: depositAmount, installment_amount: installmentAmount,
-        repayment_frequency: frequency, duration_count: durationMonths, total_amount: totalAmount,
+        repayment_frequency: frequencyLabel, duration_count: plan.duration_count, total_amount: totalAmount,
       },
       application: { id: loanRecordId, status: 'approved' },
       allocation: { id: allocationRecordId, status: 'allocated' },

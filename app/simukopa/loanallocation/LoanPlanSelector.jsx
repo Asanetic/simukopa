@@ -9,15 +9,32 @@ import { LoanplansSchema } from '../loanplans/LoanplansSchema';
 
 const apiRoutes = getApiRoutes();
 
+// loan_plans.repayment_frequency holds two conventions — legacy DAILY/
+// WEEKLY/MONTHLY enum (duration_count in MONTHS) or a raw day count, e.g.
+// "7" meaning "every 7 days" (duration_count in DAYS, the loan's whole
+// term) — mirrors api/simukopa/loanallocation/route.js's parseFrequencyDays.
+function parseFrequencyDays(freq) {
+  const n = Number(freq);
+  return Number.isFinite(n) && n > 0 ? n : null;
+}
+
+function describeFrequency(freq) {
+  const days = parseFrequencyDays(freq);
+  return days ? `every ${days} day${days === 1 ? '' : 's'}` : String(freq || 'installment').toLowerCase();
+}
+
 // Rough estimate only, for display before the plan is picked — the
 // backend generates the real calendar-based schedule and is the source
 // of truth for the actual total (spec section 5/22).
-function estimateInstallmentCount(frequency, durationMonths) {
+function estimateInstallmentCount(frequency, durationCount) {
+  const duration = Number(durationCount) || 0;
+  const frequencyDays = parseFrequencyDays(frequency);
+  if (frequencyDays) return Math.round(duration / frequencyDays); // duration = total days
+
   const f = String(frequency || '').toUpperCase();
-  const months = Number(durationMonths) || 0;
-  if (f === 'WEEKLY') return Math.round(months * 4.345);
-  if (f === 'MONTHLY') return months;
-  return Math.round(months * 30);
+  if (f === 'WEEKLY') return Math.round(duration * 4.345); // duration = months
+  if (f === 'MONTHLY') return duration;
+  return Math.round(duration * 30);
 }
 
 export default function LoanPlanSelector({ device, selected, onSelect, onBack }) {
@@ -58,7 +75,7 @@ export default function LoanPlanSelector({ device, selected, onSelect, onBack })
       <div className="dash-card">
         <div className="text-muted small mb-1">LOAN PLAN SELECTED</div>
         <div style={{ fontWeight: 700, fontSize: 16 }}>{selected.plan_name}</div>
-        <div className="text-muted small">{formatKes(selected.deposit_amount)} deposit · {formatKes(selected.installment_amount)} per {String(selected.repayment_frequency || 'installment').toLowerCase()}</div>
+        <div className="text-muted small">{formatKes(selected.deposit_amount)} deposit · {formatKes(selected.installment_amount)} {describeFrequency(selected.repayment_frequency)}</div>
         <button className="btn btn-outline-secondary btn-sm mt-3" onClick={() => onSelect(null)}>Change Plan</button>
       </div>
     );
@@ -86,13 +103,14 @@ export default function LoanPlanSelector({ device, selected, onSelect, onBack })
         {sorted.map((p) => {
           const count = estimateInstallmentCount(p.repayment_frequency, p.duration_count);
           const totalCost = Number(p.deposit_amount || 0) + count * Number(p.installment_amount || 0);
+          const frequencyDays = parseFrequencyDays(p.repayment_frequency);
           return (
             <div className="col-12 col-md-6" key={p.record_id}>
               <button className="wizard-list-item w-100" onClick={() => onSelect(p)}>
                 <div style={{ fontWeight: 700 }}>{p.plan_name.toUpperCase()}</div>
                 <div className="text-muted small">Deposit: {formatKes(p.deposit_amount)}</div>
-                <div className="text-muted small">{String(p.repayment_frequency).toLowerCase()} payment: {formatKes(p.installment_amount)}</div>
-                <div className="text-muted small">Duration: {p.duration_count} months</div>
+                <div className="text-muted small">Payment {describeFrequency(p.repayment_frequency)}: {formatKes(p.installment_amount)}</div>
+                <div className="text-muted small">Duration: {p.duration_count} {frequencyDays ? 'days' : 'months'}</div>
                 <div className="text-muted small">Est. total cost: {formatKes(totalCost)}</div>
               </button>
             </div>

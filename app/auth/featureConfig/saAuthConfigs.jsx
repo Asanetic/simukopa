@@ -20,7 +20,7 @@ const saAuthConfigs = {
   sessionColumns : "record_id,tel,name,email,user_role,hive_site_id,hive_site_name,payment_account",
 
   // Post-login redirect
-  afterSplashPage:`${hiveRoutes.simukopa}/devicemap`,
+  afterSplashPage:`${hiveRoutes.simukopa}/dashboard/main`,
 
   // UI toggles
   showResetLink: false, // true || false
