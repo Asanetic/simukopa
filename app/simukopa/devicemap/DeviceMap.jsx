@@ -75,6 +75,28 @@ async function fetchAllPhones() {
   return rows;
 }
 
+// A Font Awesome "fa-mobile" glyph on a colored pin, in place of Leaflet's
+// default marker image — this app already loads Font Awesome globally
+// (see assets/css/font-awesome.min.css), so no extra icon asset is needed.
+function phoneIcon(L, color) {
+  return L.divIcon({
+    className: 'device-map-pin',
+    html: `
+      <div style="
+        width:28px;height:28px;border-radius:50% 50% 50% 0;
+        background:${color};transform:rotate(-45deg);
+        display:flex;align-items:center;justify-content:center;
+        box-shadow:0 1px 4px rgba(0,0,0,0.4);
+      ">
+        <i class="fa fa-mobile" style="transform:rotate(45deg);color:#fff;font-size:16px;"></i>
+      </div>
+    `,
+    iconSize: [28, 28],
+    iconAnchor: [14, 28],
+    popupAnchor: [0, -26],
+  });
+}
+
 function popupHtml(phone) {
   return `
     <div style="font-size:13px;line-height:1.5;">
@@ -123,13 +145,7 @@ export default function DeviceMap() {
         if (!coords) return;
         points.push([coords.lat, coords.lng]);
 
-        const marker = L.circleMarker([coords.lat, coords.lng], {
-          radius: 8,
-          color: statusColor(phone.status),
-          fillColor: statusColor(phone.status),
-          fillOpacity: 0.85,
-          weight: 2,
-        }).addTo(map);
+        const marker = L.marker([coords.lat, coords.lng], { icon: phoneIcon(L, statusColor(phone.status)) }).addTo(map);
         marker.bindPopup(popupHtml(phone));
 
         markersRef.current.set(phone.record_id, { marker, phone });
@@ -207,7 +223,7 @@ export default function DeviceMap() {
     <div className="dash-card" style={{ background: '#fff', border: '1px solid rgba(0,0,0,0.06)', borderRadius: 16, padding: 22 }}>
       <div className="d-flex justify-content-between align-items-center mb-3" style={{ flexWrap: 'wrap', gap: 8 }}>
         <div>
-          <h4 className="mb-1" style={{ fontWeight: 700 }}>Device Map</h4>
+          <h4 className="mb-1" style={{ fontWeight: 700 }}>Asset / Devices Map</h4>
           <p className="text-muted mb-0" style={{ fontSize: 14 }}>
             {loading ? 'Loading device locations…' : `${plotted} of ${devices.length} devices shown.`}
           </p>
