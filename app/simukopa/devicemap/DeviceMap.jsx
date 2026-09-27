@@ -4,6 +4,12 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { mosyGetData } from '../../MosyUtils/hiveUtils';
 import { getApiRoutes } from '../AppRoutes/apiRoutesHandler';
 import { parseDeviceLocation } from '../phones/logicControl/locationUtils';
+import { useEntityController } from '../moduleControl/dataControl/useEntityController';
+import { PhonesSchema } from '../phones/PhonesSchema';
+import PhonesActions from '../phones/logicControl/actionsRegistry';
+import { MosyCard } from '../../components/MosyCard';
+import PaymentsList from '../payments/uiControl/PaymentsList';
+import LoanAllocationWizard from '../loanallocation/LoanAllocationWizard';
 
 const apiRoutes = getApiRoutes();
 
@@ -97,16 +103,46 @@ function phoneIcon(L, color) {
   });
 }
 
-function popupHtml(phone) {
-  return `
-    <div style="font-size:13px;line-height:1.5;">
-      <strong>${[phone.brand_name, phone.model_name].filter(Boolean).join(' ') || 'Device'}</strong><br/>
-      IMEI: ${phone.imei_1 || 'N/A'}<br/>
-      Status: ${phone.status || 'N/A'}<br/>
-      ${phone.client_name ? `Client: ${phone.client_name}<br/>` : ''}
-      ${phone.loan_ref ? `Loan ref: ${phone.loan_ref}` : ''}
-    </div>
+function smallBtnStyle(color) {
+  return `border:1px solid ${color};background:${color};color:#fff;font-size:11px;font-weight:600;` +
+    'padding:3px 9px;border-radius:999px;cursor:pointer;line-height:1.4;';
+}
+
+// Built with plain DOM APIs (not JSX) because Leaflet popups aren't React
+// content — this is the only way to wire real click handlers into them.
+// Called fresh every time the popup opens (bindPopup's function form), so
+// the buttons always reflect this device's CURRENT allocation state.
+function buildPopupEl(phone, { onControl, onPayments, onAllocate }) {
+  const wrap = document.createElement('div');
+  wrap.style.cssText = 'font-size:13px;line-height:1.5;min-width:190px;';
+  wrap.innerHTML = `
+    <strong>${[phone.brand_name, phone.model_name].filter(Boolean).join(' ') || 'Device'}</strong><br/>
+    IMEI: ${phone.imei_1 || 'N/A'}<br/>
+    Status: ${phone.status || 'N/A'}<br/>
+    ${phone.client_name ? `Client: ${phone.client_name}<br/>` : ''}
+    ${phone.loan_ref ? `Loan ref: ${phone.loan_ref}<br/>` : ''}
   `;
+
+  const btnRow = document.createElement('div');
+  btnRow.style.cssText = 'display:flex;gap:6px;margin-top:8px;flex-wrap:wrap;';
+
+  const controlBtn = document.createElement('button');
+  controlBtn.type = 'button';
+  controlBtn.textContent = 'Control Device';
+  controlBtn.style.cssText = smallBtnStyle('#334155');
+  controlBtn.onclick = onControl;
+  btnRow.appendChild(controlBtn);
+
+  const isAllocated = !!phone.assigned_loan_id;
+  const secondaryBtn = document.createElement('button');
+  secondaryBtn.type = 'button';
+  secondaryBtn.textContent = isAllocated ? 'View Payments' : 'Allocate Device';
+  secondaryBtn.style.cssText = smallBtnStyle(isAllocated ? '#2563eb' : '#16a34a');
+  secondaryBtn.onclick = isAllocated ? onPayments : onAllocate;
+  btnRow.appendChild(secondaryBtn);
+
+  wrap.appendChild(btnRow);
+  return wrap;
 }
 
 export default function DeviceMap() {
@@ -114,6 +150,14 @@ export default function DeviceMap() {
   const mapRef = useRef(null);
   const leafletRef = useRef(null);
   const markersRef = useRef(new Map()); // record_id -> { marker, phone }
+
+  // Reuses the SAME control_device modal/update wiring the Phones grid
+  // uses (actionsRegistry.js) — no separate map-only implementation to
+  // keep in sync with it. Kept in a ref since runRowAction is a fresh
+  // bound function every render but calls into the same stable engine.
+  const controller = useEntityController(PhonesSchema, { moduleActions: PhonesActions });
+  const controllerRef = useRef(controller);
+  useEffect(() => { controllerRef.current = controller; });
 
   const [loading, setLoading] = useState(true);
   const [devices, setDevices] = useState([]);
@@ -146,7 +190,27 @@ export default function DeviceMap() {
         points.push([coords.lat, coords.lng]);
 
         const marker = L.marker([coords.lat, coords.lng], { icon: phoneIcon(L, statusColor(phone.status)) }).addTo(map);
-        marker.bindPopup(popupHtml(phone));
+        marker.bindPopup(() => buildPopupEl(phone, {
+          onControl: () => controllerRef.current.runRowAction('control_device', phone),
+          onPayments: () => MosyCard(
+            `Payments — ${[phone.brand_name, phone.model_name].filter(Boolean).join(' ')}`,
+            <PaymentsList
+              fixedQuery={{ loan_id: btoa(phone.assigned_loan_id) }}
+              title="Payments"
+              description={`Payments for loan ${phone.loan_ref || phone.assigned_loan_id}`}
+            />,
+            true,
+            'modal3',
+            'mosycard_wide'
+          ),
+          onAllocate: () => MosyCard(
+            'Allocate Device',
+            <LoanAllocationWizard initialDevice={phone} />,
+            true,
+            'modal3',
+            'mosycard_wide'
+          ),
+        }));
 
         markersRef.current.set(phone.record_id, { marker, phone });
       });
@@ -223,7 +287,7 @@ export default function DeviceMap() {
     <div className="dash-card" style={{ background: '#fff', border: '1px solid rgba(0,0,0,0.06)', borderRadius: 16, padding: 22 }}>
       <div className="d-flex justify-content-between align-items-center mb-3" style={{ flexWrap: 'wrap', gap: 8 }}>
         <div>
-          <h4 className="mb-1" style={{ fontWeight: 700 }}>Asset / Devices Map</h4>
+          <h4 className="mb-1" style={{ fontWeight: 700 }}>Inventory Map</h4>
           <p className="text-muted mb-0" style={{ fontSize: 14 }}>
             {loading ? 'Loading device locations…' : `${plotted} of ${devices.length} devices shown.`}
           </p>
@@ -268,17 +332,16 @@ export default function DeviceMap() {
                 key={key}
                 type="button"
                 onClick={() => toggleStatus(key)}
-                className="btn btn-sm"
+                className="badge border-0"
                 style={{
-                  display: 'flex', alignItems: 'center', gap: 6, fontSize: 12,
-                  border: `1px solid ${STATUS_COLORS[key]}`,
-                  background: active ? STATUS_COLORS[key] : 'transparent',
+                  display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 11, fontWeight: 600,
+                  background: active ? STATUS_COLORS[key] : `${STATUS_COLORS[key]}1a`,
                   color: active ? '#fff' : STATUS_COLORS[key],
-                  borderRadius: 999, padding: '3px 10px',
+                  borderRadius: 999, padding: '4px 10px', cursor: 'pointer',
                 }}
                 title={active ? `Hide ${key} devices` : `Show only ${key} devices`}
               >
-                <span style={{ width: 8, height: 8, borderRadius: '50%', background: active ? '#fff' : STATUS_COLORS[key] }} />
+                <span style={{ width: 7, height: 7, borderRadius: '50%', background: active ? '#fff' : STATUS_COLORS[key] }} />
                 <span style={{ textTransform: 'capitalize' }}>{key}</span>
               </button>
             );

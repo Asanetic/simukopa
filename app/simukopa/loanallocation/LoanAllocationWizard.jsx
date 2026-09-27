@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 
 import CustomerSelector from './CustomerSelector';
 import DeviceSelector from './DeviceSelector';
@@ -8,7 +9,7 @@ import LoanPlanSelector from './LoanPlanSelector';
 import LoanReview from './LoanReview';
 import LoanSuccess from './LoanSuccess';
 
-import { mosyPostData } from '../../MosyUtils/hiveUtils';
+import { mosyGetData, mosyPostData } from '../../MosyUtils/hiveUtils';
 import { getApiRoutes } from '../AppRoutes/apiRoutesHandler';
 
 const apiRoutes = getApiRoutes();
@@ -19,13 +20,35 @@ const STEPS = ['Customer', 'Device', 'Plan', 'Review'];
 // No application/approval stage — the backend creates the ACTIVE loan,
 // installment schedule, deposit payment and device allocation atomically
 // in one request (see api/simukopa/loanallocation/route.js).
-export default function LoanAllocationWizard() {
+export default function LoanAllocationWizard({ initialDevice = null } = {}) {
+  const searchParams = useSearchParams();
   const [customer, setCustomer] = useState(null);
-  const [device, setDevice] = useState(null);
+  const [device, setDevice] = useState(initialDevice);
   const [plan, setPlan] = useState(null);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(null);
   const [result, setResult] = useState(null);
+
+  // Deep-link from Device Map's "Allocate Device" popup button
+  // (?device=<record_id>) — preselects the device so the flow drops
+  // straight into "pick a customer" for it, same wizard either way.
+  // Skipped when the device is handed in directly (Device Map's own
+  // "Allocate Device" now opens this in a MosyCard instead of navigating,
+  // so there's no URL to read it from).
+  useEffect(() => {
+    if (initialDevice) return;
+    const deviceId = searchParams.get('device');
+    if (!deviceId) return;
+    (async () => {
+      const res = await mosyGetData({
+        endpoint: apiRoutes.phones.base,
+        params: { record_id: btoa(deviceId), pageSize: 1 },
+      });
+      const row = res?.status === 'success' ? res.data?.[0] : null;
+      if (row) setDevice(row);
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const step = !customer ? 0 : !device ? 1 : !plan ? 2 : 3;
 
