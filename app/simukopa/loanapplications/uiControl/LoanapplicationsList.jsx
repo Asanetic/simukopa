@@ -2,6 +2,7 @@
 import { LoanapplicationsSchema } from '../LoanapplicationsSchema';
 import SmartGrid from '../../moduleControl/UiControl/SmartGrid';
 import LoanapplicationsActions from '../logicControl/actionsRegistry';
+import SmartGridPro from '../../moduleControl/UiControl/Smartgridpro';
 
 // Thin wrapper only — all real grid logic lives in components/EntityGrid.jsx
 // export default function LoanapplicationsList() {
@@ -19,7 +20,7 @@ export default function LoanapplicationsList({
 
 }) {
   return (
-    <SmartGrid
+    <SmartGridPro
       moduleActions={moduleActions}
       schema={schema}
       title={title}
