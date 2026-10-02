@@ -1,0 +1,142 @@
+{
+    "smartapi": {
+        "base": "/api/simukopa/smartapi"
+    },
+    "dashboard": {
+        "admin": "/api/simukopa/dashboard/admin",
+        "main": "/api/simukopa/dashboard/main"
+    },
+    "smartmessages": {
+        "base": "/api/simukopa/messages/list",
+        "delete": "/api/simukopa/messages/list/delete",
+        "import": "/api/simukopa/messages/import"
+    },
+    "messages": {
+        "base": "/api/simukopa/messages/list",
+        "delete": "/api/simukopa/messages/list/delete",
+        "import": "/api/simukopa/messages/import"
+    },
+    "messagetemplates": {
+        "base": "/api/simukopa/messagetemplates/list",
+        "delete": "/api/simukopa/messagetemplates/list/delete",
+        "import": "/api/simukopa/messagetemplates/import"
+    },
+    "systemusers": {
+        "base": "/api/simukopa/systemusers/list",
+        "delete": "/api/simukopa/systemusers/list/delete",
+        "import": "/api/simukopa/systemusers/import"
+    },
+    "clients": {
+        "base": "/api/simukopa/clients/list",
+        "delete": "/api/simukopa/clients/list/delete",
+        "import": "/api/simukopa/clients/import"
+    },
+    "loanallocation": {
+        "create": "/api/simukopa/loanallocation"
+    },
+    "phones": {
+        "base": "/api/simukopa/phones/list",
+        "delete": "/api/simukopa/phones/list/delete",
+        "import": "/api/simukopa/phones/import"
+    },
+    "deviceallocations": {
+        "base": "/api/simukopa/deviceallocations/list",
+        "delete": "/api/simukopa/deviceallocations/list/delete",
+        "import": "/api/simukopa/deviceallocations/import"
+    },
+    "loanplans": {
+        "base": "/api/simukopa/loanplans/list",
+        "delete": "/api/simukopa/loanplans/list/delete",
+        "import": "/api/simukopa/loanplans/import"
+    },
+    "payments": {
+        "base": "/api/simukopa/payments/list",
+        "delete": "/api/simukopa/payments/list/delete",
+        "import": "/api/simukopa/payments/import"
+    },
+    "loanapplications": {
+        "base": "/api/simukopa/loanapplications/list",
+        "delete": "/api/simukopa/loanapplications/list/delete",
+        "import": "/api/simukopa/loanapplications/import"
+    },
+    "agents": {
+        "base": "/api/simukopa/agents/list",
+        "delete": "/api/simukopa/agents/list/delete",
+        "import": "/api/simukopa/agents/import"
+    },
+    "commissions": {
+        "base": "/api/simukopa/commissions/list",
+        "delete": "/api/simukopa/commissions/list/delete",
+        "import": "/api/simukopa/commissions/import"
+    },
+    "smartpayments": {
+        "base": "/api/simukopa/smartpayments/list",
+        "delete": "/api/simukopa/smartpayments/list/delete",
+        "import": "/api/simukopa/smartpayments/import"
+    },
+    "smartpaymentsettings": {
+        "base": "/api/simukopa/smartpaymentsettings/list",
+        "delete": "/api/simukopa/smartpaymentsettings/list/delete",
+        "import": "/api/simukopa/smartpaymentsettings/import"
+    },
+    "systemrolebundles": {
+        "base": "/api/simukopa/systemrolebundles/list",
+        "delete": "/api/simukopa/systemrolebundles/list/delete",
+        "import": "/api/simukopa/systemrolebundles/import"
+    },
+    "contacts": {
+        "base": "/api/simukopa/contacts/list",
+        "delete": "/api/simukopa/contacts/list/delete",
+        "import": "/api/simukopa/contacts/import"
+    },
+    "opportunities": {
+        "base": "/api/simukopa/opportunities/list",
+        "delete": "/api/simukopa/opportunities/list/delete",
+        "import": "/api/simukopa/opportunities/import"
+    },
+    "systemmodules": {
+        "base": "/api/simukopa/systemmodules/list",
+        "delete": "/api/simukopa/systemmodules/list/delete",
+        "import": "/api/simukopa/systemmodules/import"
+    },
+    "systemroles": {
+        "base": "/api/simukopa/systemroles/list",
+        "delete": "/api/simukopa/systemroles/list/delete",
+        "import": "/api/simukopa/systemroles/import"
+    },
+    "loans": {
+        "base": "/api/simukopa/loans/list",
+        "delete": "/api/simukopa/loans/list/delete",
+        "import": "/api/simukopa/loans/import"
+    },
+    "loaninstallments": {
+        "base": "/api/simukopa/loaninstallments/list",
+        "delete": "/api/simukopa/loaninstallments/list/delete",
+        "import": "/api/simukopa/loaninstallments/import"
+    },
+    "phonemodels": {
+        "base": "/api/simukopa/phonemodels/list",
+        "delete": "/api/simukopa/phonemodels/list/delete",
+        "import": "/api/simukopa/phonemodels/import"
+    },
+    "financingproducts": {
+        "base": "/api/simukopa/financingproducts/list",
+        "delete": "/api/simukopa/financingproducts/list/delete",
+        "import": "/api/simukopa/financingproducts/import"
+    },
+    "mosyreminders": {
+        "base": "/api/simukopa/mosyreminders/list",
+        "delete": "/api/simukopa/mosyreminders/list/delete",
+        "import": "/api/simukopa/mosyreminders/import"
+    },
+    "smartpaymentrequests": {
+        "base": "/api/simukopa/smartpaymentrequests/list",
+        "delete": "/api/simukopa/smartpaymentrequests/list/delete",
+        "import": "/api/simukopa/smartpaymentrequests/import"
+    },
+    "roles": {
+        "base": "/api/simukopa/roles/list",
+        "delete": "/api/simukopa/roles/list/delete",
+        "import": "/api/simukopa/roles/import"
+    }
+}
