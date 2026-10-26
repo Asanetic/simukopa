@@ -11,5 +11,6 @@ export async function GET(request) {
   if (!valid) return Response.json({ status: 'unauthorized', message: reason }, { status: 403 });
 
   const out = await processDashboard({ schema, auth, searchParams: new URL(request.url).searchParams });
+  
   return Response.json(out, { status: out.status === 'success' ? 200 : 500 });
 }
