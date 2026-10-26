@@ -1,0 +1,23 @@
+report RepaymentByLoan "Repayments by Loan"
+  by dimension
+  date payment_date
+  entity device_repayments_by_loan
+  role view_reports
+  currency KES
+  cache 60
+  maxrange 1200
+
+  group loan_id
+  rows "Loan"
+  labels loans.loan_id > loan_id
+  sort collected desc
+
+  payments = count loans_repayments "Payments"
+  collected = sum loans_repayments.paid_amount "Total Collected" money
+  remaining = sum loans_repayments.new_balance "Recorded New Balances" money
+
+  headline {label}: {payments} payments received, {collected} collected.
+
+  remark payments == 0 | watch | No repayments | No repayment transactions were recorded for {label}.
+  remark remaining > 0 && collected == 0 | bad | No collections | {label} has a recorded balance of {remaining} with no collections.
+  remark true | neutral | Loan repayment history | {label}: {collected} collected across {payments} payments.

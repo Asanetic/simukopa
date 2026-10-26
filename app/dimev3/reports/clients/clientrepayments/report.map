@@ -1,0 +1,28 @@
+report ClientRepayments "Client Repayment Analysis"
+  by dimension
+  date date_registered
+  entity device_client_repayment_analysis
+  role view_reports
+  currency KES
+  cache 60
+  maxrange 1200
+
+  group client_id
+  rows "Client"
+  labels clients.client_id > name
+  sort balance desc
+
+  loans_count = count loans "Loans Taken"
+  principal = sum loans.principal "Principal Borrowed" money
+  paid = sum loans.total_paid "Total Repaid" money
+  balance = sum loans.balance "Outstanding Balance" money
+  payments = count loans_repayments "Repayment Transactions"
+  collected = sum loans_repayments.paid_amount "Payments Made" money
+  avg_payment = collected / payments "Average Payment" money
+
+  headline {label}: {loans_count} loans, {principal} borrowed and {balance} outstanding.
+
+  remark loans_count == 0 | neutral | No loans | {label} has no loans recorded.
+  remark balance > 0 && paid == 0 | bad | No repayments | {label} has an outstanding balance of {balance} with no recorded repayments.
+  remark balance > 0 && paid > 0 | watch | Balance remaining | {label} has repaid {paid} and still owes {balance}.
+  remark true | good | Repayment status | {label}: {paid} repaid across {payments} transactions.

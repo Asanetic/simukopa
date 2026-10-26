@@ -1,0 +1,116 @@
+{
+  "smartapi": {
+    "base": "/api/dimev3/smartapi"
+  },
+  "dashboard": {
+    "main": "/api/dimev3/dashboard/main"
+  },
+  "smartmessages": {
+    "base": "/api/dimev3/messages/list",
+    "delete": "/api/dimev3/messages/list/delete",
+    "import": "/api/dimev3/messages/import"
+  },
+  "messagetemplates": {
+    "base": "/api/dimev3/messagetemplates/list",
+    "delete": "/api/dimev3/messagetemplates/list/delete",
+    "import": "/api/dimev3/messagetemplates/import"
+  },
+  "clients": {
+    "base": "/api/dimev3/clients/list",
+    "delete": "/api/dimev3/clients/list/delete",
+    "import": "/api/dimev3/clients/import"
+  },
+  "loans": {
+    "base": "/api/dimev3/loans/list",
+    "delete": "/api/dimev3/loans/list/delete",
+    "import": "/api/dimev3/loans/import"
+  },
+  "deviceslist": {
+    "base": "/api/dimev3/deviceslist/list",
+    "delete": "/api/dimev3/deviceslist/list/delete",
+    "import": "/api/dimev3/deviceslist/import"
+  },
+  "devicesallocations": {
+    "base": "/api/dimev3/reports/devices/allocations/list"
+  },
+  "loansplans": {
+    "base": "/api/dimev3/loansplans/list",
+    "delete": "/api/dimev3/loansplans/list/delete",
+    "import": "/api/dimev3/loansplans/import"
+  },
+  "loansrepayments": {
+    "base": "/api/dimev3/loansrepayments/list",
+    "delete": "/api/dimev3/loansrepayments/list/delete",
+    "import": "/api/dimev3/loansrepayments/import"
+  },
+  "paytriggerlogs": {
+    "base": "/api/dimev3/paytriggerlogs/list",
+    "delete": "/api/dimev3/paytriggerlogs/list/delete",
+    "import": "/api/dimev3/paytriggerlogs/import"
+  },
+  "paytriggersettings": {
+    "base": "/api/dimev3/paytriggersettings/list",
+    "delete": "/api/dimev3/paytriggersettings/list/delete",
+    "import": "/api/dimev3/paytriggersettings/import"
+  },
+  "remindershistory": {
+    "base": "/api/dimev3/remindershistory/list",
+    "delete": "/api/dimev3/remindershistory/list/delete",
+    "import": "/api/dimev3/remindershistory/import"
+  },
+  "reminderstemplates": {
+    "base": "/api/dimev3/reminderstemplates/list",
+    "delete": "/api/dimev3/reminderstemplates/list/delete",
+    "import": "/api/dimev3/reminderstemplates/import"
+  },
+  "systemsettings": {
+    "base": "/api/dimev3/systemsettings/list",
+    "delete": "/api/dimev3/systemsettings/list/delete",
+    "import": "/api/dimev3/systemsettings/import"
+  },
+  "loansperformance": {
+    "base": "/api/dimev3/reports/loans/performance/list"
+  },
+  "collectionsoverdue": {
+    "base": "/api/dimev3/reports/collections/overdue/list"
+  },
+  "collectionscontracts": {
+    "base": "/api/dimev3/reports/collections/contracts/list"
+  },
+  "devicesstock": {
+    "base": "/api/dimev3/reports/devices/stock/list"
+  },
+  "financeprofit": {
+    "base": "/api/dimev3/reports/finance/profit/list"
+  },
+  "collectionsrisk": {
+    "base": "/api/dimev3/reports/collections/risk/list"
+  },
+  "collectionsupcoming": {
+    "base": "/api/dimev3/reports/collections/upcoming/list"
+  },
+  "clientsgrowth": {
+    "base": "/api/dimev3/reports/clients/growth/list"
+  },
+  "loansapplications": {
+    "base": "/api/dimev3/reports/loans/applications/list"
+  },
+  "loansloans": {
+    "base": "/api/dimev3/reports/loans/loans/list"
+  },
+  "repaymentsrepayments": {
+    "base": "/api/dimev3/reports/repayments/repayments/list"
+  },
+  "loansmonthlyloans": {
+    "base": "/api/dimev3/reports/loans/monthlyloans/list"
+  },
+  "devicesdevicemodels": {
+    "base": "/api/dimev3/reports/devices/devicemodels/list"
+  },
+  "clientsclientrepayments": {
+    "base": "/api/dimev3/reports/clients/clientrepayments/list"
+  },
+  "repaymentsrepaymentbyloan": {
+    "base": "/api/dimev3/reports/repayments/repaymentbyloan/list"
+  }
+}

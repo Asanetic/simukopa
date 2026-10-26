@@ -1,0 +1,24 @@
+report Repayments "Repayment History"
+  by month|day|year
+  date payment_date
+  entity device_repayments_history
+  role view_reports
+  currency KES
+  cache 60
+  maxrange 1200
+
+  filter payment_mode = payment_mode
+
+  payments = count loans_repayments "Payments Received"
+  collected = sum loans_repayments.paid_amount "Total Collected" money
+  avg_payment = collected / payments "Average Payment" money
+  chg = change(collected) "Collections vs Previous Period"
+
+  forecast payments next 10
+  forecast collected next 10
+
+  headline {label}: {payments} payments received, collecting {collected}.
+
+  remark payments == 0 | watch | No repayments | No repayments were recorded in {label}.
+  remark chg !== null && chg <= -20 | watch | Collections declined | Collections fell by {abs(chg)}% compared with {prev_label}.
+  remark true | good | Repayments | {collected} collected across {payments} payments, averaging {avg_payment} per payment.

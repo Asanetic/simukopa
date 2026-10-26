@@ -1,0 +1,24 @@
+report Allocations "Device Allocations"
+  by month|day|year
+  date allocation_date
+  entity device_allocations_performance
+  role view_reports
+  currency KES
+  cache 60
+  maxrange 1200
+
+  filter status = status
+
+  allocated = count devices_allocations "Devices Allocated"
+  active = count devices_allocations where status=active "Active Allocations"
+  returned = count devices_allocations where status=returned "Returned Devices"
+  chg = change(allocated) "Allocations vs Previous Period"
+
+  forecast allocated next 10
+
+  headline {label}: {allocated} devices allocated, {active} active and {returned} returned.
+
+  remark allocated == 0 | watch | No allocations | No devices were allocated in {label}.
+  remark returned > 0 | watch | Device returns | {returned} devices were returned in {label}.
+  remark chg !== null && chg <= -20 | watch | Allocations declined | Device allocations fell by {abs(chg)}% compared with {prev_label}.
+  remark true | neutral | Allocation activity | {allocated} devices allocated, including {active} active allocations.

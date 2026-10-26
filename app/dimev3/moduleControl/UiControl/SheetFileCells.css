@@ -1,0 +1,28 @@
+/* Append to ExcelSheetGrid.css — file / image cell upgrade */
+.sgx-file { display: flex; align-items: center; gap: 6px; min-width: 0; }
+.sgx-file-name { flex: 0 1 auto; min-width: 0; max-width: 110px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12px; }
+.sgx-file-empty { color: #94a3b8; font-size: 12px; }
+.sgx-file-btn {
+  flex: 0 0 auto; border: 0; background: transparent; color: #64748b;
+  width: 22px; height: 22px; border-radius: 4px; padding: 0; cursor: pointer;
+  display: none; align-items: center; justify-content: center;
+}
+.sgx-file-btn:hover { background: rgba(100, 116, 139, .15); color: #0f172a; }
+.sgx-file-btn-x:hover { background: rgba(239, 68, 68, .15); color: #b91c1c; }
+/* buttons only appear on hover / when the cell is active, so rows stay clean */
+.sgx-cell:hover .sgx-file-btn,
+.sgx-cell.is-active .sgx-file-btn { display: inline-flex; }
+/* drag-over highlight */
+.sgx-cell.is-drop { outline: 2px dashed var(--sgx-accent); outline-offset: -2px; background: var(--sgx-accent-soft); }
+
+/* ── thumbnails (these classes were referenced by the cell renderer but never defined) ── */
+.sgx-thumb-wrap { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto; width: 28px; height: 28px; border-radius: 4px; overflow: hidden; background: #f1f5f9; }
+.sgx-thumb-wrap img,
+.sgx-thumb-wrap .sgx-thumb,
+img.sgx-thumb { width: 28px !important; height: 28px !important; max-width: none; object-fit: cover; border-radius: 4px; display: block; }
+.sgx-thumb-wrap > * { margin: 0 !important; }
+.sgx-file-ic { font-size: 20px; color: #64748b; flex: 0 0 auto; }
+.sgx-file-dot { font-size: 7px; color: #f59e0b; flex: 0 0 auto; }
+.sgx-file.is-new-file .sgx-file-name { color: #b45309; }
+/* keep thumbnail rows from growing the grid row height */
+.sgx-cell .sgx-file { max-height: 30px; }

@@ -1,0 +1,851 @@
+ticksy/
+|-- app/
+|   |-- api/
+|   |   |-- apiUtils/
+|   |   |   |-- dataControl/
+|   |   |   |   |-- conn.js
+|   |   |   |   |-- dataUtils.js
+|   |   |   |   |-- send-gmail.js
+|   |   |   |   `-- send-sms.js
+|   |   |   |-- reportControl/
+|   |   |   |   |-- examples/
+|   |   |   |   |-- tests/
+|   |   |   |   |-- README.md
+|   |   |   |   |-- reportAdapters.js
+|   |   |   |   |-- reportCache.js
+|   |   |   |   |-- reportDialects.js
+|   |   |   |   |-- reportEngine.js
+|   |   |   |   `-- reportSchemaCheck.js
+|   |   |   `-- s_env/
+|   |   |       `-- appconn_env.js
+|   |   |-- auth/
+|   |   |   |-- login/
+|   |   |   |   `-- route.js
+|   |   |   |-- register/
+|   |   |   |   `-- route.js
+|   |   |   |-- status/
+|   |   |   |   `-- route.js
+|   |   |   |-- student/
+|   |   |   |   `-- login/
+|   |   |   `-- authManager.js
+|   |   |-- editor/
+|   |   |   |-- deletemedia/
+|   |   |   |   `-- route.js
+|   |   |   `-- uploadmedia/
+|   |   |       `-- route.js
+|   |   |-- mairaagent/
+|   |   |   |-- agentAggregates.js
+|   |   |   |-- dataInterpreter.js
+|   |   |   |-- Maira Payload Guide from first message to expert (1).docx
+|   |   |   |-- Maira Payload Guide from first message to expert.docx
+|   |   |   |-- Maira Payload Guide from first message to expert.md
+|   |   |   |-- maira.sql
+|   |   |   |-- pos_daily_impact.payload.json
+|   |   |   `-- route.js
+|   |   |-- mediaroom/
+|   |   |   `-- route.js
+|   |   |-- novabilling/
+|   |   |   |-- status/
+|   |   |   |   `-- route.js
+|   |   |   |-- config.js
+|   |   |   `-- guard.js
+|   |   `-- ticksy/
+|   |       |-- _mosy_df_template_v1/
+|   |       |   `-- list/
+|   |       |-- _mosy_module_v1/
+|   |       |   |-- import/
+|   |       |   `-- list/
+|   |       |-- accessmatrix/
+|   |       |   |-- update/
+|   |       |   `-- route.js
+|   |       |-- accounts/
+|   |       |   |-- createaccount/
+|   |       |   |-- delete/
+|   |       |   `-- myaccount/
+|   |       |-- accounturls/
+|   |       |   |-- import/
+|   |       |   `-- list/
+|   |       |-- accrenewals/
+|   |       |   |-- import/
+|   |       |   `-- list/
+|   |       |-- adminroles/
+|   |       |   |-- import/
+|   |       |   `-- list/
+|   |       |-- admins/
+|   |       |   |-- import/
+|   |       |   `-- list/
+|   |       |-- agents/
+|   |       |   |-- import/
+|   |       |   `-- list/
+|   |       |-- apkuploads/
+|   |       |   |-- import/
+|   |       |   `-- list/
+|   |       |-- AppDocs/
+|   |       |-- appusage/
+|   |       |   |-- import/
+|   |       |   `-- list/
+|   |       |-- banking/
+|   |       |   |-- import/
+|   |       |   `-- list/
+|   |       |-- billinglog/
+|   |       |   |-- import/
+|   |       |   `-- list/
+|   |       |-- billingtransactions/
+|   |       |   |-- import/
+|   |       |   `-- list/
+|   |       |-- branches/
+|   |       |   |-- import/
+|   |       |   `-- list/
+|   |       |-- businessbranches/
+|   |       |   |-- import/
+|   |       |   `-- list/
+|   |       |-- cashbooktable/
+|   |       |   |-- import/
+|   |       |   `-- list/
+|   |       |-- checkoutorders/
+|   |       |   |-- import/
+|   |       |   `-- list/
+|   |       |-- clientaccounts/
+|   |       |   |-- import/
+|   |       |   `-- list/
+|   |       |-- clientdocuments/
+|   |       |   |-- import/
+|   |       |   `-- list/
+|   |       |-- clientinvoices/
+|   |       |   |-- import/
+|   |       |   `-- list/
+|   |       |-- clients/
+|   |       |   |-- import/
+|   |       |   `-- list/
+|   |       |-- collectionactions/
+|   |       |   |-- import/
+|   |       |   `-- list/
+|   |       |-- commissions/
+|   |       |   |-- import/
+|   |       |   `-- list/
+|   |       |-- commscontrol/
+|   |       |   |-- calls/
+|   |       |   `-- messages/
+|   |       |-- companies/
+|   |       |   |-- import/
+|   |       |   `-- list/
+|   |       |-- dailyleads/
+|   |       |   |-- import/
+|   |       |   `-- list/
+|   |       |-- dailyleadsfollowups/
+|   |       |   |-- import/
+|   |       |   `-- list/
+|   |       |-- dashboard/
+|   |       |   `-- main/
+|   |       `-- (+124 more)
+|   |-- appConfigs/
+|   |   |-- hiveRoutes.jsx
+|   |   |-- Modulemenu.jsx
+|   |   |-- mosyTheme.jsx
+|   |   |-- sidebarConfig.jsx
+|   |   `-- sidebarConfigPOS.js
+|   |-- assets/
+|   |   |-- css/
+|   |   |   |-- bootstrap.min.css
+|   |   |   |-- feathericon.min.css
+|   |   |   |-- font-awesome.min.css
+|   |   |   |-- select2.min.css
+|   |   |   `-- style.css
+|   |   |-- fonts/
+|   |   |   |-- feathericon-1.eot
+|   |   |   |-- feathericon.eot
+|   |   |   |-- feathericon.svg
+|   |   |   |-- feathericon.ttf
+|   |   |   |-- feathericon.woff
+|   |   |   |-- fontawesome-webfont-1.eot
+|   |   |   |-- fontawesome-webfont.eot
+|   |   |   |-- fontawesome-webfont.svg
+|   |   |   |-- fontawesome-webfont.ttf
+|   |   |   |-- fontawesome-webfont.woff
+|   |   |   |-- fontawesome-webfont.woff2
+|   |   |   |-- MaterialIcons-Regular.eot
+|   |   |   |-- MaterialIcons-Regular.ttf
+|   |   |   |-- MaterialIcons-Regular.woff
+|   |   |   `-- MaterialIcons-Regular.woff2
+|   |   |-- img/
+|   |   |   |-- log-bg.jpg
+|   |   |   |-- log-bg2.png
+|   |   |   |-- logo-small.png
+|   |   |   `-- logo.png
+|   |   |-- js/
+|   |   |   |-- bootstrap.bundle.min.js
+|   |   |   |-- form-validation.js
+|   |   |   |-- jquery-3.6.0.min.js
+|   |   |   |-- jquery.maskedinput.min.js
+|   |   |   |-- mask.js
+|   |   |   |-- script.js
+|   |   |   `-- select2.min.js
+|   |   `-- plugins/
+|   |       |-- datatables/
+|   |       |   |-- datatables.min.css
+|   |       |   |-- datatables.min.js
+|   |       |   `-- jquery.dataTables.min.js
+|   |       |-- morris/
+|   |       |   `-- morris.css
+|   |       |-- slimscroll/
+|   |       |   `-- jquery.slimscroll.min.js
+|   |       `-- vectormap/
+|   |           |-- maps/
+|   |           |-- jquery.vmap.js
+|   |           `-- jqvmap.css
+|   |-- auth/
+|   |   |-- accstatus/
+|   |   |   `-- page.jsx
+|   |   |-- appdna_config/
+|   |   |   |-- system_module_manifest_/
+|   |   |   |   |-- tbl_attr/
+|   |   |   |   `-- System Module Manifest_blueprint.Dnaaf
+|   |   |   |-- system_role_bundles/
+|   |   |   |   |-- tbl_attr/
+|   |   |   |   `-- System Roles_blueprint.Dnaaf
+|   |   |   |-- system_users/
+|   |   |   |   |-- tbl_attr/
+|   |   |   |   `-- System Users_blueprint.Dnaaf
+|   |   |   `-- user_bundle_role_functions/
+|   |   |       |-- tbl_attr/
+|   |   |       `-- User Role Functions_blueprint.Dnaaf
+|   |   |-- AssetGuard/
+|   |   |   |-- Authshell.jsx
+|   |   |   |-- Forgotpasswordform.jsx
+|   |   |   |-- Loginform.jsx
+|   |   |   |-- MosyAuthUI.css
+|   |   |   |-- Pendingapproval.jsx
+|   |   |   |-- RegisterForm.jsx
+|   |   |   |-- Registrationrejected.jsx
+|   |   |   `-- Requestaccess.jsx
+|   |   |-- featureConfig/
+|   |   |   `-- saAuthConfigs.jsx
+|   |   |-- login/
+|   |   |   |-- uiControl/
+|   |   |   |   |-- DefaultLoginForm.jsx
+|   |   |   |   |-- LoginLayout_WPStyle.jsx
+|   |   |   |   |-- MainLoginInputs.jsx
+|   |   |   |   |-- MiniWidgetLoginForm.jsx
+|   |   |   |   `-- SplitCardLoginForm.jsx
+|   |   |   `-- page.jsx
+|   |   |-- register/
+|   |   |   |-- uiControl/
+|   |   |   |   |-- MainLoginInputs.jsx
+|   |   |   |   `-- RegisterForm.jsx
+|   |   |   `-- page.jsx
+|   |   |-- registration/
+|   |   |   `-- page.jsx
+|   |   |-- resetpassword/
+|   |   |   |-- uiControl/
+|   |   |   |   `-- ResetPasswordForm.jsx
+|   |   |   `-- page.jsx
+|   |   |-- splash/
+|   |   |   |-- uiControl/
+|   |   |   |   `-- SplashScreen.jsx
+|   |   |   `-- page.jsx
+|   |   |-- sql_tables/
+|   |   |   `-- authmaster.sql
+|   |   |-- student/
+|   |   |   |-- portal/
+|   |   |   |   |-- page.jsx
+|   |   |   |   `-- StudentPortal.jsx
+|   |   |   |-- splash/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- uiControl/
+|   |   |   |   |-- DefaultLoginForm.jsx
+|   |   |   |   |-- LoginLayout_WPStyle.jsx
+|   |   |   |   |-- MainLoginInputs.jsx
+|   |   |   |   |-- MiniWidgetLoginForm.jsx
+|   |   |   |   `-- SplitCardLoginForm.jsx
+|   |   |   `-- page.jsx
+|   |   |-- authAccesControl.jsx
+|   |   |-- AuthUtils.jsx
+|   |   `-- SessionMonitor.jsx
+|   |-- builderUtils/
+|   |   |-- builder.jsx
+|   |   `-- builderDnaRoutes.json
+|   |-- capabilities_sql/
+|   |   |-- capabilities_tables.sql
+|   |   |-- reminders.sql
+|   |   `-- smart_calls.sql
+|   |-- components/
+|   |   |-- AdminFooter.jsx
+|   |   |-- AdminNav.jsx
+|   |   |-- DynamicModal.jsx
+|   |   |-- DynamicModalProvider.jsx
+|   |   |-- ElforgeChart.jsx
+|   |   |-- GridLoader.jsx
+|   |   |-- initSideBarControl_old.js
+|   |   |-- initSideBarControl.js
+|   |   |-- ListLayout.jsx
+|   |   |-- MosyCard.jsx
+|   |   |-- ProfileLayout.jsx
+|   |   |-- TopLoader.jsx
+|   |   `-- ViewAllLink.jsx
+|   |-- css/
+|   |   |-- accesscontrolmatrix.css
+|   |   |-- Datacardlist.css
+|   |   |-- datamanager.css
+|   |   |-- designer.css
+|   |   |-- dna_message_list_ui.css
+|   |   |-- dna_message_profile_ui.css
+|   |   |-- dna_message_profile_w_pic.css
+|   |   |-- dna_mini_card_user_list.css
+|   |   |-- dna_profile1.css
+|   |   |-- dna_user_card_list.css
+|   |   |-- Dynamicformpro.css
+|   |   |-- EntityFormStyle.css
+|   |   |-- Entitytablecard.css
+|   |   |-- fonts.css
+|   |   |-- MosyAuthUI.css
+|   |   |-- mosyUi.js
+|   |   |-- nudgecard.css
+|   |   |-- Octane Obit Proposal — Fahd Agro Investments Ltd.pdf
+|   |   |-- quickmodaleditor.css
+|   |   |-- sidebarNested.css
+|   |   |-- smartprogrid.css
+|   |   |-- smsui.css
+|   |   `-- templateCssPack.js
+|   |-- fonts/
+|   |   |-- fontawesome-webfont.eot
+|   |   |-- fontawesome-webfont.svg
+|   |   |-- fontawesome-webfont.ttf
+|   |   |-- fontawesome-webfont.woff
+|   |   |-- fontawesome-webfont.woff2
+|   |   |-- FontAwesome.otf
+|   |   |-- themify.eot
+|   |   |-- themify.svg
+|   |   |-- themify.ttf
+|   |   `-- themify.woff
+|   |-- img/
+|   |   |-- logo/
+|   |   |   |-- logo.jpg
+|   |   |   |-- logo.png
+|   |   |   `-- Read me before using your logo.txt
+|   |   |-- avatar-11.jpg
+|   |   |-- bglogin.png
+|   |   |-- loginbg.jfif
+|   |   |-- loginbg.jpg
+|   |   |-- logo.zip
+|   |   |-- receipt-RGWABS3OQI.png
+|   |   `-- useravatar.png
+|   |-- mosybilling/
+|   |   |-- DataControl/
+|   |   |   |-- customDataFunction.jsx
+|   |   |   |-- MosyColumnFactory.jsx
+|   |   |   `-- MosyFilterEngine.jsx
+|   |   |-- payments/
+|   |   |   |-- dataControl/
+|   |   |   |   |-- SubscriptionpaymentsRequestHandler.jsx
+|   |   |   |   `-- SubscriptionpaymentsStateManager.jsx
+|   |   |   |-- list/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- profile/
+|   |   |   |   `-- page.jsx
+|   |   |   `-- uiControl/
+|   |   |       |-- SubscriptionpaymentsList.jsx
+|   |   |       `-- SubscriptionpaymentsProfile.jsx
+|   |   |-- UiControl/
+|   |   |   |-- componentControl.jsx
+|   |   |   |-- customFunctions.jsx
+|   |   |   |-- customUI.jsx
+|   |   |   `-- formControlEngine.jsx
+|   |   |-- BillingMonitor.js
+|   |   |-- page.jsx
+|   |   |-- PremuimBtn.jsx
+|   |   |-- PricingCards.jsx
+|   |   `-- PricingExe.jsx
+|   |-- MosyUtils/
+|   |   |-- ActionModals.jsx
+|   |   |-- BillingPaymentModal.jsx
+|   |   |-- BillingUpgradeBar.jsx
+|   |   |-- exportRichText.jsx
+|   |   |-- exportToExcel.js
+|   |   |-- hiveUtils.jsx
+|   |   |-- htmlEditor.jsx
+|   |   |-- mosyCreatePdf.jsx
+|   |   `-- MosySnackWidget.jsx
+|   |-- novabilling/
+|   |   |-- BillingNotice.jsx
+|   |   |-- client.js
+|   |   `-- config.js
+|   |-- ticksy/
+|   |   |-- _mosy_df_template_v1/
+|   |   |   |-- list/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- logicControl/
+|   |   |   |   `-- actionsRegistry.js
+|   |   |   |-- uiControl/
+|   |   |   |   `-- Dftemplatev1List.jsx
+|   |   |   `-- Dftemplatev1Schema.js
+|   |   |-- _mosy_module_v1/
+|   |   |   |-- import/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- list/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- logicControl/
+|   |   |   |   |-- actionRegistryDocs.md
+|   |   |   |   `-- actionsRegistry.js
+|   |   |   |-- profile/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- uiControl/
+|   |   |   |   |-- Smarttemplatev1List.jsx
+|   |   |   |   `-- Smarttemplatev1Profile.jsx
+|   |   |   `-- MODULE-SCHEMA-GUIDE.md
+|   |   |-- accesscontrol/
+|   |   |   |-- dataControl/
+|   |   |   |   |-- SystemmodulemanifestRequestHandler.jsx
+|   |   |   |   `-- SystemmodulemanifestStateManager.jsx
+|   |   |   |-- list/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- profile/
+|   |   |   |   `-- page.jsx
+|   |   |   `-- uiControl/
+|   |   |       |-- SystemmodulemanifestList.jsx
+|   |   |       `-- SystemmodulemanifestProfile.jsx
+|   |   |-- accessmatrix/
+|   |   |   |-- accessmatrix.jsx
+|   |   |   `-- page.jsx
+|   |   |-- accounturls/
+|   |   |   |-- import/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- list/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- logicControl/
+|   |   |   |   |-- actionRegistryDocs.md
+|   |   |   |   `-- actionsRegistry.js
+|   |   |   |-- profile/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- uiControl/
+|   |   |   |   |-- AccounturlsList.jsx
+|   |   |   |   `-- AccounturlsProfile.jsx
+|   |   |   |-- AccounturlsSchema.js
+|   |   |   `-- MODULE-SCHEMA-GUIDE.md
+|   |   |-- accrenewals/
+|   |   |   |-- import/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- list/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- logicControl/
+|   |   |   |   |-- actionRegistryDocs.md
+|   |   |   |   `-- actionsRegistry.js
+|   |   |   |-- profile/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- uiControl/
+|   |   |   |   |-- AccrenewalsList.jsx
+|   |   |   |   `-- AccrenewalsProfile.jsx
+|   |   |   |-- AccrenewalsSchema.js
+|   |   |   `-- MODULE-SCHEMA-GUIDE.md
+|   |   |-- adminroles/
+|   |   |   |-- import/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- list/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- logicControl/
+|   |   |   |   |-- actionRegistryDocs.md
+|   |   |   |   `-- actionsRegistry.js
+|   |   |   |-- profile/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- uiControl/
+|   |   |   |   |-- AdminrolesList.jsx
+|   |   |   |   `-- AdminrolesProfile.jsx
+|   |   |   |-- AdminrolesSchema.js
+|   |   |   `-- MODULE-SCHEMA-GUIDE.md
+|   |   |-- admins/
+|   |   |   |-- import/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- list/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- logicControl/
+|   |   |   |   |-- actionRegistryDocs.md
+|   |   |   |   `-- actionsRegistry.js
+|   |   |   |-- profile/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- uiControl/
+|   |   |   |   |-- AdminsList.jsx
+|   |   |   |   `-- AdminsProfile.jsx
+|   |   |   |-- AdminsSchema.js
+|   |   |   `-- MODULE-SCHEMA-GUIDE.md
+|   |   |-- agents/
+|   |   |   |-- import/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- list/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- logicControl/
+|   |   |   |   |-- actionRegistryDocs.md
+|   |   |   |   `-- actionsRegistry.js
+|   |   |   |-- profile/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- uiControl/
+|   |   |   |   |-- AgentsList.jsx
+|   |   |   |   `-- AgentsProfile.jsx
+|   |   |   |-- AgentsSchema.js
+|   |   |   `-- MODULE-SCHEMA-GUIDE.md
+|   |   |-- apkuploads/
+|   |   |   |-- import/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- list/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- logicControl/
+|   |   |   |   |-- actionRegistryDocs.md
+|   |   |   |   `-- actionsRegistry.js
+|   |   |   |-- profile/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- uiControl/
+|   |   |   |   |-- ApkuploadsList.jsx
+|   |   |   |   `-- ApkuploadsProfile.jsx
+|   |   |   |-- ApkuploadsSchema.js
+|   |   |   `-- MODULE-SCHEMA-GUIDE.md
+|   |   |-- AppCore/
+|   |   |   |-- appGlobalUtils.jsx
+|   |   |   `-- coreUtils.jsx
+|   |   |-- AppRoutes/
+|   |   |   |-- apiRoutes.json
+|   |   |   |-- apiRoutes.json.bak
+|   |   |   |-- apiRoutesHandler.js
+|   |   |   |-- relations-log.txt
+|   |   |   |-- ticksyMenuConfig_dn.js
+|   |   |   |-- ticksyMenuConfig_old.js
+|   |   |   |-- ticksyMenuConfig_sk.js
+|   |   |   `-- ticksyMenuConfig.js
+|   |   |-- banking/
+|   |   |   |-- import/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- list/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- logicControl/
+|   |   |   |   |-- actionRegistryDocs.md
+|   |   |   |   `-- actionsRegistry.js
+|   |   |   |-- profile/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- uiControl/
+|   |   |   |   |-- BankingList.jsx
+|   |   |   |   `-- BankingProfile.jsx
+|   |   |   |-- BankingSchema.js
+|   |   |   `-- MODULE-SCHEMA-GUIDE.md
+|   |   |-- billinglog/
+|   |   |   |-- import/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- list/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- logicControl/
+|   |   |   |   |-- actionRegistryDocs.md
+|   |   |   |   `-- actionsRegistry.js
+|   |   |   |-- profile/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- uiControl/
+|   |   |   |   |-- BillinglogList.jsx
+|   |   |   |   `-- BillinglogProfile.jsx
+|   |   |   |-- BillinglogSchema.js
+|   |   |   `-- MODULE-SCHEMA-GUIDE.md
+|   |   |-- billingtransactions/
+|   |   |   |-- import/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- list/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- logicControl/
+|   |   |   |   |-- actionRegistryDocs.md
+|   |   |   |   `-- actionsRegistry.js
+|   |   |   |-- profile/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- uiControl/
+|   |   |   |   |-- BillingtransactionsList.jsx
+|   |   |   |   `-- BillingtransactionsProfile.jsx
+|   |   |   |-- BillingtransactionsSchema.js
+|   |   |   `-- MODULE-SCHEMA-GUIDE.md
+|   |   |-- businessbranches/
+|   |   |   |-- import/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- list/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- logicControl/
+|   |   |   |   |-- actionRegistryDocs.md
+|   |   |   |   `-- actionsRegistry.js
+|   |   |   |-- profile/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- uiControl/
+|   |   |   |   |-- BusinessbranchesList.jsx
+|   |   |   |   `-- BusinessbranchesProfile.jsx
+|   |   |   |-- BusinessbranchesSchema.js
+|   |   |   `-- MODULE-SCHEMA-GUIDE.md
+|   |   |-- cashbooktable/
+|   |   |   |-- import/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- list/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- logicControl/
+|   |   |   |   |-- actionRegistryDocs.md
+|   |   |   |   `-- actionsRegistry.js
+|   |   |   |-- profile/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- uiControl/
+|   |   |   |   |-- CashbooktableList.jsx
+|   |   |   |   `-- CashbooktableProfile.jsx
+|   |   |   |-- CashbooktableSchema.js
+|   |   |   `-- MODULE-SCHEMA-GUIDE.md
+|   |   |-- checkoutorders/
+|   |   |   |-- import/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- list/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- logicControl/
+|   |   |   |   |-- actionRegistryDocs.md
+|   |   |   |   `-- actionsRegistry.js
+|   |   |   |-- profile/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- uiControl/
+|   |   |   |   |-- CheckoutordersList.jsx
+|   |   |   |   `-- CheckoutordersProfile.jsx
+|   |   |   |-- CheckoutordersSchema.js
+|   |   |   `-- MODULE-SCHEMA-GUIDE.md
+|   |   |-- clientaccounts/
+|   |   |   |-- import/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- list/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- logicControl/
+|   |   |   |   |-- actionRegistryDocs.md
+|   |   |   |   `-- actionsRegistry.js
+|   |   |   |-- profile/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- uiControl/
+|   |   |   |   |-- ClientaccountsList.jsx
+|   |   |   |   `-- ClientaccountsProfile.jsx
+|   |   |   |-- ClientaccountsSchema.js
+|   |   |   `-- MODULE-SCHEMA-GUIDE.md
+|   |   |-- clientinvoices/
+|   |   |   |-- import/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- list/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- logicControl/
+|   |   |   |   |-- actionRegistryDocs.md
+|   |   |   |   `-- actionsRegistry.js
+|   |   |   |-- profile/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- uiControl/
+|   |   |   |   |-- ClientinvoicesList.jsx
+|   |   |   |   `-- ClientinvoicesProfile.jsx
+|   |   |   |-- ClientinvoicesSchema.js
+|   |   |   `-- MODULE-SCHEMA-GUIDE.md
+|   |   |-- clients/
+|   |   |   |-- import/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- list/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- logicControl/
+|   |   |   |   |-- actionRegistryDocs.md
+|   |   |   |   `-- actionsRegistry.js
+|   |   |   |-- profile/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- uiControl/
+|   |   |   |   |-- ClientsList.jsx
+|   |   |   |   `-- ClientsProfile.jsx
+|   |   |   |-- ClientsSchema.js
+|   |   |   `-- MODULE-SCHEMA-GUIDE.md
+|   |   |-- collectionactions/
+|   |   |   |-- import/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- list/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- logicControl/
+|   |   |   |   |-- actionRegistryDocs.md
+|   |   |   |   `-- actionsRegistry.js
+|   |   |   |-- profile/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- uiControl/
+|   |   |   |   |-- CollectionactionsList.jsx
+|   |   |   |   `-- CollectionactionsProfile.jsx
+|   |   |   |-- CollectionactionsSchema.js
+|   |   |   `-- MODULE-SCHEMA-GUIDE.md
+|   |   |-- commissions/
+|   |   |   |-- import/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- list/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- logicControl/
+|   |   |   |   |-- actionRegistryDocs.md
+|   |   |   |   `-- actionsRegistry.js
+|   |   |   |-- profile/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- uiControl/
+|   |   |   |   |-- CommissionsList.jsx
+|   |   |   |   `-- CommissionsProfile.jsx
+|   |   |   |-- CommissionsSchema.js
+|   |   |   `-- MODULE-SCHEMA-GUIDE.md
+|   |   |-- companies/
+|   |   |   |-- import/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- list/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- logicControl/
+|   |   |   |   |-- actionRegistryDocs.md
+|   |   |   |   `-- actionsRegistry.js
+|   |   |   |-- profile/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- uiControl/
+|   |   |   |   |-- CompaniesList.jsx
+|   |   |   |   `-- CompaniesProfile.jsx
+|   |   |   |-- CompaniesSchema.js
+|   |   |   `-- MODULE-SCHEMA-GUIDE.md
+|   |   |-- dailyleads/
+|   |   |   |-- import/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- list/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- logicControl/
+|   |   |   |   |-- actionRegistryDocs.md
+|   |   |   |   `-- actionsRegistry.js
+|   |   |   |-- profile/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- uiControl/
+|   |   |   |   |-- DailyleadsList.jsx
+|   |   |   |   `-- DailyleadsProfile.jsx
+|   |   |   |-- DailyleadsSchema.js
+|   |   |   `-- MODULE-SCHEMA-GUIDE.md
+|   |   |-- dailyleadsfollowups/
+|   |   |   |-- import/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- list/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- logicControl/
+|   |   |   |   |-- actionRegistryDocs.md
+|   |   |   |   `-- actionsRegistry.js
+|   |   |   |-- profile/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- uiControl/
+|   |   |   |   |-- DailyleadsfollowupsList.jsx
+|   |   |   |   `-- DailyleadsfollowupsProfile.jsx
+|   |   |   |-- DailyleadsfollowupsSchema.js
+|   |   |   `-- MODULE-SCHEMA-GUIDE.md
+|   |   |-- dashboard/
+|   |   |   |-- dashboard-kit/
+|   |   |   |   |-- apiUtils/
+|   |   |   |   |-- dashboard/
+|   |   |   |   |-- test/
+|   |   |   |   |-- package.json
+|   |   |   |   `-- README.md
+|   |   |   |-- main/
+|   |   |   |   |-- dashboard.dummy.js
+|   |   |   |   |-- dashboard.schema.js
+|   |   |   |   |-- origin-dashboard.css
+|   |   |   |   |-- OriginDashboard.jsx
+|   |   |   |   |-- OriginDashboardLive.jsx
+|   |   |   |   `-- page.jsx
+|   |   |   |-- main_old/
+|   |   |   |   |-- origin-dashboard.css
+|   |   |   |   |-- OriginDashboard.jsx
+|   |   |   |   |-- OriginDashboardLive.jsx
+|   |   |   |   `-- page.jsx
+|   |   |   `-- dashboard-kit (1).zip
+|   |   |-- DataControl/
+|   |   |   |-- customDataFunction.jsx
+|   |   |   |-- MosyColumnFactory.jsx
+|   |   |   |-- MosyFilterEngine.jsx
+|   |   |   |-- originlmsv2Schema.js
+|   |   |   |-- ticksySchema_old_est.js
+|   |   |   |-- ticksySchema_old.js
+|   |   |   `-- ticksySchema.js
+|   |   |-- dataflow/
+|   |   |   |-- import/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- list/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- logicControl/
+|   |   |   |   |-- actionRegistryDocs.md
+|   |   |   |   `-- actionsRegistry.js
+|   |   |   |-- profile/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- uiControl/
+|   |   |   |   |-- DataflowList.jsx
+|   |   |   |   `-- DataflowProfile.jsx
+|   |   |   |-- DataflowSchema.js
+|   |   |   `-- MODULE-SCHEMA-GUIDE.md
+|   |   |-- datasequencemonitor/
+|   |   |   |-- import/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- list/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- logicControl/
+|   |   |   |   |-- actionRegistryDocs.md
+|   |   |   |   `-- actionsRegistry.js
+|   |   |   |-- profile/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- uiControl/
+|   |   |   |   |-- DatasequencemonitorList.jsx
+|   |   |   |   `-- DatasequencemonitorProfile.jsx
+|   |   |   |-- DatasequencemonitorSchema.js
+|   |   |   `-- MODULE-SCHEMA-GUIDE.md
+|   |   `-- (+87 more)
+|   |-- view/
+|   |   |-- i/
+|   |   |   `-- page.jsx
+|   |   |-- iot/
+|   |   |   |-- clockin/
+|   |   |   |   `-- page.jsx
+|   |   |   |-- logicControl/
+|   |   |   |   |-- actionRegistryDocs.md
+|   |   |   |   `-- actionsRegistry.js
+|   |   |   |-- uiControl/
+|   |   |   |   `-- AttendanceKiosk.jsx
+|   |   |   |-- AttendanceSchema.js
+|   |   |   `-- MODULE-SCHEMA-GUIDE.md
+|   |   |-- q/
+|   |   |   `-- page.jsx
+|   |   `-- r/
+|   |       `-- page.jsx
+|   |-- dashgen.php
+|   |-- eventmapper.php
+|   |-- globals.css
+|   |-- layout.js
+|   |-- logo.png
+|   |-- mapperphpjs.php
+|   |-- menumapper.php
+|   |-- ModuleComingSoon.jsx
+|   |-- moduleRegistry.jsx
+|   |-- not-found.jsx
+|   |-- page.js
+|   |-- page.module.css
+|   |-- tablebuilder.php
+|   `-- uipresetbuilder.html
+|-- appdna/
+|   `-- blueprint.php
+|-- reportdrop/
+|   |-- files/
+|   |   |-- app/
+|   |   |   |-- api/
+|   |   |   |   |-- apiUtils/
+|   |   |   |   `-- ticksy/
+|   |   |   `-- ticksy/
+|   |   |       |-- _mosy_df_template_v1/
+|   |   |       `-- reportControl/
+|   |   |-- gen-report.js
+|   |   `-- reportmap.txt
+|   |-- install.js
+|   `-- README.md
+|-- .env
+|-- .gitignore
+|-- build-relations.js
+|-- clone-module_old.js
+|-- clone-module.js
+|-- create_table_.txt
+|-- db-cli_old.js
+|-- db-cli_sold.js
+|-- db-cli-bulk-history.txt
+|-- db-cli.js
+|-- gen-report.js
+|-- gen-report.js.bak
+|-- gen-routes.js
+|-- generatedRoutes.json
+|-- guardian-tables-dump.txt
+|-- hypernetv2-tables-dump.txt
+|-- jsondb.php
+|-- mosy-tree.js
+|-- next.config.js
+|-- nextpos-tables-dump.txt
+|-- octaneorbit-tables-dump.txt
+|-- package.json
+|-- project-tree.txt
+|-- reportmap.txt
+|-- schemamap.js
+`-- simukopav1-tables-dump.txt

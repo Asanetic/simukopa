@@ -1,0 +1,32 @@
+/* Nested sidebar menus: right-pointing arrow (turns down when open) + inward indent per level.
+   Load AFTER the theme's own css (end of the global stylesheet, or import it last in the layout). */
+
+   .sidebar-menu .submenu > a { position: relative; }
+
+   /* the arrow: ">" when closed, "v" when open — drawn with borders, so it does not depend on the theme's icon font */
+   .sidebar-menu .submenu > a .menu-arrow {
+     position: absolute; right: 15px; top: 50%;
+     width: 7px; height: 7px; margin-top: -5px;
+     border-right: 2px solid currentColor; border-bottom: 2px solid currentColor;
+     background: none; font-size: 0; line-height: 0; display: inline-block;
+     transform: rotate(-45deg);               /* points right */
+     transition: transform .25s ease;
+     opacity: .75;
+   }
+   .sidebar-menu .submenu > a .menu-arrow::before,
+   .sidebar-menu .submenu > a .menu-arrow::after { content: none !important; }
+   .sidebar-menu .submenu.subdrop > a .menu-arrow,
+   .sidebar-menu .submenu > a.subdrop .menu-arrow { transform: rotate(45deg); margin-top: -7px; }   /* points down when open */
+   
+   /* every nested level is inset from BOTH sides (so its arrow moves left too), with a faint guide line down its children */
+   .sidebar-menu .submenu .submenu { margin-left: 12px; margin-right: 12px; }
+   .sidebar-menu .submenu .submenu > ul { margin-left: 0; border-left: 1px solid rgba(128, 128, 128, .35); }
+   /* label positions (the theme's own deeper padding is replaced so the inset above does the indenting):
+      folder headers sit at the theme's level-2 start, links inside a nested folder are 12px further in */
+   .sidebar-menu .submenu .submenu a { padding-left: 40px !important; }
+   .sidebar-menu .submenu .submenu > ul > li:not(.submenu) > a { padding-left: 52px !important; }
+   
+   /* font sizes step down one notch per level (top-level items keep the theme's size, e.g. 15px) */
+   .sidebar-menu { --nav-font-l2: 14px; --nav-font-l3: 13px; }
+   .sidebar-menu .submenu > ul a { font-size: var(--nav-font-l2); }
+   .sidebar-menu .submenu .submenu > ul a { font-size: var(--nav-font-l3); }

@@ -1,0 +1,711 @@
+:root {
+    --lux-bg: #ffffff;
+    --lux-soft: #f6f7f9;
+    --lux-border: #e5e7eb;
+    --lux-text: #1f2937;
+    --lux-muted: #6b7280;
+    --lux-accent: #9a7b4f; /* muted gold */
+  }
+
+  .data-manager-container {
+    padding: 24px;
+    background: #f2f3f5;
+  }
+
+  .data-manager-section {
+    background: var(--lux-bg);
+    border-radius: 16px;
+    padding: 22px;
+    margin-bottom: 32px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.06);
+  }
+
+  .data-section-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 22px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    color: var(--lux-text);
+  }
+
+  .data-section-title i {
+    color: var(--lux-accent);
+    font-size: 16px;
+  }
+
+  .data-manager-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 18px;
+  }
+
+  .data-card {
+    background: var(--lux-soft);
+    border-radius: 14px;
+    padding: 18px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .data-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.08);
+  }
+
+  .data-card h5 {
+    margin-bottom: 14px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--lux-text);
+  }
+
+  .data-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .data-action-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--lux-text);
+    background: var(--lux-bg);
+    border: 1px solid var(--lux-border);
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .data-action-link i {
+    font-size: 11px;
+    color: var(--lux-muted);
+  }
+
+  .data-action-link:hover {
+    border-color: var(--lux-accent);
+    color: var(--lux-accent);
+  }
+
+  .data-action-link:hover i {
+    color: var(--lux-accent);
+  }
+
+
+
+  .mosy_archive_note_wrapper{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+    padding:5px;
+}
+
+.mosy_archive_note_inputs{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+.mosy_archive_note_input{
+    border:none !important;
+    border-radius:16px !important;
+    padding:14px !important;
+    background:#f7f7f8 !important;
+    box-shadow:
+        inset 0 1px 2px rgba(0,0,0,0.04),
+        0 4px 14px rgba(0,0,0,0.03);
+    resize:none;
+}
+
+.mosy_archive_note_input:focus{
+    box-shadow:
+        0 0 0 4px rgba(0,0,0,0.04),
+        0 10px 25px rgba(0,0,0,0.06) !important;
+    background:#fff !important;
+}
+
+.mosy_archive_note_footer{
+    display:flex;
+    justify-content:flex-end;
+}
+
+.mosy_archive_note_btn{
+    border:none !important;
+    padding:12px 22px !important;
+    border-radius:14px !important;
+    background:#111 !important;
+    color:#fff !important;
+    font-weight:600 !important;
+    transition:all 0.2s ease;
+    box-shadow:
+        0 10px 20px rgba(0,0,0,0.08);
+}
+
+.mosy_archive_note_btn:hover{
+    transform:translateY(-2px);
+    opacity:0.95;
+}
+
+/* EntityTableCard.css
+   Premium styling layer for TestGrid (and any grid built on the same
+   markup shape). Bootstrap still supplies layout resets — this file
+   owns color, type, spacing, and the small interaction details that
+   make the grid feel considered rather than default.
+*/
+
+/* ---------------------------------------------------------------- */
+/* Header                                                            */
+/* ---------------------------------------------------------------- */
+
+.etc-header {
+  /* Layout (stacking heading vs. toolbar) now comes from the
+     row/col-12 col-lg-4 / col-lg-8 markup in SmartGrid.jsx — this
+     rule only owns padding + the hairline underneath. */
+  padding: 1.35rem 1.5rem 1.1rem;
+  border-bottom: 1px solid var(--etc-line);
+}
+
+.etc-heading {
+  min-width: 0;
+}
+
+.etc-title {
+  margin: 0 0 0.2rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--etc-ink);
+}
+
+.etc-description {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--etc-muted);
+}
+/* 
+.etc-toolbar {
+  /* No layout rules here anymore — col-12 col-lg-8 on the wrapping
+     div in SmartGrid.jsx handles width/stacking. 
+} */
+
+/* ---------------------------------------------------------------- */
+/* Search                                                             */
+/* ---------------------------------------------------------------- */
+
+.etc-search-wrap {
+  /* Bootstrap col (col-12 col-sm-6 col-md-5) now owns width/flex-basis;
+     this stays relative purely so the icon/go buttons can absolutely
+     position inside it. */
+  position: relative;
+}
+
+.etc-search-icon-btn {
+  position: absolute;
+  left: 0.1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2.1rem;
+  height: 2.1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: 999px;
+  color: var(--etc-muted);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.etc-search-icon-btn:hover {
+  color: var(--etc-accent);
+}
+
+.etc-search-icon-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--etc-accent-soft);
+}
+
+.etc-search-input {
+  width: 100%;
+  padding: 0.55rem 0.85rem 0.55rem 2.25rem;
+  font-size: 0.83rem;
+  color: var(--etc-ink);
+  background: #ffffff;
+  border: 1px solid var(--etc-line);
+  border-radius: 8px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.etc-search-input::placeholder {
+  color: var(--etc-muted);
+}
+
+.etc-search-input:focus {
+  outline: none;
+  border-color: var(--etc-accent);
+  box-shadow: 0 0 0 3px var(--etc-accent-soft);
+}
+
+.etc-filter-select {
+  width: auto;
+  min-width: 150px;
+  border-radius: 8px;
+  border: 1px solid var(--etc-line);
+  font-size: 0.83rem;
+  color: var(--etc-ink);
+  padding: 0.5rem 0.75rem;
+}
+
+/* ---------------------------------------------------------------- */
+/* Buttons                                                            */
+/* ---------------------------------------------------------------- */
+
+.etc-btn-group {
+  /* display: flex; */
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.etc-btn {
+  /* display: inline-flex; */
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.85rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--etc-body);
+  background: #ffffff;
+  border: 1px solid var(--etc-line);
+  border-radius: 8px;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease,
+    color 0.15s ease, transform 0.05s ease;
+}
+
+.etc-btn:hover {
+  background: var(--etc-surface);
+  border-color: #d7dde6;
+  color: var(--etc-ink);
+}
+
+.etc-btn:active {
+  transform: translateY(1px);
+}
+
+.etc-btn:focus-visible {
+  outline: none;
+  border-color: var(--etc-accent);
+  box-shadow: 0 0 0 3px var(--etc-accent-soft);
+}
+
+.etc-btn-icon {
+  width: 2.1rem;
+  height: 2.1rem;
+  padding: 0;
+  border-radius: 8px;
+}
+
+.etc-btn-icon i {
+  transition: transform 0.35s ease;
+}
+
+.etc-btn-icon:active i {
+  transform: rotate(180deg);
+}
+
+
+
+.etc-btn-primary:hover {
+  background: var(--etc-accent-dark);
+  border-color: var(--etc-accent-dark);
+  color: #ffffff;
+}
+
+/* ---- "More" popover — same >4-buttons-collapse pattern as
+   DynamicForm.jsx's dyn-more-wrap/panel/item, just under the etc-
+   namespace so it matches the rest of this file's look. ---- */
+.etc-more-wrap { position: relative; }
+.etc-more-panel {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 200px;
+  max-width: min(260px, 90vw);
+  background: #fff;
+  border: 1px solid var(--etc-line);
+  border-radius: var(--etc-radius);
+  box-shadow: 0 16px 32px -8px rgba(22, 24, 31, 0.22), 0 2px 8px rgba(22, 24, 31, 0.08);
+  padding: 0.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  z-index: 30;
+}
+.etc-more-item {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  width: 100%;
+  padding: 0.55rem 0.7rem;
+  border: none;
+  background: transparent;
+  border-radius: 7px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--etc-body, var(--etc-ink));
+  text-align: left;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.12s ease;
+}
+.etc-more-item:hover { background: var(--etc-surface); }
+.etc-more-item:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* colorClass on an action collapsed into "More" — drop the button's
+   border (boxed border looks wrong on a flat list row); soft tint
+   background left as a subtle color cue, doesn't fight
+   .etc-more-item:hover (higher specificity, still wins on hover). */
+.etc-more-item.dyn-btn-accent-amber  { border-color: transparent; color: #b45309; }
+.etc-more-item.dyn-btn-accent-green  { border-color: transparent; color: #047857; }
+.etc-more-item.dyn-btn-accent-purple { border-color: transparent; color: #6d28d9; }
+.etc-more-item.dyn-btn-accent-pink   { border-color: transparent; color: #be185d; }
+.etc-more-item.dyn-btn-accent-red    { border-color: transparent; color: #b91c1c; }
+.etc-more-item.dyn-btn-accent-yellow { border-color: transparent; color: #a16207; }
+.etc-more-item.dyn-btn-accent-blue   { border-color: transparent; color: #1d4ed8; }
+.etc-more-item.dyn-btn-accent-teal   { border-color: transparent; color: #0f766e; }
+
+.etc-btn-sm {
+  padding: 0.35rem 0.7rem;
+  font-size: 0.74rem;
+  border-radius: 7px;
+}
+
+/* ---------------------------------------------------------------- */
+/* Table                                                              */
+/* ---------------------------------------------------------------- */
+
+.etc-body {
+  padding: 1.15rem 1.5rem 1.4rem;
+}
+
+.etc-table-data-wrap {
+  border: 1px solid var(--etc-line);
+  border-radius: var(--etc-radius);
+  overflow: hidden;
+}
+
+.etc-table-data {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.82rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.etc-table-data thead th {
+  border-bottom: 1px solid var(--etc-line);
+  padding: 0.7rem 1.1rem;
+  text-align: left;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+
+.etc-th-right {
+  text-align: right !important;
+}
+
+.etc-table-data tbody td {
+  padding: 0.8rem 1.1rem;
+  color: var(--etc-body);
+  vertical-align: middle;
+  box-shadow: inset 3px 0 0 transparent;
+  transition: box-shadow 0.15s ease, background-color 0.12s ease;
+}
+
+.etc-table-data tbody td:first-child {
+  color: var(--etc-ink);
+  font-weight: 600;
+}
+
+.etc-row {
+  border-top: 1px solid var(--etc-line);
+  transition: background-color 0.12s ease;
+}
+
+.etc-row:first-child {
+  border-top: none;
+}
+
+.etc-row:hover td {
+  background-color: var(--etc-surface);
+}
+
+.etc-row:hover td:first-child {
+  box-shadow: inset 3px 0 0 var(--etc-accent);
+}
+
+.etc-tfoot-row td {
+  padding: 0.75rem 1.1rem;
+  background-color: var(--etc-surface);
+  border-top: 2px solid var(--etc-line);
+  font-weight: 700;
+  color: var(--etc-ink);
+}
+
+/* ---- States: loading / error / empty ---- */
+
+.etc-state {
+  padding: 3rem 1rem;
+  text-align: center;
+  font-size: 0.83rem;
+}
+
+.etc-state-loading {
+  color: var(--etc-muted);
+}
+
+.etc-state-error {
+  color: var(--etc-danger);
+}
+
+.etc-state-empty {
+  color: var(--etc-muted);
+}
+
+.etc-spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  margin-right: 0.4rem;
+  vertical-align: -2px;
+  border: 2px solid var(--etc-line);
+  border-top-color: var(--etc-accent);
+  border-radius: 50%;
+  animation: etc-spin 0.7s linear infinite;
+}
+
+@keyframes etc-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---------------------------------------------------------------- */
+/* Pagination                                                         */
+/* ---------------------------------------------------------------- */
+
+.etc-pagination-wrap {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+/* Disabled pager buttons — reuses your existing .medium_btn/.border_set look */
+.disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------------- */
+/* Badges (kept for EntityRowOptions / status columns)                */
+/* ---------------------------------------------------------------- */
+
+.etc-subtitle {
+  font-size: 0.75rem;
+  color: var(--etc-muted);
+}
+
+.etc-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.7rem;
+  font-weight: 600;
+  font-size: 0.72rem;
+  border-radius: 999px;
+}
+
+.etc-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.etc-badge-green {
+  background-color: #ecfdf5;
+  color: #047857;
+}
+.etc-badge-red {
+  background-color: #fef2f2;
+  color: #b91c1c;
+}
+.etc-badge-amber {
+  background-color: #fffbeb;
+  color: #b45309;
+}
+.etc-badge-slate {
+  background-color: #f1f5f9;
+  color: #475569;
+}
+
+.etc-badge-dot-green {
+  background-color: #10b981;
+}
+.etc-badge-dot-red {
+  background-color: #ef4444;
+}
+.etc-badge-dot-amber {
+  background-color: #f59e0b;
+}
+.etc-badge-dot-slate {
+  background-color: #94a3b8;
+}
+
+/* .print-badge{
+  background-color: #6C328F ;
+  color:#000
+} */
+
+/* ---------------------------------------------------------------- */
+/* Responsive                                                         */
+/* ---------------------------------------------------------------- */
+
+@media (max-width: 640px) {
+  .etc-header {
+    padding: 1.1rem 1.1rem 0.9rem;
+  }
+
+  .etc-body {
+    padding: 1rem 1.1rem 1.25rem;
+  }
+
+  .etc-btn-group {
+    flex-wrap: wrap;
+  }
+
+  .etc-btn-group .etc-btn:not(.etc-btn-icon) {
+    flex: 1 1 auto;
+  }
+
+  .etc-more-panel { right: -121px; left: auto; width: 100%; max-width: none; }
+
+  
+  /* Print List / Export to Excel — these render as raw Bootstrap
+     .badge buttons, not .etc-btn, which is why they look like two
+     mismatched pills instead of a clean row. Stack them full-width
+     to match everything else. */
+  .etc-body > button.badge {
+    display: inline-block;
+    text-align: center;
+  }
+
+  /* ---- Bootstrap-style horizontal scroll (not stacked cards): keep
+     real column widths, let the wrapper scroll sideways instead. ---- */
+  .etc-table-data-wrap {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .etc-table-data {
+    min-width: 640px; /* forces the scrollbar instead of crushing columns/images — bump this up if you add more visible columns */
+  }
+
+  .etc-pagination-wrap {
+    justify-content: center;
+  }
+
+  .etc-search-go-btn {
+    font-size: 0.72rem;
+    padding: 0 0.7rem;
+  }
+}
+
+@media (max-width: 640px) {
+
+  .etc-btn-group {
+    /* display: flex; */
+    /* flex-direction: column; */
+    gap: 0.5rem;
+  }
+  /* .etc-btn-group .etc-btn {
+    
+  } */
+  /* Colored CTA actions (schema actions / grid profile actions like
+     "New Fuel Item") float above the plain Refresh button — matches
+     the reference: primary action first, Refresh underneath it. */
+  .etc-btn-group .etc-btn-primary,
+  .etc-btn-group .etc-btn-success,
+  .etc-btn-group .etc-btn-warning,
+  .etc-btn-group .etc-btn-danger {
+    order: -1;
+  }
+
+  /* Only kicks in with 2+ profile/toolbar actions — a single action
+   (e.g. just "New Deal") stays on the existing flex:1 1 0 sizing
+   above, so it keeps hugging Refresh at its own content width instead
+   of being stretched into a lone half-width grid cell. Compound
+   selector (.etc-btn-group.etc-btn-group--grid) deliberately outranks
+   the plain .etc-btn-group rules above regardless of source order. */
+.etc-btn-group.etc-btn-group--grid,
+.etc-btn-row.etc-btn-row--grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+}
+
+.etc-btn-group.etc-btn-group--grid .etc-btn,
+.etc-btn-row.etc-btn-row--grid .etc-btn {
+  flex: none;      /* grid owns sizing now, not flex-grow */
+  min-width: 0;      /* still allow long labels ("Filter by status") to ellipsis/shrink rather than force the column wider */
+  justify-content: center;
+}
+
+/* An odd number of actions leaves the last one alone on its row —
+   let it span both columns rather than sit stranded at half width. */
+.etc-btn-group.etc-btn-group--grid .etc-btn:last-child:nth-child(odd),
+.etc-btn-row.etc-btn-row--grid .etc-btn:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+
+  /* Print List / Export to Excel sit side-by-side as a pair, not
+     stacked full-width. */
+  .etc-quick-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  .etc-quick-actions > button.badge {
+    flex: 1 1 0;
+    width: auto;
+    margin: 0 !important;
+    text-align: center;
+  }
+
+  .etc-table-data-wrap {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+  .etc-table-data {
+    min-width: 640px;
+  }
+
+  .etc-pagination-wrap {
+    justify-content: center;
+  }
+}
+

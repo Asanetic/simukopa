@@ -1,0 +1,27 @@
+report LendingForecast "Lending Growth Forecast"
+  by month
+  date date_issued
+  entity device_lending_forecast
+  role view_reports
+  currency KES
+  cache 60
+  maxrange 1200
+
+  loans = count loans "Loans Issued"
+  principal = sum loans.principal "Principal Lent" money
+  interest = sum loans.interest "Interest Charged" money
+  deposits = sum loans.deposit "Deposits Received" money
+  expected = principal + interest "Expected Repayment" money
+  paid = sum loans.total_paid "Total Repaid" money
+  balance = sum loans.balance "Outstanding Balance" money
+  avg_loan = principal / loans "Average Loan Size" money
+  avg_interest = interest / loans "Average Interest per Loan" money
+
+  forecast loans next 12
+  forecast principal next 12
+
+  headline {label}: {loans} loans issued, {principal} lent and {expected} expected in repayments.
+
+  remark loans == 0 | watch | Insufficient history | No loans were issued in {label}, so lending trends cannot be assessed.
+  remark balance > 0 && paid < principal | watch | Capital recovery | Total repayments of {paid} are below principal lent of {principal}.
+  remark true | neutral | Lending outlook | {loans} loans issued, {expected} expected in repayments and {balance} still outstanding.

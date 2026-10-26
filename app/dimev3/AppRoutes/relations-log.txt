@@ -1,0 +1,105 @@
+RELATIONS REPORT — 10/26/2026, 12:41:13 PM — app: dimev3
+Modules found: 12   FK links found: 12
+
+LINKED (12)
+  loans.client_id -> clients
+     loans: view_loans_clients_profile
+     clients: view_clients_loans
+     clients: add_clients_loans
+     loans: filter_loans_clients
+  loans.device_id -> devices_list
+     loans: view_loans_deviceslist_profile
+     deviceslist: view_deviceslist_loans
+     deviceslist: add_deviceslist_loans
+     loans: filter_loans_deviceslist
+  paytriggerlogs.device_id -> devices_list
+     paytriggerlogs: view_paytriggerlogs_deviceslist_profile
+     deviceslist: view_deviceslist_paytriggerlogs
+     deviceslist: add_deviceslist_paytriggerlogs
+     paytriggerlogs: filter_paytriggerlogs_deviceslist
+  loansrepayments.loan_id -> loans
+     loansrepayments: view_loansrepayments_loans_profile
+     loans: view_loans_loansrepayments
+     loans: add_loans_loansrepayments   also maps client_id, device_id
+     loansrepayments: filter_loansrepayments_loans
+  loansrepayments.client_id -> clients
+     loansrepayments: view_loansrepayments_clients_profile
+     clients: view_clients_loansrepayments
+     clients: add_clients_loansrepayments
+     loansrepayments: filter_loansrepayments_clients
+  loansrepayments.device_id -> devices_list
+     loansrepayments: view_loansrepayments_deviceslist_profile
+     deviceslist: view_deviceslist_loansrepayments
+     deviceslist: add_deviceslist_loansrepayments
+     loansrepayments: filter_loansrepayments_deviceslist
+  remindershistory.client_id -> clients
+     remindershistory: view_remindershistory_clients_profile
+     clients: view_clients_remindershistory
+     clients: add_clients_remindershistory
+     remindershistory: filter_remindershistory_clients
+  remindershistory.device_id -> devices_list
+     remindershistory: view_remindershistory_deviceslist_profile
+     deviceslist: view_deviceslist_remindershistory
+     deviceslist: add_deviceslist_remindershistory
+     remindershistory: filter_remindershistory_deviceslist
+  remindershistory.loan_id -> loans
+     remindershistory: view_remindershistory_loans_profile
+     loans: view_loans_remindershistory
+     loans: add_loans_remindershistory   also maps client_id, device_id
+     remindershistory: filter_remindershistory_loans
+  devicesallocations.device_id -> devices_list
+     devicesallocations: view_devicesallocations_deviceslist_profile
+     deviceslist: view_deviceslist_devicesallocations
+     deviceslist: add_deviceslist_devicesallocations
+     devicesallocations: filter_devicesallocations_deviceslist
+  devicesallocations.loan_id -> loans
+     devicesallocations: view_devicesallocations_loans_profile
+     loans: view_loans_devicesallocations
+     loans: add_loans_devicesallocations   also maps device_id, client_id
+     devicesallocations: filter_devicesallocations_loans
+  devicesallocations.client_id -> clients
+     devicesallocations: view_devicesallocations_clients_profile
+     clients: view_clients_devicesallocations
+     clients: add_clients_devicesallocations
+     devicesallocations: filter_devicesallocations_clients
+
+PENDING / PARTIAL (0)
+  (none)
+
+COLUMN FILTERS (27)   — date columns and status/type/category-like columns
+  loans.date_issued [date]   loans: filter_loans_date_issued
+  loans.next_payment_date [date]   loans: filter_loans_next_payment_date
+  loans.duration_type [tag]   loans: filter_loans_duration_type
+  loans.last_payment_date [date]   loans: filter_loans_last_payment_date
+  clients.national_id_type [tag]   clients: filter_clients_national_id_type
+  clients.date_registered [date]   clients: filter_clients_date_registered
+  clients.country [tag]   clients: filter_clients_country
+  clients.town [tag]   clients: filter_clients_town
+  clients.status [tag]   clients: filter_clients_status
+  messaging.message_type [tag]   messaging: filter_messaging_message_type
+  messaging.group_name [tag]   messaging: filter_messaging_group_name
+  messaging.message_date [date]   messaging: filter_messaging_message_date
+  messaging.sent_state [tag]   messaging: filter_messaging_sent_state
+  messaging.msg_read_state [tag]   messaging: filter_messaging_msg_read_state
+  loansplans.device_model_group [tag]   loansplans: filter_loansplans_device_model_group
+  loansplans.reg_date [date]   loansplans: filter_loansplans_reg_date
+  deviceslist.lock_status [tag]   deviceslist: filter_deviceslist_lock_status
+  deviceslist.status [tag]   deviceslist: filter_deviceslist_status
+  deviceslist.purchase_date [date]   deviceslist: filter_deviceslist_purchase_date
+  paytriggerlogs.date [date]   paytriggerlogs: filter_paytriggerlogs_date
+  paytriggerlogs.log_type [tag]   paytriggerlogs: filter_paytriggerlogs_log_type
+  paytriggerlogs.status [tag]   paytriggerlogs: filter_paytriggerlogs_status
+  loansrepayments.payment_date [date]   loansrepayments: filter_loansrepayments_payment_date
+  loansrepayments.payment_mode [tag]   loansrepayments: filter_loansrepayments_payment_mode
+  remindershistory.date_sent [date]   remindershistory: filter_remindershistory_date_sent
+  devicesallocations.allocation_date [date]   devicesallocations: filter_devicesallocations_allocation_date
+  devicesallocations.status [tag]   devicesallocations: filter_devicesallocations_status
+
+ROW MENU LIMIT (5 per module) — these are on the profile page only, not in the row dropdown
+  loans: add_loans_devicesallocations, add_loans_loansrepayments, add_loans_remindershistory
+  clients: add_clients_loans, add_clients_loansrepayments, add_clients_remindershistory
+  deviceslist: add_deviceslist_devicesallocations, add_deviceslist_loans, add_deviceslist_loansrepayments, add_deviceslist_paytriggerlogs, add_deviceslist_remindershistory
+
+FILES CHANGED (2) — previous copy of each is in <module>/_recycled/
+  app/dimev3/loans/logicControl/actionsRegistry.js
+  app/dimev3/loans/LoansSchema.js

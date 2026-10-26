@@ -1,0 +1,234 @@
+report Loans "Loans Performance"
+  nest loans
+  by month|day|year
+  date date_issued
+  entity device_loans_performance
+  role view_reports
+  currency KES
+  cache 60
+  maxrange 1200
+
+  filter payment_frequency = payment_frequency
+  filter duration_type = duration_type
+
+  loans = count loans "Loans Issued"
+  principal = sum loans.principal "Principal Lent" money
+  interest = sum loans.interest "Interest Charged" money
+  deposits = sum loans.deposit "Deposits Received" money
+  expected = principal + interest "Expected Repayment" money
+  paid = sum loans.total_paid "Total Repaid" money
+  balance = sum loans.balance "Outstanding Balance" money
+  avg_loan = principal / loans "Average Loan Size" money
+  chg = change(principal) "Lending vs Previous Period"
+
+  forecast loans next 10
+  forecast principal next 10
+
+  headline {label}: {loans} loans issued, {principal} lent, {balance} outstanding.
+
+  remark loans == 0 | watch | No loans | No loans were issued in {label}.
+  remark balance > principal | bad | High outstanding balance | Outstanding balance of {balance} exceeds principal lent of {principal}.
+  remark chg !== null && chg <= -20 | watch | Lending declined | Principal lent fell by {abs(chg)}% compared with {prev_label}.
+  remark true | neutral | Loan performance | {loans} loans issued, {paid} repaid and {balance} outstanding.
+
+
+report Allocations "Device Allocations"
+  nest devices
+  by month|day|year
+  date allocation_date
+  entity device_allocations_performance
+  role view_reports
+  currency KES
+  cache 60
+  maxrange 1200
+
+  filter status = status
+
+  allocated = count devices_allocations "Devices Allocated"
+  active = count devices_allocations where status=active "Active Allocations"
+  returned = count devices_allocations where status=returned "Returned Devices"
+  chg = change(allocated) "Allocations vs Previous Period"
+
+  forecast allocated next 10
+
+  headline {label}: {allocated} devices allocated, {active} active and {returned} returned.
+
+  remark allocated == 0 | watch | No allocations | No devices were allocated in {label}.
+  remark returned > 0 | watch | Device returns | {returned} devices were returned in {label}.
+  remark chg !== null && chg <= -20 | watch | Allocations declined | Device allocations fell by {abs(chg)}% compared with {prev_label}.
+  remark true | neutral | Allocation activity | {allocated} devices allocated, including {active} active allocations.
+
+
+report Repayments "Repayment History"
+  nest repayments
+  by month|day|year
+  date payment_date
+  entity device_repayments_history
+  role view_reports
+  currency KES
+  cache 60
+  maxrange 1200
+
+  filter payment_mode = payment_mode
+
+  payments = count loans_repayments "Payments Received"
+  collected = sum loans_repayments.paid_amount "Total Collected" money
+  avg_payment = collected / payments "Average Payment" money
+  chg = change(collected) "Collections vs Previous Period"
+
+  forecast payments next 10
+  forecast collected next 10
+
+  headline {label}: {payments} payments received, collecting {collected}.
+
+  remark payments == 0 | watch | No repayments | No repayments were recorded in {label}.
+  remark chg !== null && chg <= -20 | watch | Collections declined | Collections fell by {abs(chg)}% compared with {prev_label}.
+  remark true | good | Repayments | {collected} collected across {payments} payments, averaging {avg_payment} per payment.
+
+
+report MonthlyLoans "Monthly Loan Analysis"
+  nest loans
+  by month
+  date date_issued
+  entity device_monthly_loan_analysis
+  role view_reports
+  currency KES
+  cache 60
+  maxrange 1200
+
+  loans = count loans "Loans Issued"
+  principal = sum loans.principal "Principal Lent" money
+  interest = sum loans.interest "Interest Charged" money
+  deposits = sum loans.deposit "Deposits Received" money
+  installment_value = sum loans.installment_amount "Installment Amount" money
+  paid = sum loans.total_paid "Total Repaid" money
+  balance = sum loans.balance "Outstanding Balance" money
+  avg_loan = principal / loans "Average Loan Size" money
+  chg = change(principal) "Monthly Lending Change"
+
+  forecast loans next 12
+  forecast principal next 12
+
+  headline {label}: {loans} loans worth {principal}, with {balance} outstanding.
+
+  remark loans == 0 | watch | No lending | No loans were issued in {label}.
+  remark chg !== null && chg >= 20 | good | Lending growth | Principal lent increased by {chg}% compared with {prev_label}.
+  remark chg !== null && chg <= -20 | watch | Lending contraction | Principal lent declined by {abs(chg)}% compared with {prev_label}.
+  remark true | neutral | Monthly performance | {loans} loans issued, {paid} collected and {balance} outstanding.
+
+
+report DeviceModels "Device Model and Loan Analysis"
+  nest devices
+  by dimension
+  date purchase_date
+  entity device_model_loan_analysis
+  role view_reports
+  currency KES
+  cache 60
+  maxrange 1200
+
+  group model_name
+  rows "Device Model"
+  sort loans desc
+
+  devices = count devices_list "Devices"
+  loans = count loans "Loans Issued"
+  principal = sum loans.principal "Principal Lent" money
+  deposits = sum loans.deposit "Deposits Received" money
+  installment = sum loans.installment_amount "Installment Amount" money
+  paid = sum loans.total_paid "Total Repaid" money
+  balance = sum loans.balance "Outstanding Balance" money
+
+  headline {label}: {devices} devices, {loans} loans issued and {principal} financed.
+
+  remark devices == 0 | watch | No devices | No devices were recorded for {label}.
+  remark loans == 0 | watch | No loans for model | No loans were issued for {label}.
+  remark balance > principal | bad | Outstanding exposure | {label} has an outstanding balance of {balance}.
+  remark true | neutral | Model performance | {label}: {loans} loans, {paid} repaid and {balance} outstanding.
+
+
+report ClientRepayments "Client Repayment Analysis"
+  nest clients
+  by dimension
+  date date_registered
+  entity device_client_repayment_analysis
+  role view_reports
+  currency KES
+  cache 60
+  maxrange 1200
+
+  group client_id
+  rows "Client"
+  labels clients.client_id > name
+  sort balance desc
+
+  loans_count = count loans "Loans Taken"
+  principal = sum loans.principal "Principal Borrowed" money
+  paid = sum loans.total_paid "Total Repaid" money
+  balance = sum loans.balance "Outstanding Balance" money
+  payments = count loans_repayments "Repayment Transactions"
+  collected = sum loans_repayments.paid_amount "Payments Made" money
+  avg_payment = collected / payments "Average Payment" money
+
+  headline {label}: {loans_count} loans, {principal} borrowed and {balance} outstanding.
+
+  remark loans_count == 0 | neutral | No loans | {label} has no loans recorded.
+  remark balance > 0 && paid == 0 | bad | No repayments | {label} has an outstanding balance of {balance} with no recorded repayments.
+  remark balance > 0 && paid > 0 | watch | Balance remaining | {label} has repaid {paid} and still owes {balance}.
+  remark true | good | Repayment status | {label}: {paid} repaid across {payments} transactions.
+
+
+report RepaymentByLoan "Repayments by Loan"
+  nest repayments
+  by dimension
+  date payment_date
+  entity device_repayments_by_loan
+  role view_reports
+  currency KES
+  cache 60
+  maxrange 1200
+
+  group loan_id
+  rows "Loan"
+  labels loans.loan_id > loan_id
+  sort collected desc
+
+  payments = count loans_repayments "Payments"
+  collected = sum loans_repayments.paid_amount "Total Collected" money
+  remaining = sum loans_repayments.new_balance "Recorded New Balances" money
+
+  headline {label}: {payments} payments received, {collected} collected.
+
+  remark payments == 0 | watch | No repayments | No repayment transactions were recorded for {label}.
+  remark remaining > 0 && collected == 0 | bad | No collections | {label} has a recorded balance of {remaining} with no collections.
+  remark true | neutral | Loan repayment history | {label}: {collected} collected across {payments} payments.
+
+
+report LendingForecast "Lending Growth Forecast"
+  nest loans
+  by month
+  date date_issued
+  entity device_lending_forecast
+  role view_reports
+  currency KES
+  cache 60
+  maxrange 1200
+
+  loans = count loans "Loans Issued"
+  principal = sum loans.principal "Principal Lent" money
+  interest = sum loans.interest "Interest Charged" money
+  deposits = sum loans.deposit "Deposits Received" money
+  expected = principal + interest "Expected Repayment" money
+  paid = sum loans.total_paid "Total Repaid" money
+  balance = sum loans.balance "Outstanding Balance" money
+  avg_loan = principal / loans "Average Loan Size" money
+  avg_interest = interest / loans "Average Interest per Loan" money
+
+  forecast loans next 12
+  forecast principal next 12
+
+  headline {label}: {loans} loans issued, {principal} lent and {expected} expected in repayments.
+
+  remark loans == 0 | watch | Insufficient history | No loans were issued in {label}, so lending trends cannot be assessed.
+  remark balance > 0 && paid < principal | watch | Capital recovery | Total repayments of {paid} are below principal lent of {principal}.
+  remark true | neutral | Lending outlook | {loans} loans issued, {expected} expected in repayments and {balance} still outstanding.

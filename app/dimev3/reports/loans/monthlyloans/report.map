@@ -1,0 +1,28 @@
+report MonthlyLoans "Monthly Loan Analysis"
+  by month
+  date date_issued
+  entity device_monthly_loan_analysis
+  role view_reports
+  currency KES
+  cache 60
+  maxrange 1200
+
+  loans = count loans "Loans Issued"
+  principal = sum loans.principal "Principal Lent" money
+  interest = sum loans.interest "Interest Charged" money
+  deposits = sum loans.deposit "Deposits Received" money
+  installment_value = sum loans.installment_amount "Installment Amount" money
+  paid = sum loans.total_paid "Total Repaid" money
+  balance = sum loans.balance "Outstanding Balance" money
+  avg_loan = principal / loans "Average Loan Size" money
+  chg = change(principal) "Monthly Lending Change"
+
+  forecast loans next 12
+  forecast principal next 12
+
+  headline {label}: {loans} loans worth {principal}, with {balance} outstanding.
+
+  remark loans == 0 | watch | No lending | No loans were issued in {label}.
+  remark chg !== null && chg >= 20 | good | Lending growth | Principal lent increased by {chg}% compared with {prev_label}.
+  remark chg !== null && chg <= -20 | watch | Lending contraction | Principal lent declined by {abs(chg)}% compared with {prev_label}.
+  remark true | neutral | Monthly performance | {loans} loans issued, {paid} collected and {balance} outstanding.

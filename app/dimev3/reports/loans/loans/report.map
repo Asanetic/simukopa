@@ -1,0 +1,31 @@
+report Loans "Loans Performance"
+  by month|day|year
+  date date_issued
+  entity device_loans_performance
+  role view_reports
+  currency KES
+  cache 60
+  maxrange 1200
+
+  filter payment_frequency = payment_frequency
+  filter duration_type = duration_type
+
+  loans = count loans "Loans Issued"
+  principal = sum loans.principal "Principal Lent" money
+  interest = sum loans.interest "Interest Charged" money
+  deposits = sum loans.deposit "Deposits Received" money
+  expected = principal + interest "Expected Repayment" money
+  paid = sum loans.total_paid "Total Repaid" money
+  balance = sum loans.balance "Outstanding Balance" money
+  avg_loan = principal / loans "Average Loan Size" money
+  chg = change(principal) "Lending vs Previous Period"
+
+  forecast loans next 10
+  forecast principal next 10
+
+  headline {label}: {loans} loans issued, {principal} lent, {balance} outstanding.
+
+  remark loans == 0 | watch | No loans | No loans were issued in {label}.
+  remark balance > principal | bad | High outstanding balance | Outstanding balance of {balance} exceeds principal lent of {principal}.
+  remark chg !== null && chg <= -20 | watch | Lending declined | Principal lent fell by {abs(chg)}% compared with {prev_label}.
+  remark true | neutral | Loan performance | {loans} loans issued, {paid} repaid and {balance} outstanding.

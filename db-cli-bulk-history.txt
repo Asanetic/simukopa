@@ -1,0 +1,7 @@
+clients,devices_allocations,devices_list,loans,loans_plans,loans_repayments,paytrigger_logs,paytrigger_settings,reminders_history,reminders_templates,system_settings
+loans,loans_plans,loan_repayments
+loans,loans_plans,loans_repayments, y
+loans_repayments
+paytrigger_logs
+reminders_history
+loans

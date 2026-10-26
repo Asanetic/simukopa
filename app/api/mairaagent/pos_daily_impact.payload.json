@@ -1,0 +1,67 @@
+{
+  "persona": "SALES MONITOR",
+  "audience": "admin",
+  "weight": 5,
+
+  "fetch": {
+    "Sales": {
+      "table": "sales",
+      "where": "date = today",
+      "columns": ["amount"],
+      "lookup": ["item"],
+      "group_by": "item",
+      "compare_with": "date = yesterday"
+    },
+    "Sent": {
+      "table": "etims_log",
+      "where": "status = 'sent' AND date = today"
+    },
+    "Failed": {
+      "table": "etims_log",
+      "where": "status = 'failed' AND date = today"
+    },
+    "Stock": {
+      "table": "stock_movements",
+      "where": "type = 'sale' AND date = today",
+      "columns": ["qty"]
+    },
+    "Flags": {
+      "table": "flags",
+      "where": "status = 'open'"
+    },
+    "Shift": {
+      "table": "shifts",
+      "where": "status = 'open'",
+      "lookup": ["opened_by"],
+      "if_empty": "No shift open"
+    }
+  },
+
+  "lines": {
+    "KRA": {
+      "rules": [
+        { "if": "Failed.count is not 0", "say": "{Sent.count} receipts sent to KRA, {Failed.count} waiting. The system retries at 8 PM." },
+        { "if": "Sent.count is 0",       "say": "No receipts have reached KRA yet today ⚠️" }
+      ],
+      "if_none": "All {Sent.count} receipts sent to KRA ✅"
+    },
+    "Trend": {
+      "rules": [
+        { "if": "Sales.before.count is 0",                  "say": "No sales yesterday to compare with" },
+        { "if": "Sales.before.change.amount.trend is up",   "say": "Up {Sales.before.change.amount.percent}% on yesterday" },
+        { "if": "Sales.before.change.amount.trend is down", "say": "Down {Sales.before.change.amount.percent}% on yesterday" }
+      ],
+      "if_none": "Same as yesterday"
+    }
+  },
+
+  "message": "Today the system:\n • Recorded {Sales.count} sales worth {Sales.amount.total|money}\n • {KRA}\n • Updated stock on {Stock.qty.total} items\n • Spotted {Flags.count} things for you\n\nTop seller: {Sales.top.item}\n{Trend}\n\nYou did none of it manually.\nOpen the app to see the details.",
+
+  "skip_if": "Sales.count is 0",
+
+  "fallback_message": "Quiet day so far. No sales recorded yet.\nThe system is watching and will report as soon as there are.",
+
+  "formats": {
+    "money": "KES #,###"
+  }
+}
