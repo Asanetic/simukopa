@@ -1,7 +1,6 @@
 "use client";
 
 import { Lock } from "lucide-react";
-import { Brand } from "../../components/AssetGuard/Brand";
 import DynamicModalProvider from "../../components/DynamicModalProvider";
 
 const DEFAULT_PILLS = ["Live tracking", "Smart alerts", "Reporting", "Field ops"];
@@ -77,7 +76,7 @@ export default function AuthShell({
           <div className="ag-shell-hero-inner">
             {/* Desktop brand row */}
             <div className="ag-shell-brand-desktop">
-              <Brand variant="drawer" />
+              {/* <Brand variant="drawer" /> */}
             </div>
             <div className="fw-bold text-white ag-shell-headline">{heroHeadline}</div>
             <p className="ag-shell-subtext">{heroSubtext}</p>
