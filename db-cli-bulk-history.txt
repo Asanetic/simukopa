@@ -5,3 +5,4 @@ loans_repayments
 paytrigger_logs
 reminders_history
 loans
+devices_allocations

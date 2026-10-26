@@ -1,5 +1,5 @@
-RELATIONS REPORT — 10/26/2026, 12:41:13 PM — app: dimev3
-Modules found: 12   FK links found: 12
+RELATIONS REPORT — 10/26/2026, 1:40:43 PM — app: dimev3
+Modules found: 11   FK links found: 12
 
 LINKED (12)
   loans.client_id -> clients
@@ -66,7 +66,7 @@ LINKED (12)
 PENDING / PARTIAL (0)
   (none)
 
-COLUMN FILTERS (27)   — date columns and status/type/category-like columns
+COLUMN FILTERS (22)   — date columns and status/type/category-like columns
   loans.date_issued [date]   loans: filter_loans_date_issued
   loans.next_payment_date [date]   loans: filter_loans_next_payment_date
   loans.duration_type [tag]   loans: filter_loans_duration_type
@@ -76,11 +76,6 @@ COLUMN FILTERS (27)   — date columns and status/type/category-like columns
   clients.country [tag]   clients: filter_clients_country
   clients.town [tag]   clients: filter_clients_town
   clients.status [tag]   clients: filter_clients_status
-  messaging.message_type [tag]   messaging: filter_messaging_message_type
-  messaging.group_name [tag]   messaging: filter_messaging_group_name
-  messaging.message_date [date]   messaging: filter_messaging_message_date
-  messaging.sent_state [tag]   messaging: filter_messaging_sent_state
-  messaging.msg_read_state [tag]   messaging: filter_messaging_msg_read_state
   loansplans.device_model_group [tag]   loansplans: filter_loansplans_device_model_group
   loansplans.reg_date [date]   loansplans: filter_loansplans_reg_date
   deviceslist.lock_status [tag]   deviceslist: filter_deviceslist_lock_status
@@ -101,5 +96,5 @@ ROW MENU LIMIT (5 per module) — these are on the profile page only, not in the
   deviceslist: add_deviceslist_devicesallocations, add_deviceslist_loans, add_deviceslist_loansrepayments, add_deviceslist_paytriggerlogs, add_deviceslist_remindershistory
 
 FILES CHANGED (2) — previous copy of each is in <module>/_recycled/
-  app/dimev3/loans/logicControl/actionsRegistry.js
-  app/dimev3/loans/LoansSchema.js
+  app/dimev3/devicesallocations/logicControl/actionsRegistry.js
+  app/dimev3/devicesallocations/DevicesallocationsSchema.js
