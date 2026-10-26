@@ -9,11 +9,8 @@ export const DevicesDeviceModelsSchema = {
   maxRangeDays: 1200,
 
   measures: [
-    { key: 'devices', table: 'devices_list', agg: 'count', group: 'model_name', by: 'purchase_date' },
     { key: 'loans', table: 'loans', agg: 'count', group: 'model_name', by: 'purchase_date' },
-    { key: 'principal', table: 'loans', agg: 'sum', col: 'principal', group: 'model_name', by: 'purchase_date' },
-    { key: 'deposits', table: 'loans', agg: 'sum', col: 'deposit', group: 'model_name', by: 'purchase_date' },
-    { key: 'installment', table: 'loans', agg: 'sum', col: 'installment_amount', group: 'model_name', by: 'purchase_date' },
+    { key: 'issued', table: 'loans', agg: 'sum', col: 'principal', group: 'model_name', by: 'purchase_date' },
     { key: 'paid', table: 'loans', agg: 'sum', col: 'total_paid', group: 'model_name', by: 'purchase_date' },
     { key: 'balance', table: 'loans', agg: 'sum', col: 'balance', group: 'model_name', by: 'purchase_date' },
   ],

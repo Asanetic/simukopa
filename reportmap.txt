@@ -117,7 +117,7 @@ report MonthlyLoans "Monthly Loan Analysis"
   remark true | neutral | Monthly performance | {loans} loans issued, {paid} collected and {balance} outstanding.
 
 
-report DeviceModels "Device Model and Loan Analysis"
+report DeviceModels "Device Model Loan Analysis"
   nest devices
   by dimension
   date purchase_date
@@ -131,21 +131,16 @@ report DeviceModels "Device Model and Loan Analysis"
   rows "Device Model"
   sort loans desc
 
-  devices = count devices_list "Devices"
   loans = count loans "Loans Issued"
-  principal = sum loans.principal "Principal Lent" money
-  deposits = sum loans.deposit "Deposits Received" money
-  installment = sum loans.installment_amount "Installment Amount" money
-  paid = sum loans.total_paid "Total Repaid" money
+  issued = sum loans.principal "Amount Issued" money
+  paid = sum loans.total_paid "Total Paid" money
   balance = sum loans.balance "Outstanding Balance" money
 
-  headline {label}: {devices} devices, {loans} loans issued and {principal} financed.
+  headline {label}: {loans} loans issued, {issued} issued, {paid} paid and {balance} outstanding.
 
-  remark devices == 0 | watch | No devices | No devices were recorded for {label}.
-  remark loans == 0 | watch | No loans for model | No loans were issued for {label}.
-  remark balance > principal | bad | Outstanding exposure | {label} has an outstanding balance of {balance}.
-  remark true | neutral | Model performance | {label}: {loans} loans, {paid} repaid and {balance} outstanding.
-
+  remark loans == 0 | neutral | No loans | No loans were issued for {label}.
+  remark balance > 0 | watch | Outstanding Balance | {label} has {balance} outstanding.
+  remark true | neutral | Loan Performance | {label}: {loans} loans, {paid} paid and {balance} outstanding.
 
 report ClientRepayments "Client Repayment Analysis"
   nest clients

@@ -6,7 +6,7 @@ const apiRoutes = getApiRoutes();
 
 export const DevicesDeviceModelsSchema = {
   entity: 'device_model_loan_analysis',
-  label: 'Device Model and Loan Analysis',
+  label: 'Device Model Loan Analysis',
   description: '',
   apiBase: apiRoutes.devicesdevicemodels?.base,
   moduleRole: 'view_reports',
@@ -18,21 +18,17 @@ export const DevicesDeviceModelsSchema = {
   sortBy: 'loans desc',
 
   fields: [
-    { key: 'devices', label: 'Devices', from: 'devices_list' },
     { key: 'loans', label: 'Loans Issued', from: 'loans' },
-    { key: 'principal', label: 'Principal Lent', from: 'loans.principal', type: 'money' },
-    { key: 'deposits', label: 'Deposits Received', from: 'loans.deposit', type: 'money' },
-    { key: 'installment', label: 'Installment Amount', from: 'loans.installment_amount', type: 'money' },
-    { key: 'paid', label: 'Total Repaid', from: 'loans.total_paid', type: 'money' },
+    { key: 'issued', label: 'Amount Issued', from: 'loans.principal', type: 'money' },
+    { key: 'paid', label: 'Total Paid', from: 'loans.total_paid', type: 'money' },
     { key: 'balance', label: 'Outstanding Balance', from: 'loans.balance', type: 'money' },
   ],
 
   remarks: [
-    { if: 'devices == 0', tone: 'watch', title: 'No devices', say: 'No devices were recorded for {label}.' },
-    { if: 'loans == 0', tone: 'watch', title: 'No loans for model', say: 'No loans were issued for {label}.' },
-    { if: 'balance > principal', tone: 'bad', title: 'Outstanding exposure', say: '{label} has an outstanding balance of {balance}.' },
-    { if: 'true', tone: 'neutral', title: 'Model performance', say: '{label}: {loans} loans, {paid} repaid and {balance} outstanding.' },
+    { if: 'loans == 0', tone: 'neutral', title: 'No loans', say: 'No loans were issued for {label}.' },
+    { if: 'balance > 0', tone: 'watch', title: 'Outstanding Balance', say: '{label} has {balance} outstanding.' },
+    { if: 'true', tone: 'neutral', title: 'Loan Performance', say: '{label}: {loans} loans, {paid} paid and {balance} outstanding.' },
   ],
 
-  headline: '{label}: {devices} devices, {loans} loans issued and {principal} financed.',
+  headline: '{label}: {loans} loans issued, {issued} issued, {paid} paid and {balance} outstanding.',
 };
